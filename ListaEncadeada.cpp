@@ -71,19 +71,4 @@ void ListaEncadeada::ImprimeIds()
         p=p->getProx();
     }
 
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
