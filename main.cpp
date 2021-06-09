@@ -2,14 +2,20 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "ListaEncadeada.h"         // estrutura de dados que armazena as informações dos artistas
-#include "ListaEncadeadaTracks.h"   // estrutura de dados que armazena as informações das tracks
+#include "ListaEncadeada.h"         // estrutura de dados que armazena as informaï¿½ï¿½es dos artistas
+#include "ListaEncadeadaTracks.h"   // estrutura de dados que armazena as informaï¿½ï¿½es das tracks
 
 using namespace std;
 
+/*
+Comandos para compilar via terminal: 
+    g++ *.cpp *.h -o trab
+    ./trab.exe
+*/
+
 int main()
 {
-    ///iniciação das variaveis relativas ao artista
+    ///iniciacao das variaveis relativas ao artista
 
     ifstream artista;
 
@@ -22,7 +28,7 @@ int main()
     ///abertura do file para a leitura
     artista.open("artists.csv",ios::in | ios::out);
 
-    ///verifica se há problema na abertura do arquivo
+    ///verifica se ha problema na abertura do arquivo
     ///sai do programa caso haja
     if  (artista.fail())
     {
@@ -30,13 +36,13 @@ int main()
         exit(1);
     }
 
-    ///Descarta a primeira linha que nao contem informações
+    ///Descarta a primeira linha que nao contem informacoes
 
         getline(artista,l,'\n');
 
 
-    ///Loop que se repete até que todo o arquivo tenha sido percorrido
-    ///E armazena as informações na lista
+    ///Loop que se repete ate que todo o arquivo tenha sido percorrido
+    ///E armazena as informacoes na lista
 
     while(artista.good())
     {
@@ -102,7 +108,7 @@ int main()
     tracks.open("tracks.csv",ios::in | ios::out);
 
 
-    ///verifica se há problema na abertura do arquivo
+    ///verifica se ha problema na abertura do arquivo
     ///sai do programa caso haja
 
     if  (tracks.fail())
@@ -111,11 +117,11 @@ int main()
         exit(1);
     }
 
-    ///Descarta a primeira linha que nao contem informações
+    ///Descarta a primeira linha que nao contem informacoes
     getline(tracks,l,'\n');
 
-    ///Loop que se repete até que todo o arquivo tenha sido percorrido
-    ///E armazena as informações na lista
+    ///Loop que se repete ate que todo o arquivo tenha sido percorrido
+    ///E armazena as informacoes na lista
     while (tracks.good())
     {
         getline(tracks,idT,',');
