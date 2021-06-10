@@ -111,3 +111,4 @@ void ListaEncadeada::Imprimebin()
     }
 
     teste.close();
+}
