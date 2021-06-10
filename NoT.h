@@ -4,6 +4,30 @@
 #include <string>
 
 using namespace std;
+typedef struct
+{
+    char id[23];
+    char name[100];
+    int popularity;
+    int duration_ms;
+    bool explicito;
+    char artists[100];
+    char id_artists[150];
+    char release_date[11];
+    float danceability;
+    float energy;
+    int key;
+    float loudness;
+    float mode;
+    float speechiness;
+    float acousticness;
+    float instrumentalness;
+    float liveness;
+    float valence;
+    float tempo;
+    int time_signature;
+}
+Tracks;
 
 class NoT
 {
