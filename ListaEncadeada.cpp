@@ -72,3 +72,42 @@ void ListaEncadeada::ImprimeIds()
     }
 
 }
+void ListaEncadeada::escrevebin()
+
+{
+    ofstream artistasbin;
+
+
+    artistasbin.open("artists.bin",ios::binary);
+
+    for(NoA *p=primeiro;p!=NULL;p=p->getProx())
+    {
+
+        Artista este;
+        strcpy(este.id,p->getid().c_str());
+        strcpy(este.genres,p->getgenres().c_str());
+        strcpy(este.name,p->getname().c_str());
+        este.popularity=p->getpopularity();
+        este.followers=p->getfollowers();
+
+        artistasbin.write((char *)&(este) ,sizeof(Artista));
+
+    }
+    artistasbin.close();
+}
+
+void ListaEncadeada::Imprimebin()
+{
+
+    ifstream teste;
+
+    teste.open("artists.bin",ios::binary);
+
+    for(int i=0;i<n;i++)
+    {
+        Artista este;
+        teste.read((char *) &(este),sizeof(Artista));
+        cout << este.id << " ; " << este.followers<<" ; " << este.genres<< " ; " << este.name << " ; " << este.popularity << endl;
+    }
+
+    teste.close();
