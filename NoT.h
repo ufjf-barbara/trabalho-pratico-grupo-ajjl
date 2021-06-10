@@ -1,7 +1,7 @@
 #ifndef NOT_H_INCLUDED
 #define NOT_H_INCLUDED
 #include <iostream>
-#include<string>
+#include <string>
 
 using namespace std;
 
