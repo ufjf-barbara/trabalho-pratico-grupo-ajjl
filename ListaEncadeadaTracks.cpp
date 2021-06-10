@@ -144,6 +144,42 @@ void ListaEncadeadaTracks::escrevebin()
 
 }
 
+void ListaEncadeadaTracks::Imprimebin() ///função que imprime o arquivo binario
+{
+    ifstream teste;
+    teste.open("tracks.bin",ios::binary);
+
+    for(int i=0;i<n;i++)
+    {
+        Tracks esta;
+        teste.read((char *) &(esta),sizeof(Tracks));
+
+        cout << esta.id << ",";
+        cout <<esta.name<< ",";
+        cout << esta.popularity<< ",";
+        cout << esta.duration_ms<< ",";
+        cout << esta.explicito<<",";
+        cout << esta.artists <<",";
+        cout << esta.id_artists <<",";
+        cout << esta.release_date<< ",";
+        cout <<esta.danceability << ",";
+        cout << esta.energy << "," ;
+        cout << esta.key << ",";
+        cout << esta.loudness << ",";
+        cout << esta.mode << ",";
+        cout << esta.speechiness << ",";
+        cout <<esta.acousticness<< ",";
+        cout << esta.instrumentalness << "," ;
+        cout <<esta.liveness << ",";
+        cout << esta.valence << ",";
+        cout <<esta.tempo <<",";
+        cout << esta.time_signature;
+        cout << endl;
+    }
+
+
+    teste.close();
+}
 
 
 
