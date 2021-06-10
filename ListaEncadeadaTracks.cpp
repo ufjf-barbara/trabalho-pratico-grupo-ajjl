@@ -9,7 +9,6 @@ using namespace std;
 
 ListaEncadeadaTracks::ListaEncadeadaTracks()
 {
-    cout << "criando o objeto"<< endl;
     n=0;
     primeiro=NULL;
     ultimo=NULL;
@@ -17,7 +16,6 @@ ListaEncadeadaTracks::ListaEncadeadaTracks()
 
 ListaEncadeadaTracks::~ListaEncadeadaTracks()
 {
-    cout << "apagando o objeto"<< endl;
     NoT *p=primeiro;
     while (p != NULL)
     {
@@ -93,7 +91,7 @@ void ListaEncadeadaTracks::NovaTrack(string id, string name,int popularity,int d
     }
 
 }
-void ListaEncadeadaTracks::ImprimeIds()
+void ListaEncadeadaTracks::ImprimeIds() // usando a lista encadeada imprime todos os dados 
 {
     NoT* p=primeiro;
     for (int i=0;i<n;i++)
@@ -115,7 +113,7 @@ void ListaEncadeadaTracks::escrevebin()
     for(NoT *p=primeiro;p!=NULL;p=p->getProx())
 
     {
-        Tracks esta;
+        Tracks esta;           
         strcpy(esta.id,p->getid().c_str());
         strcpy(esta.name,p->getname().c_str());
         esta.popularity=p->getpopularity();
