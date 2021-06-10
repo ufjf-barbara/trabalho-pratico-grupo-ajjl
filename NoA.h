@@ -4,6 +4,16 @@
 #include <string>
 
 using namespace std;
+typedef struct
+{
+    char id[23];
+    char genres [150];
+    char name [50];
+    int popularity;
+    float followers;
+
+}
+Artista;
 
 class NoA
 {
