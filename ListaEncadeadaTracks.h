@@ -15,6 +15,8 @@ public:
                     float valence,float tempo,int time_signature);
 
     void ImprimeIds(); ///imprime todas as informacoes da lista
+    void escrevebin();
+    void Imprimebin(); /// imprime a pasta bin
 private:
     int n;
     NoT *primeiro;
