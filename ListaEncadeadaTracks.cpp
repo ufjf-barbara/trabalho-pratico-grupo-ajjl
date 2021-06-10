@@ -105,7 +105,44 @@ void ListaEncadeadaTracks::ImprimeIds()
         p=p->getProx();
     }
 }
+void ListaEncadeadaTracks::escrevebin()
+{
+    ofstream tracksbin;
 
+    tracksbin.open("tracks.bin",ios::binary);
+
+    for(NoT *p=primeiro;p!=NULL;p=p->getProx())
+
+    {
+        Tracks esta;
+        strcpy(esta.id,p->getid().c_str());
+        strcpy(esta.name,p->getname().c_str());
+        esta.popularity=p->getpopularity();
+        esta.duration_ms=p->getduration_ms();
+        esta.explicito=p->getexplicito();
+        strcpy(esta.artists,p->getartists().c_str());
+        strcpy(esta.id_artists,p->getid_artists().c_str());
+        strcpy(esta.release_date,p->getrelease_date().c_str());
+        esta.danceability=p->getdanceability();
+        esta.energy=p->getenergy();
+        esta.key=p->getkey();
+        esta.loudness=p->getloudness();
+        esta.mode=p->getmode();
+        esta.speechiness=p->getspeechiness();
+        esta.acousticness=p->getacousticness();
+        esta.instrumentalness=p->getinstrumentalness();
+        esta.liveness=p->getliveness();
+        esta.valence=p->getvalence();
+        esta.tempo=p->gettempo();
+        esta.time_signature=p->gettime_signature();
+
+        tracksbin.write((char *) &(esta),sizeof(Tracks));
+
+    }
+
+    tracksbin.close();
+
+}
 
 
 
