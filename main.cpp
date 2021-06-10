@@ -2,15 +2,15 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "ListaEncadeada.h"         // estrutura de dados que armazena as informa��es dos artistas
-#include "ListaEncadeadaTracks.h"   // estrutura de dados que armazena as informa��es das tracks
+#include "ListaEncadeada.h"         // estrutura de dados que armazena as informacoes dos artistas
+#include "ListaEncadeadaTracks.h"   // estrutura de dados que armazena as informacoes das tracks
 
 using namespace std;
 
 /*
 Comandos para compilar via terminal: 
     g++ *.cpp *.h -o trab
-    ./trab.exe
+    ./trab
 */
 
 int main()
@@ -73,9 +73,7 @@ int main()
     ///fechamento do file
     artista.close();
 
-
-
-    /// variaveis relativas as musicas
+      /// variaveis relativas as musicas
     ifstream tracks;
     ListaEncadeadaTracks TracksData;
 

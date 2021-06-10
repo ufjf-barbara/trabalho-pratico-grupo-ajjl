@@ -1,7 +1,7 @@
 #ifndef LISTAENCADEADATracks_H
 #define LISTAENCADEADATracks_H
 #include <string>
-#include <NoT.h> ///no referente as tracks
+#include "NoT.h" ///no referente as tracks
 
 
 class ListaEncadeadaTracks

@@ -1,7 +1,7 @@
 #ifndef LISTAENCADEADA_H
 #define LISTAENCADEADA_H
 #include <string>
-#include <NoA.h> /// No referente ao artista
+#include "NoA.h" /// No referente ao artista
 
 
 class ListaEncadeada

@@ -17,8 +17,8 @@ private:
     NoA *prox;
 
 public:
-    NoA()                  { };
-    ~NoA()                 { };
+    NoA();
+    ~NoA();
     NoA* getProx()         { return prox; };
     void setProx(NoA *p)   { prox = p; };
 

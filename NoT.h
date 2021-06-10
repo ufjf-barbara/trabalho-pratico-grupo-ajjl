@@ -32,8 +32,8 @@ private:
     NoT *prox;
 
 public:
-    NoT()                  { };
-    ~NoT()                 { };
+    NoT();
+    ~NoT();
     NoT* getProx()         { return prox; };
     void setProx(NoT *p)   { prox = p; };
 
