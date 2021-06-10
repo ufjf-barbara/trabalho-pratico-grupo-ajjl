@@ -69,7 +69,8 @@ int main()
     }
 
     //ArtistsData.ImprimeIds(); // imprime todo o conteudo da lista
-
+    ArtistsData.escrevebin();
+    ArtistsData.Imprimebin();
     ///fechamento do file
     artista.close();
 
@@ -206,8 +207,12 @@ int main()
 
     ///fechamento do file
     tracks.close();
+    
+    TracksData.escrevebin();
+    TracksData.Imprimebin();
 
     //TracksData.ImprimeIds(); // imprime todo o conteudo da lista
+    
 
     return 0;
 }
