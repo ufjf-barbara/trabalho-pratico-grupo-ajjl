@@ -12,12 +12,14 @@ public:
 
     void NovoArtista(string id,float followers,string genres,string name,int popularity); //cria um novo no e armazena as informacoes do artista
     void ImprimeIds();  ///imprime todas as informacoes da lista
+    void escrevebin();
+    void Imprimebin();
 
 private:
     int n;
     NoA *primeiro;
     NoA *ultimo;
-
+    
 };
 
 #endif // LISTAENCADEADA_H
