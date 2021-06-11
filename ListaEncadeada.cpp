@@ -4,7 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include <string.h>
-
+#include<vector>  
 
 using namespace std;
 
@@ -80,7 +80,6 @@ void ListaEncadeada::escrevebin()
 
 
     artistasbin.open("artists.bin",ios::binary);
-
     for(NoA *p=primeiro;p!=NULL;p=p->getProx())
     {
 
@@ -94,6 +93,7 @@ void ListaEncadeada::escrevebin()
         artistasbin.write((char *)&(este) ,sizeof(Artista));
 
     }
+    
     artistasbin.close();
 }
 
@@ -112,4 +112,52 @@ void ListaEncadeada::Imprimebin()
     }
 
     teste.close();
+}
+
+/// funcao para verificar repeticoes
+bool verifica (vector<Artista> vetor, Artista aux)
+{
+        for (int i=0; i<vetor.size(); i++){
+            if (vetor[i].id== aux.id){
+                return true;
+            } else {
+                return false;
+            }
+        }
+}
+
+
+void ListaEncadeada::importaBin(int tam)
+{    
+    vector<Artista> vetor;
+    ifstream impBin;
+
+    impBin.open("artists.bin",ios::binary);
+
+    ///Le tammanho do arquivo
+    impBin.seekg(0,impBin.end);
+    int length = impBin.tellg();   
+    length = length/sizeof(Artista);
+    
+    impBin.seekg(0,impBin.beg);
+
+    for(int i=0;i<tam;i++)
+    {
+        Artista listArtista;
+
+        ///Pega posicao aleatoria
+        int aleat = (rand()%length)*sizeof(Artista);
+        impBin.seekg(aleat);
+
+        impBin.read((char *) &(listArtista),sizeof(Artista));
+        
+        /// Verificacao 
+        if(verifica(vetor, listArtista)){
+            i--;
+        }else{
+            vetor.push_back(listArtista);
+        }
+    }
+
+    impBin.close();
 }

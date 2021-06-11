@@ -43,7 +43,6 @@ int main()
 
     ///Loop que se repete ate que todo o arquivo tenha sido percorrido
     ///E armazena as informacoes na lista
-
     while(artista.good())
     {
         getline(artista,id,',');
@@ -64,15 +63,19 @@ int main()
         ss  >> popularity_Int;   ///tranformando a string em um int
 
         ArtistsData.NovoArtista(id,followers_Float,genres,name,popularity_Int);
-
-
     }
 
     //ArtistsData.ImprimeIds(); // imprime todo o conteudo da lista
     ArtistsData.escrevebin();
-    ArtistsData.Imprimebin();
+    //ArtistsData.Imprimebin();
+
+    ///importa de bin
+    ArtistsData.importaBin(100);
+
+
     ///fechamento do file
     artista.close();
+
 
       /// variaveis relativas as musicas
     ifstream tracks;
@@ -209,8 +212,11 @@ int main()
     tracks.close();
     
     TracksData.escrevebin();
-    TracksData.Imprimebin();
+    //TracksData.Imprimebin();
 
+
+
+    
     //TracksData.ImprimeIds(); // imprime todo o conteudo da lista
     
 
