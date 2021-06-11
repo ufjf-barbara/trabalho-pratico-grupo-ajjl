@@ -7,8 +7,8 @@ using namespace std;
 typedef struct
 {
     char id[23];
-    char genres [150];
-    char name [50];
+    char genres [700];
+    char name [400];
     int popularity;
     float followers;
 
