@@ -66,11 +66,12 @@ int main()
     }
 
     //ArtistsData.ImprimeIds(); // imprime todo o conteudo da lista
+    
     ArtistsData.escrevebin();
-    //ArtistsData.Imprimebin();
+    //ArtistsData.Imprimebin(); // imprime arquivo binario
 
-    ///importa de bin
-    ArtistsData.importaBin(100);
+    
+    ArtistsData.importaBin(100); ///Importacao do aquivo binario
 
 
     ///fechamento do file
@@ -210,17 +211,15 @@ int main()
 
     ///fechamento do file
     tracks.close();
-    
-    TracksData.escrevebin();
-    //TracksData.Imprimebin();
-    
-    ///importa de bin
-    TracksData.importaBin(100);
 
-
-    
     //TracksData.ImprimeIds(); // imprime todo o conteudo da lista
+
+
+    TracksData.escrevebin();
+    //TracksData.Imprimebin(); // imprime arquivo binario
     
+    
+    TracksData.importaBin(100); ///Importacao do aquivo binario
 
     return 0;
 }

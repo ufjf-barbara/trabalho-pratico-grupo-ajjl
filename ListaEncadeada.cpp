@@ -114,16 +114,16 @@ void ListaEncadeada::Imprimebin()
     teste.close();
 }
 
-/// funcao para verificar repeticoes
+///Funcao para verificar se existe repeticoes
 bool verifica (vector<Artista> vetor, Artista aux)
 {
-        for (int i=0; i<vetor.size(); i++){
-            if (vetor[i].id== aux.id){
-                return true;
-            } else {
-                return false;
-            }
+    for (int i=0; i<vetor.size(); i++){
+        if (vetor[i].id== aux.id){
+            return true;
+        } else {
+            return false;
         }
+    }
 }
 
 
@@ -151,7 +151,7 @@ void ListaEncadeada::importaBin(int tam)
 
         impBin.read((char *) &(listArtista),sizeof(Artista));
         
-        /// Verificacao 
+        /// Verificacao se existe repeticao
         if(verifica(vetor, listArtista)){
             i--;
         }else{

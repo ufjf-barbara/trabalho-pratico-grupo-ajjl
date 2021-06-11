@@ -176,29 +176,26 @@ void ListaEncadeadaTracks::Imprimebin() ///função que imprime o arquivo binari
         cout << esta.time_signature;
         cout << endl;
     }
-
-
     teste.close();
 }
 
-/// funcao para verificar repeticoes
+/// funcao para verificar se existe repeticao
 bool verifica (vector<Tracks> vetor, Tracks aux)
 {
-        for (int i=0; i<vetor.size(); i++){
-            if (vetor[i].id== aux.id){
-                return true;
-            } else {
-                return false;
-            }
+    for (int i=0; i<vetor.size(); i++){
+        if (vetor[i].id== aux.id){
+            return true;
+        } else {
+            return false;
         }
+    }
 }
 
-
+/// Funcao para importar de arquivo binario
 void ListaEncadeadaTracks::importaBin(int tam)
 {    
     vector<Tracks> vetor;
     ifstream impBin;
-
     impBin.open("artists.bin",ios::binary);
 
     ///Le tammanho do arquivo
@@ -218,7 +215,7 @@ void ListaEncadeadaTracks::importaBin(int tam)
 
         impBin.read((char *) &(listTracks),sizeof(Tracks));
         
-        /// Verificacao 
+        /// Verificacao se existe repeticao
         if(verifica(vetor, listTracks)){
             i--;
         }else{
