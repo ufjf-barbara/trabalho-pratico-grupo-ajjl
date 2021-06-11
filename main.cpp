@@ -8,28 +8,29 @@
 using namespace std;
 
 /*
-Comandos para compilar via terminal: 
+Comandos para compilar via terminal do vscode: 
     g++ *.cpp *.h -o trab
     ./trab
 */
+
 void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData){ 
     int opcao, tam, op;
     do{
         cout<< "1 - MODULO DE TESTES" << endl;
-        cout<< "2- SAIR" << endl;
+        cout<< "2 - SAIR" << endl;
         cin >> opcao;
         if(opcao == 1){
             cout<< "Informe o tamanho da entrada: ";
             cin>> tam;
             cout << "Deseja importar do arquivo tracks ou artists?" << endl;
             cout << "1- TRACKS" << endl;
-            cout<< "2- ARTISTS" << endl;
+            cout << "2- ARTISTS" << endl;
             cin >> op;
             if(op == 1)
-              TracksData.importaBin(tam);
-              else if( op == 2 )
+                TracksData.importaBin(tam);
+            else if( op == 2 )
                 ArtistsData.importaBin(tam);
-                else
+            else
                 cout << "OPCAO INVALIDA!"<< endl;
         }
     }
@@ -53,12 +54,13 @@ int main(int argc, char *argv[])
 
     ///abertura do file para a leitura
     artista.open(arq1, ios::in | ios::out);
+ 
 
     ///verifica se ha problema na abertura do arquivo
     ///sai do programa caso haja
     if  (artista.fail())
     {
-        cout << "error" << endl;
+        cout << "erro na leitura artists.csv" << endl;
         exit(1);
     }
 
@@ -91,13 +93,9 @@ int main(int argc, char *argv[])
         ArtistsData.NovoArtista(id,followers_Float,genres,name,popularity_Int);
     }
 
-    //ArtistsData.ImprimeIds(); // imprime todo o conteudo da lista
+    //ArtistsData.ImprimeIds(); /// imprime todo o conteudo da lista
     
-    ArtistsData.escrevebin();
-    //ArtistsData.Imprimebin(); // imprime arquivo binario
-
-    
-
+    ArtistsData.escrevebin(); /// Cria arquivo binario
 
     ///fechamento do file
     artista.close();
@@ -141,7 +139,7 @@ int main(int argc, char *argv[])
 
     if  (tracks.fail())
     {
-        cout << "error" << endl;
+        cout << "erro na leitura tracks.csv" << endl;
         exit(1);
     }
 
@@ -237,12 +235,11 @@ int main(int argc, char *argv[])
     ///fechamento do file
     tracks.close();
 
-    //TracksData.ImprimeIds(); // imprime todo o conteudo da lista
+    //TracksData.ImprimeIds(); /// imprime todo o conteudo da lista
 
 
-    TracksData.escrevebin();
-    //TracksData.Imprimebin(); // imprime arquivo binario
-    
+    TracksData.escrevebin(); /// Cria arquivo binario
+   
     moduloDeTestes(ArtistsData, TracksData);
 
     return 0;

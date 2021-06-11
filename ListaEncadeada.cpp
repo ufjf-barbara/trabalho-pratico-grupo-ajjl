@@ -73,6 +73,7 @@ void ListaEncadeada::ImprimeIds()
     }
 
 }
+
 void ListaEncadeada::escrevebin()
 
 {
@@ -113,6 +114,7 @@ void ListaEncadeada::Imprimebin()
 
     teste.close();
 }
+
 void ListaEncadeada::imprimeTestes(vector <Artista> vetor){
     if(vetor.size() <=10){
         cout << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
@@ -144,12 +146,10 @@ void ListaEncadeada::imprimeTestes(vector <Artista> vetor){
 bool verifica (vector<Artista> vetor, Artista aux)
 {
     for (int i=0; i<vetor.size(); i++){
-        if (vetor[i].id== aux.id){
-            return true;
-        } else {
-            return false;
-        }
+        if (vetor[i].id == aux.id)
+            return true;        
     }
+    return false;
 }
 
 void ListaEncadeada::importaBin(int tam)
@@ -158,6 +158,9 @@ void ListaEncadeada::importaBin(int tam)
     ifstream impBin;
 
     impBin.open("artists.bin",ios::binary);
+
+    if  (impBin.fail())
+        cout << "erro na leitura do .bin" << endl;
 
     ///Le tammanho do arquivo
     impBin.seekg(0,impBin.end);
@@ -177,11 +180,10 @@ void ListaEncadeada::importaBin(int tam)
         impBin.read((char *) &(listArtista),sizeof(Artista));
         
         /// Verificacao se existe repeticao
-        if(verifica(vetor, listArtista)){
+        if(verifica(vetor, listArtista))
             i--;
-        }else{
+        else
             vetor.push_back(listArtista);
-        }
     }
     imprimeTestes(vetor);
 

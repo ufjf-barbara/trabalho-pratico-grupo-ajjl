@@ -25,6 +25,7 @@ ListaEncadeadaTracks::~ListaEncadeadaTracks()
         p=t;
     }
 }
+
 void ListaEncadeadaTracks::NovaTrack(string id, string name,int popularity,int duration_ms,bool explicito,string artists,
                                         string id_artists,string release_date,float danceability,float energy,float key,float loudness,
                                         float mode,float speechiness,float acousticness,float instrumentalness,float liveness,
@@ -92,7 +93,8 @@ void ListaEncadeadaTracks::NovaTrack(string id, string name,int popularity,int d
     }
 
 }
-void ListaEncadeadaTracks::ImprimeIds(Tracks dados) // usando a lista encadeada imprime todos os dados 
+
+void ListaEncadeadaTracks::ImprimeIds() // usando a lista encadeada imprime todos os dados 
 {
     NoT* p = primeiro; 
     for (int i=0;i<n;i++)
@@ -105,6 +107,7 @@ void ListaEncadeadaTracks::ImprimeIds(Tracks dados) // usando a lista encadeada 
         p=p->getProx();
     }
 }
+
 void ListaEncadeadaTracks::escrevebin()
 {
     ofstream tracksbin;
@@ -155,24 +158,24 @@ void ListaEncadeadaTracks::Imprimebin() ///função que imprime o arquivo binari
         teste.read((char *) &(esta),sizeof(Tracks));
 
         cout << esta.id << ",";
-        cout <<esta.name<< ",";
+        cout << esta.name<< ",";
         cout << esta.popularity<< ",";
         cout << esta.duration_ms<< ",";
         cout << esta.explicito<<",";
         cout << esta.artists <<",";
         cout << esta.id_artists <<",";
         cout << esta.release_date<< ",";
-        cout <<esta.danceability << ",";
+        cout << esta.danceability << ",";
         cout << esta.energy << "," ;
         cout << esta.key << ",";
         cout << esta.loudness << ",";
         cout << esta.mode << ",";
         cout << esta.speechiness << ",";
-        cout <<esta.acousticness<< ",";
+        cout << esta.acousticness<< ",";
         cout << esta.instrumentalness << "," ;
-        cout <<esta.liveness << ",";
+        cout << esta.liveness << ",";
         cout << esta.valence << ",";
-        cout <<esta.tempo <<",";
+        cout << esta.tempo <<",";
         cout << esta.time_signature;
         cout << endl;
     }
@@ -241,13 +244,11 @@ void ListaEncadeadaTracks::imprimeTestes(vector<Tracks> vetor){
 /// funcao para verificar se existe repeticao
 bool verifica (vector<Tracks> vetor, Tracks aux)
 {
-    for (int i=0; i<vetor.size(); i++){
-        if (vetor[i].id== aux.id){
-            return true;
-        } else {
-            return false;
-        }
+    for (int i=0; i<vetor.size(); i++){  
+        if (vetor[i].id == aux.id)
+            return true;        
     }
+    return false;
 }
 
 /// Funcao para importar de arquivo binario
@@ -257,6 +258,9 @@ void ListaEncadeadaTracks::importaBin(int tam)
     ifstream impBin;
     impBin.open("artists.bin",ios::binary);
 
+    if  (impBin.fail())
+        cout << "erro na leitura do .bin" << endl;
+ 
     ///Le tammanho do arquivo
     impBin.seekg(0,impBin.end);
     int length = impBin.tellg();   
@@ -275,11 +279,10 @@ void ListaEncadeadaTracks::importaBin(int tam)
         impBin.read((char *) &(listTracks),sizeof(Tracks));
         
         // Verificacao se existe repeticao
-        if(verifica(vetor, listTracks)){
+        if(verifica(vetor, listTracks))
             i--;
-        }else{
+        else
             vetor.push_back(listTracks);
-        }      
     }
     imprimeTestes(vetor);
 

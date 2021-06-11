@@ -15,7 +15,7 @@ public:
                     float mode,float speechiness,float acousticness,float instrumentalness,float liveness,
                     float valence,float tempo,int time_signature);
 
-    void ImprimeIds(Tracks dados); ///imprime todas as informacoes da lista
+    void ImprimeIds(); ///imprime todas as informacoes da lista
     void escrevebin();
     void imprimeTestes(vector <Tracks>);
     void Imprimebin(); /// imprime a pasta bin
