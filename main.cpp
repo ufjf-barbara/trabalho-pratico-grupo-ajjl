@@ -36,8 +36,11 @@ void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData)
     while(opcao != 2);
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+    string diretorio=argv[1];
+    string arq1= diretorio+="/artists.csv";
+    string arq2= diretorio+="/tracks.csv";
     ///iniciacao das variaveis relativas ao artista
 
     ifstream artista;
@@ -49,7 +52,7 @@ int main()
     ListaEncadeada ArtistsData;
 
     ///abertura do file para a leitura
-    artista.open("artists.csv",ios::in | ios::out);
+    artista.open(arq1, ios::in | ios::out);
 
     ///verifica se ha problema na abertura do arquivo
     ///sai do programa caso haja
@@ -94,7 +97,6 @@ int main()
     //ArtistsData.Imprimebin(); // imprime arquivo binario
 
     
-    //ArtistsData.importaBin(100); ///Importacao do aquivo binario
 
 
     ///fechamento do file
@@ -131,7 +133,7 @@ int main()
 
 
     ///abertura do file para a leitura
-    tracks.open("tracks.csv",ios::in | ios::out);
+    tracks.open(arq2, ios::in | ios::out);
 
 
     ///verifica se ha problema na abertura do arquivo
@@ -241,9 +243,6 @@ int main()
     TracksData.escrevebin();
     //TracksData.Imprimebin(); // imprime arquivo binario
     
-    
-    //TracksData.importaBin(100); ///Importacao do aquivo binario
-
     moduloDeTestes(ArtistsData, TracksData);
 
     return 0;
