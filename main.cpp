@@ -213,7 +213,9 @@ int main()
     
     TracksData.escrevebin();
     //TracksData.Imprimebin();
-
+    
+    ///importa de bin
+    TracksData.importaBin(100);
 
 
     

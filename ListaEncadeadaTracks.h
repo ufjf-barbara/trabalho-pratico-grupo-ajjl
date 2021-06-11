@@ -17,6 +17,7 @@ public:
     void ImprimeIds(); ///imprime todas as informacoes da lista
     void escrevebin();
     void Imprimebin(); /// imprime a pasta bin
+    void importaBin(int tam);
 private:
     int n;
     NoT *primeiro;

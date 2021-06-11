@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include <cstring>
+#include <vector>  
 
 using namespace std;
 
@@ -180,5 +181,51 @@ void ListaEncadeadaTracks::Imprimebin() ///função que imprime o arquivo binari
     teste.close();
 }
 
+/// funcao para verificar repeticoes
+bool verifica (vector<Tracks> vetor, Tracks aux)
+{
+        for (int i=0; i<vetor.size(); i++){
+            if (vetor[i].id== aux.id){
+                return true;
+            } else {
+                return false;
+            }
+        }
+}
 
+
+void ListaEncadeadaTracks::importaBin(int tam)
+{    
+    vector<Tracks> vetor;
+    ifstream impBin;
+
+    impBin.open("artists.bin",ios::binary);
+
+    ///Le tammanho do arquivo
+    impBin.seekg(0,impBin.end);
+    int length = impBin.tellg();   
+    length = length/sizeof(Tracks);
+    
+    impBin.seekg(0,impBin.beg);
+
+    for(int i=0;i<tam;i++)
+    {
+        Tracks listTracks;
+
+        ///Pega posicao aleatoria
+        int aleat = (rand()%length)*sizeof(Tracks);
+        impBin.seekg(aleat);
+
+        impBin.read((char *) &(listTracks),sizeof(Tracks));
+        
+        /// Verificacao 
+        if(verifica(vetor, listTracks)){
+            i--;
+        }else{
+            vetor.push_back(listTracks);
+        }
+    }
+
+    impBin.close();
+}
 
