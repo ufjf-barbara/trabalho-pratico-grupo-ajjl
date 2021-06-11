@@ -7,13 +7,13 @@ using namespace std;
 typedef struct
 {
     char id[23];
-    char name[100];
+    char name[5000];
     int popularity;
     int duration_ms;
     bool explicito;
-    char artists[100];
-    char id_artists[150];
-    char release_date[11];
+    char artists[5000];
+    char id_artists[5000];
+    char release_date[20];
     float danceability;
     float energy;
     int key;
