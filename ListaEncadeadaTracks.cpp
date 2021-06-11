@@ -92,9 +92,9 @@ void ListaEncadeadaTracks::NovaTrack(string id, string name,int popularity,int d
     }
 
 }
-void ListaEncadeadaTracks::ImprimeIds() // usando a lista encadeada imprime todos os dados 
+void ListaEncadeadaTracks::ImprimeIds(Tracks dados) // usando a lista encadeada imprime todos os dados 
 {
-    NoT* p=primeiro;
+    NoT* p = primeiro; 
     for (int i=0;i<n;i++)
     {
         cout << p->getid() << "," <<p->getname()<< "," << p->getpopularity()<< "," << p->getduration_ms()<< "," << p->getexplicito()<<",";
@@ -179,6 +179,65 @@ void ListaEncadeadaTracks::Imprimebin() ///função que imprime o arquivo binari
     teste.close();
 }
 
+void ListaEncadeadaTracks::imprimeTestes(vector<Tracks> vetor){
+    if(vetor.size() <=10){
+        cout << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
+        for(int i = 0; i < vetor.size(); i++){
+                cout << "Id: "<< vetor[i].id << endl;
+                cout << "Name: " <<vetor[i].name<< endl;
+                cout << "Popularity: " << vetor[i].popularity<< endl;
+                cout << "Duration: " << vetor[i].duration_ms<< endl;
+                cout <<"Explicito: " << vetor[i].explicito<< endl;
+                cout <<"Artists: " << vetor[i].artists << endl;
+                cout << "Id artists: "<< vetor[i].id_artists << endl;
+                cout << "Release date: "<< vetor[i].release_date<< endl;
+                cout << "Danceability: " << vetor[i].danceability << endl;
+                cout <<"Energy: " << vetor[i].energy << endl;
+                cout << "Key: " <<vetor[i].key << endl;
+                cout <<"Loudness: "<< vetor[i].loudness << endl;
+                cout <<"Mode: " << vetor[i].mode << endl;
+                cout << "Speechiness: " << vetor[i].speechiness << endl;
+                cout <<"Acousticness: " << vetor[i].acousticness<< endl;
+                cout << "Instrumentalness: " << vetor[i].instrumentalness << endl;
+                cout <<"Liveness: "<< vetor[i].liveness << endl;
+                cout << "Valence: " << vetor[i].valence << endl;
+                cout <<"Tempo: " << vetor[i].tempo <<endl;
+                cout <<"Signature: " << vetor[i].time_signature << endl;
+                cout << "===================================" <<endl;
+                }
+    }
+    else {
+         ofstream arq("saidaTracks.txt");
+         arq << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
+         for(int i = 0; i < vetor.size() || i <=100; i++){
+                arq << "Id: "<< vetor[i].id << endl;
+                arq << "Name: " <<vetor[i].name<< endl;
+                arq << "Popularity: " << vetor[i].popularity<< endl;
+                arq << "Duration: " << vetor[i].duration_ms<< endl;
+                arq <<"Explicito: " << vetor[i].explicito<< endl;
+                arq <<"Artists: " << vetor[i].artists << endl;
+                arq << "Id artists: "<< vetor[i].id_artists << endl;
+                arq << "Release date: "<< vetor[i].release_date<< endl;
+                arq << "Danceability: " << vetor[i].danceability << endl;
+                arq <<"Energy: " << vetor[i].energy << endl;
+                arq << "Key: " <<vetor[i].key << endl;
+                arq <<"Loudness: "<< vetor[i].loudness << endl;
+                arq <<"Mode: " << vetor[i].mode << endl;
+                arq << "Speechiness: " << vetor[i].speechiness << endl;
+                arq <<"Acousticness: " << vetor[i].acousticness<< endl;
+                arq << "Instrumentalness: " << vetor[i].instrumentalness << endl;
+                arq <<"Liveness: "<< vetor[i].liveness << endl;
+                arq << "Valence: " << vetor[i].valence << endl;
+                arq <<"Tempo: " << vetor[i].tempo <<endl;
+                arq <<"Signature: " << vetor[i].time_signature << endl;
+                arq << "===================================" <<endl;
+                }
+                cout<< "ARQUIVO GERADO COM SUCESSO!" << endl;
+    }
+    }
+
+
+
 /// funcao para verificar se existe repeticao
 bool verifica (vector<Tracks> vetor, Tracks aux)
 {
@@ -215,13 +274,14 @@ void ListaEncadeadaTracks::importaBin(int tam)
 
         impBin.read((char *) &(listTracks),sizeof(Tracks));
         
-        /// Verificacao se existe repeticao
+        // Verificacao se existe repeticao
         if(verifica(vetor, listTracks)){
             i--;
         }else{
             vetor.push_back(listTracks);
-        }
+        }      
     }
+    imprimeTestes(vetor);
 
     impBin.close();
 }

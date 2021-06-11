@@ -1,6 +1,7 @@
 #ifndef LISTAENCADEADATracks_H
 #define LISTAENCADEADATracks_H
 #include <string>
+#include <vector>  
 #include "NoT.h" ///no referente as tracks
 
 
@@ -14,8 +15,9 @@ public:
                     float mode,float speechiness,float acousticness,float instrumentalness,float liveness,
                     float valence,float tempo,int time_signature);
 
-    void ImprimeIds(); ///imprime todas as informacoes da lista
+    void ImprimeIds(Tracks dados); ///imprime todas as informacoes da lista
     void escrevebin();
+    void imprimeTestes(vector <Tracks>);
     void Imprimebin(); /// imprime a pasta bin
     void importaBin(int tam);
 private:

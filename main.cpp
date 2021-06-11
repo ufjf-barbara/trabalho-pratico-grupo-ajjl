@@ -12,6 +12,29 @@ Comandos para compilar via terminal:
     g++ *.cpp *.h -o trab
     ./trab
 */
+void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData){ 
+    int opcao, tam, op;
+    do{
+        cout<< "1 - MODULO DE TESTES" << endl;
+        cout<< "2- SAIR" << endl;
+        cin >> opcao;
+        if(opcao == 1){
+            cout<< "Informe o tamanho da entrada: ";
+            cin>> tam;
+            cout << "Deseja importar do arquivo tracks ou artists?" << endl;
+            cout << "1- TRACKS" << endl;
+            cout<< "2- ARTISTS" << endl;
+            cin >> op;
+            if(op == 1)
+              TracksData.importaBin(tam);
+              else if( op == 2 )
+                ArtistsData.importaBin(tam);
+                else
+                cout << "OPCAO INVALIDA!"<< endl;
+        }
+    }
+    while(opcao != 2);
+}
 
 int main()
 {
@@ -71,7 +94,7 @@ int main()
     //ArtistsData.Imprimebin(); // imprime arquivo binario
 
     
-    ArtistsData.importaBin(100); ///Importacao do aquivo binario
+    //ArtistsData.importaBin(100); ///Importacao do aquivo binario
 
 
     ///fechamento do file
@@ -219,7 +242,9 @@ int main()
     //TracksData.Imprimebin(); // imprime arquivo binario
     
     
-    TracksData.importaBin(100); ///Importacao do aquivo binario
+    //TracksData.importaBin(100); ///Importacao do aquivo binario
+
+    moduloDeTestes(ArtistsData, TracksData);
 
     return 0;
 }

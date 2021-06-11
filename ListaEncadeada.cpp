@@ -113,6 +113,32 @@ void ListaEncadeada::Imprimebin()
 
     teste.close();
 }
+void ListaEncadeada::imprimeTestes(vector <Artista> vetor){
+    if(vetor.size() <=10){
+        cout << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
+        for(int i = 0; i < vetor.size(); i++){
+                cout << "Id: "<< vetor[i].id << endl;
+                cout << "Followers: " << vetor[i].followers<< endl;
+                cout << "Genres: " << vetor[i].genres<< endl;
+                cout << "Name: " << vetor[i].name << endl;
+                cout << "Popularity: "  << vetor[i].popularity<< endl;
+                cout << "===================================" <<endl;
+                }
+    }
+    else {
+         ofstream arq("saidaArtists.txt");
+         arq << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
+         for(int i = 0; i < vetor.size() || i <=100; i++){
+                arq << "Id: "<< vetor[i].id << endl;
+                arq << "Followers: " << vetor[i].followers<< endl;
+                arq << "Genres: " << vetor[i].genres<< endl;
+                arq << "Name: " << vetor[i].name << endl;
+                arq << "Popularity: "  << vetor[i].popularity<< endl;
+                arq << "===================================" <<endl;
+                }
+                cout<< "ARQUIVO GERADO COM SUCESSO!" << endl;
+    }
+}
 
 ///Funcao para verificar se existe repeticoes
 bool verifica (vector<Artista> vetor, Artista aux)
@@ -125,7 +151,6 @@ bool verifica (vector<Artista> vetor, Artista aux)
         }
     }
 }
-
 
 void ListaEncadeada::importaBin(int tam)
 {    
@@ -158,6 +183,7 @@ void ListaEncadeada::importaBin(int tam)
             vetor.push_back(listArtista);
         }
     }
+    imprimeTestes(vetor);
 
     impBin.close();
 }

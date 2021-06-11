@@ -1,6 +1,7 @@
 #ifndef LISTAENCADEADA_H
 #define LISTAENCADEADA_H
 #include <string>
+#include <vector>  
 #include "NoA.h" /// No referente ao artista
 
 
@@ -15,6 +16,8 @@ public:
     void escrevebin();
     void Imprimebin();
     void importaBin(int tam);
+    void imprimeTestes(vector <Artista>);
+
 
 private:
     int n;
