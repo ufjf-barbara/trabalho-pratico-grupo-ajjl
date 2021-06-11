@@ -116,9 +116,9 @@ void ListaEncadeada::Imprimebin()
 }
 
 void ListaEncadeada::imprimeTestes(vector <Artista> vetor){
-    if(vetor.size() <=10){
+    if(vetor.size() ==10){
         cout << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
-        for(int i = 0; i < vetor.size(); i++){
+        for(int i = 0; i < 10; i++){
                 cout << "Id: "<< vetor[i].id << endl;
                 cout << "Followers: " << vetor[i].followers<< endl;
                 cout << "Genres: " << vetor[i].genres<< endl;
@@ -127,10 +127,10 @@ void ListaEncadeada::imprimeTestes(vector <Artista> vetor){
                 cout << "===================================" <<endl;
                 }
     }
-    else {
+    else if( vetor.size() == 100){
          ofstream arq("saidaArtists.txt");
          arq << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
-         for(int i = 0; i < vetor.size() || i <=100; i++){
+         for(int i = 0; i < 100; i++){
                 arq << "Id: "<< vetor[i].id << endl;
                 arq << "Followers: " << vetor[i].followers<< endl;
                 arq << "Genres: " << vetor[i].genres<< endl;
@@ -140,6 +140,8 @@ void ListaEncadeada::imprimeTestes(vector <Artista> vetor){
                 }
                 cout<< "ARQUIVO GERADO COM SUCESSO!" << endl;
     }
+    else
+        cout <<"TAMANHO DE ENTRADA INVÁLIDA! ESCOLHA N=10 OU N=100"<<endl;
 }
 
 ///Funcao para verificar se existe repeticoes

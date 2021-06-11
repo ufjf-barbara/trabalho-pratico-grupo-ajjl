@@ -183,9 +183,9 @@ void ListaEncadeadaTracks::Imprimebin() ///função que imprime o arquivo binari
 }
 
 void ListaEncadeadaTracks::imprimeTestes(vector<Tracks> vetor){
-    if(vetor.size() <=10){
+    if(vetor.size()  == 10){
         cout << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
-        for(int i = 0; i < vetor.size(); i++){
+        for(int i = 0; i < 10; i++){
                 cout << "Id: "<< vetor[i].id << endl;
                 cout << "Name: " <<vetor[i].name<< endl;
                 cout << "Popularity: " << vetor[i].popularity<< endl;
@@ -209,10 +209,10 @@ void ListaEncadeadaTracks::imprimeTestes(vector<Tracks> vetor){
                 cout << "===================================" <<endl;
                 }
     }
-    else {
+    else  if(vetor.size() == 100){
          ofstream arq("saidaTracks.txt");
          arq << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
-         for(int i = 0; i < vetor.size() || i <=100; i++){
+         for(int i = 0; i < 100; i++){
                 arq << "Id: "<< vetor[i].id << endl;
                 arq << "Name: " <<vetor[i].name<< endl;
                 arq << "Popularity: " << vetor[i].popularity<< endl;
@@ -237,6 +237,8 @@ void ListaEncadeadaTracks::imprimeTestes(vector<Tracks> vetor){
                 }
                 cout<< "ARQUIVO GERADO COM SUCESSO!" << endl;
     }
+    else
+    cout <<"TAMANHO DE ENTRADA INVÁLIDA! ESCOLHA N=10 OU N=100"<<endl;
     }
 
 
