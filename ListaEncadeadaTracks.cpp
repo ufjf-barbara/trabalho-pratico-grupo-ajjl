@@ -237,8 +237,7 @@ void ListaEncadeadaTracks::imprimeTestes(vector<Tracks> vetor){
                 }
                 cout<< "ARQUIVO GERADO COM SUCESSO!" << endl;
     }
-    else
-    cout <<"TAMANHO DE ENTRADA INVÁLIDA! ESCOLHA N=10 OU N=100"<<endl;
+
     }
 
 

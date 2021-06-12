@@ -10,7 +10,7 @@ using namespace std;
 /*
 Comandos para compilar via terminal do vscode: 
     g++ *.cpp *.h -o trab
-    ./trab
+    ./trab 
 */
 
 void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData){ 
@@ -22,16 +22,20 @@ void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData)
         if(opcao == 1){
             cout<< "Informe o tamanho da entrada: ";
             cin>> tam;
-            cout << "Deseja importar do arquivo tracks ou artists?" << endl;
-            cout << "1- TRACKS" << endl;
-            cout << "2- ARTISTS" << endl;
-            cin >> op;
-            if(op == 1)
-                TracksData.importaBin(tam);
-            else if( op == 2 )
-                ArtistsData.importaBin(tam);
+            if(tam == 10 || tam == 100){
+                cout << "Deseja importar do arquivo tracks ou artists?" << endl;
+                cout << "1- TRACKS" << endl;
+                cout << "2- ARTISTS" << endl;
+                cin >> op;
+                if(op == 1)
+                    TracksData.importaBin(tam);
+                else if( op == 2 )
+                    ArtistsData.importaBin(tam);
+                else
+                    cout << "OPCAO INVALIDA!"<< endl;
+            }
             else
-                cout << "OPCAO INVALIDA!"<< endl;
+                cout <<"TAMANHO DE ENTRADA INVÁLIDA! ESCOLHA N=10 OU N=100"<<endl;
         }
     }
     while(opcao != 2);
@@ -40,8 +44,8 @@ void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData)
 int main(int argc, char *argv[])
 {
     string diretorio=argv[1];
-    string arq1= diretorio+="/artists.csv";
-    string arq2= diretorio+="/tracks.csv";
+    string arq1= diretorio + "/artists.csv";
+    string arq2= diretorio + "/tracks.csv";
     ///iniciacao das variaveis relativas ao artista
 
     ifstream artista;
