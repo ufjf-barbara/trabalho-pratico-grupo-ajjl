@@ -26,6 +26,7 @@ ListaEncadeadaTracks::~ListaEncadeadaTracks()
     }
 }
 
+//Funcao para a criacao da lista com a utilizacao de ponteiros
 void ListaEncadeadaTracks::NovaTrack(string id, string name,int popularity,int duration_ms,bool explicito,string artists,
                                         string id_artists,string release_date,float danceability,float energy,float key,float loudness,
                                         float mode,float speechiness,float acousticness,float instrumentalness,float liveness,
@@ -94,8 +95,9 @@ void ListaEncadeadaTracks::NovaTrack(string id, string name,int popularity,int d
 
 }
 
-void ListaEncadeadaTracks::ImprimeIds() // usando a lista encadeada imprime todos os dados 
-{
+
+//Funcao para teste onde imprime todo o conteudo da lista
+void ListaEncadeadaTracks::imprimeIds() {
     NoT* p = primeiro; 
     for (int i=0;i<n;i++)
     {
@@ -108,7 +110,8 @@ void ListaEncadeadaTracks::ImprimeIds() // usando a lista encadeada imprime todo
     }
 }
 
-void ListaEncadeadaTracks::escrevebin()
+//Funcao para a criacao e escrita do .bin
+void ListaEncadeadaTracks::escreveBin()
 {
     ofstream tracksbin;
 
@@ -147,7 +150,8 @@ void ListaEncadeadaTracks::escrevebin()
 
 }
 
-void ListaEncadeadaTracks::Imprimebin() ///função que imprime o arquivo binario
+//Funcao para teste onde imprime todo o conteudo de .bin
+void ListaEncadeadaTracks::imprimeBin() ///função que imprime o arquivo binario
 {
     ifstream teste;
     teste.open("tracks.bin",ios::binary);
@@ -182,6 +186,7 @@ void ListaEncadeadaTracks::Imprimebin() ///função que imprime o arquivo binari
     teste.close();
 }
 
+//Funcao utilizada pelo nosso menu no console para a impressao do vetor importado de .bin
 void ListaEncadeadaTracks::imprimeTestes(vector<Tracks> vetor){
     if(vetor.size()  == 10){
         cout << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
@@ -240,11 +245,8 @@ void ListaEncadeadaTracks::imprimeTestes(vector<Tracks> vetor){
 
     }
 
-
-
-/// funcao para verificar se existe repeticao
-bool verifica (vector<Tracks> vetor, Tracks aux)
-{
+//Funcao para verificar se existe repeticao dentro do vetor
+bool verifica (vector<Tracks> vetor, Tracks aux) {
     for (int i=0; i<vetor.size(); i++){  
         if (vetor[i].id == aux.id)
             return true;        
@@ -252,31 +254,44 @@ bool verifica (vector<Tracks> vetor, Tracks aux)
     return false;
 }
 
-/// Funcao para importar de arquivo binario
+//Funcao para importar de arquivo binario para vetor
 void ListaEncadeadaTracks::importaBin(int tam){
 
-    ifstream teste;
+    //Variavel aux do rand
     int x=n-1;
+
+    //Vetor que recebera .bin
     vector<Tracks> vetor;
-    teste.open("tracks.bin",ios::binary);
+    
+    ifstream trackBin;
+    trackBin.open("tracks.bin",ios::binary);
 
-    if  (teste.fail())
+    if  (trackBin.fail()){
         cout << "erro na leitura do .bin" << endl;
-    
-    for (int i=0;i<tam;i++){
-    Tracks aleatoria;
-
-    int random = rand()%x;
-    
-    teste.seekg(sizeof(Tracks)*random,teste.beg);
-
-    teste.read((char *) &(aleatoria),sizeof(Tracks));
-
-    if(verifica(vetor, aleatoria))
-            i--;
-    else
-        vetor.push_back(aleatoria);
+        exit(1);
     }
+
+    for (int i=0;i<tam;i++){
+        Tracks aleatoria;
+    
+        //Gera um numero raleatorio
+        int random = rand()%x;
+        //Aponta para essa posicao aleatoria em .bin
+        trackBin.seekg(sizeof(Tracks)*random,trackBin.beg);
+
+        //Le de .bin
+        trackBin.read((char *) &(aleatoria),sizeof(Tracks));
+
+        //Verifica se o id ja foi importada anteriormente
+        if(verifica(vetor, aleatoria))
+            i--; //Caso seja repetido, o for é executado novamente na mesmo valor de i
+        else
+            vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
+    }
+
+    trackBin.close(); //Fecha .bin
+
+    //Apos a criacao do vetor ser terminada, chama a funcao de impressao do vetor
     imprimeTestes(vetor);
 }
 

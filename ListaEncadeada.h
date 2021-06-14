@@ -12,9 +12,9 @@ public:
     virtual ~ListaEncadeada();
 
     void NovoArtista(string id,float followers,string genres,string name,int popularity); //cria um novo no e armazena as informacoes do artista
-    void ImprimeIds();  ///imprime todas as informacoes da lista
-    void escrevebin();
-    void Imprimebin();
+    void imprimeIds(); 
+    void escreveBin();
+    void imprimeBin();
     void importaBin(int tam);
     void imprimeTestes(vector <Artista>);
 

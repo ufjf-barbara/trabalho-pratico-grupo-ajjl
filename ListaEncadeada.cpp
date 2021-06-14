@@ -28,6 +28,7 @@ ListaEncadeada::~ListaEncadeada()
     }
 }
 
+//Funcao para a criacao da lista com a utilizacao de ponteiros
 void ListaEncadeada::NovoArtista(string id,float followers,string genres,string name,int popularity)
 {
     if(n==0)
@@ -63,7 +64,8 @@ void ListaEncadeada::NovoArtista(string id,float followers,string genres,string 
 
 }
 
-void ListaEncadeada::ImprimeIds()
+//Funcao para teste onde imprime todo o conteudo da lista
+void ListaEncadeada::imprimeIds()
 {
     NoA* p=primeiro;
     for (int i=0;i<n;i++)
@@ -74,7 +76,8 @@ void ListaEncadeada::ImprimeIds()
 
 }
 
-void ListaEncadeada::escrevebin()
+//Funcao para a criacao e escrita do .bin
+void ListaEncadeada::escreveBin()
 
 {
     ofstream artistasbin;
@@ -98,7 +101,8 @@ void ListaEncadeada::escrevebin()
     artistasbin.close();
 }
 
-void ListaEncadeada::Imprimebin()
+//Funcao para teste onde imprime todo o conteudo de .bin
+void ListaEncadeada::imprimeBin()
 {
 
     ifstream teste;
@@ -115,6 +119,7 @@ void ListaEncadeada::Imprimebin()
     teste.close();
 }
 
+//Funcao utilizada pelo nosso menu no console para a impressao do vetor importado de .bin
 void ListaEncadeada::imprimeTestes(vector <Artista> vetor){
     if(vetor.size() ==10){
         cout << "IMPORTACAO DE REGISTROS ALEATORIOS"<< endl;
@@ -143,7 +148,7 @@ void ListaEncadeada::imprimeTestes(vector <Artista> vetor){
 
 }
 
-///Funcao para verificar se existe repeticoes
+//Funcao para verificar se existe repeticao dentro do vetor
 bool verifica (vector<Artista> vetor, Artista aux)
 {
     for (int i=0; i<vetor.size(); i++){
@@ -153,40 +158,46 @@ bool verifica (vector<Artista> vetor, Artista aux)
     return false;
 }
 
-void ListaEncadeada::importaBin(int tam)
-{    
+//Funcao para importar de arquivo binario para vetor
+void ListaEncadeada::importaBin(int tam) {
+
+    //Vetor que recebera .bin 
     vector<Artista> vetor;
-    ifstream impBin;
-
-    impBin.open("artists.bin",ios::binary);
-
-    if  (impBin.fail())
-        cout << "erro na leitura do .bin" << endl;
-
-    ///Le tammanho do arquivo
-    impBin.seekg(0,impBin.end);
-    int length = impBin.tellg();   
-    length = length/sizeof(Artista);
     
-    impBin.seekg(0,impBin.beg);
+    ifstream artBin;
+    artBin.open("artists.bin",ios::binary);
 
-    for(int i=0;i<tam;i++)
-    {
-        Artista listArtista;
-
-        ///Pega posicao aleatoria
-        int aleat = (rand()%length)*sizeof(Artista);
-        impBin.seekg(aleat);
-
-        impBin.read((char *) &(listArtista),sizeof(Artista));
-        
-        /// Verificacao se existe repeticao
-        if(verifica(vetor, listArtista))
-            i--;
-        else
-            vetor.push_back(listArtista);
+    if  (artBin.fail()){
+        cout << "erro na leitura do .bin" << endl;
+        exit(1);
     }
-    imprimeTestes(vetor);
 
-    impBin.close();
+    //Calcula tamanho de linhas do .bin
+    artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
+    int length = artBin.tellg(); //Salva valor da posicao
+    length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
+    
+    artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
+
+    for(int i=0;i<tam;i++) {
+        Artista aleatoria;
+
+        //Gera posicao aleatoria e posiciona o ponteiro em .bin
+        int aleat = (rand()%length)*sizeof(Artista);
+        artBin.seekg(aleat);
+
+        //Le conteudo da linha em .bin
+        artBin.read((char *) &(aleatoria),sizeof(Artista));
+        
+        //Verificacao se existe repeticao de id com o vetor
+        if(verifica(vetor, aleatoria))
+            i--; //Caso seja repetido, o for é executado novamente no meosm valor de i
+        else
+            vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
+    }
+    
+    artBin.close(); //Fecha .bin
+    
+    //Apos a criacao do vetor ser terminada, chama a funcao de impressao do vetor
+    imprimeTestes(vetor);
 }

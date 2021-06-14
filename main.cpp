@@ -8,27 +8,28 @@
 using namespace std;
 
 /*
-Comandos para compilar via terminal do vscode: 
-    g++ *.cpp *.h -o trab
-    ./trab SEU/DIRETORIO/trabalho-pratico-grupo-ajjl
+Comandos para compilar via terminal: 
+    g++ *.cpp *.h -o main
+    ./main SEU/DIRETORIO/trabalho-pratico-grupo-ajjl
 */
 
+/// Esta é a função que utilizaremos para o menu de opcoes do console
 void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData){ 
     int opcao, tam, op;
     do{
-        cout<< "1 - MODULO DE TESTES" << endl;
-        cout<< "2 - SAIR" << endl;
-        cin >> opcao;
+        cout << "1 - MODULO DE TESTES" << endl;
+        cout << "2 - SAIR" << endl;
+        cin  >> opcao;
         if(opcao == 1){
-            cout<< "Informe o tamanho da entrada: ";
-            cin>> tam;
+            cout << "Informe o tamanho da entrada: ";  ///Informe 10 para saida em console ou 100 para saida em .txt
+            cin  >> tam;
             if(tam == 10 || tam == 100){
                 cout << "Deseja importar do arquivo tracks ou artists?" << endl;
                 cout << "1- TRACKS" << endl;
                 cout << "2- ARTISTS" << endl;
-                cin >> op;
+                cin  >> op;
                 if(op == 1)
-                    TracksData.importaBin(tam);
+                    TracksData.importaBin(tam); ///Funcao que importa de .bin e salva em um vetor
                 else if( op == 2 )
                     ArtistsData.importaBin(tam);
                 else
@@ -43,45 +44,41 @@ void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData)
 
 int main(int argc, char *argv[])
 {
+    ///Criacao das variaves para  manipulacao do .csv
     string diretorio=argv[1];
     string arq1= diretorio + "/artists.csv";
     string arq2= diretorio + "/tracks.csv";
-    ///iniciacao das variaveis relativas ao artista
+    
+    
+    /// Manipulacao de Artists:
 
+    ///iniciacao das variaveis relativas ao artista
     ifstream artista;
+    ListaEncadeada ArtistsData; ///Classe criada para armazenar e manipular nossa struct
 
     string id,genres,name,popularity,followers,l;
     int popularity_Int;
     float followers_Float;
 
-    ListaEncadeada ArtistsData;
-
-    ///abertura do file para a leitura
+    ///Abertura do file para a leitura
     artista.open(arq1, ios::in | ios::out);
  
-
-    ///verifica se ha problema na abertura do arquivo
-    ///sai do programa caso haja
-    if  (artista.fail())
-    {
-        cout << "erro na leitura artists.csv" << endl;
+    ///Verifica se ha problema na abertura do arquivo
+    if  (artista.fail()) {
+        cout << "> Erro na leitura de artists.csv" << endl;
         exit(1);
     }
 
     ///Descarta a primeira linha que nao contem informacoes
+    getline(artista,l,'\n');
 
-        getline(artista,l,'\n');
-
-
-    ///Loop que se repete ate que todo o arquivo tenha sido percorrido
-    ///E armazena as informacoes na lista
-    while(artista.good())
-    {
+    ///Loop que se repete ate que todo o arquivo tenha sido percorrido e armazena as informacoes na lista
+    while(artista.good()) {
         getline(artista,id,',');
 
         getline(artista ,followers,',');
         stringstream s(followers);
-        s  >> followers_Float;   ///tranformando a string em um float
+        s  >> followers_Float;   ///Transformando a string em um float
 
         getline(artista,l,'[');
         getline(artista,genres,']');
@@ -92,20 +89,26 @@ int main(int argc, char *argv[])
 
         getline(artista,popularity,'\n');
         stringstream ss(popularity);
-        ss  >> popularity_Int;   ///tranformando a string em um int
+        ss  >> popularity_Int;   ///Transformando a string em um int
 
+        //Após leitura salva em nossa struct
         ArtistsData.NovoArtista(id,followers_Float,genres,name,popularity_Int);
     }
 
-    //ArtistsData.ImprimeIds(); /// imprime todo o conteudo da lista
-    
-    ArtistsData.escrevebin(); /// Cria arquivo binario
-
-    ///fechamento do file
+    ///Fechamento do file
     artista.close();
+    
+    //ArtistsData.imprimeIds();  ///Funcao para teste onde imprime todo o conteudo da lista
+    
+    ///Funcao para criacao e escrita do arquivo .bin
+    ArtistsData.escreveBin();
 
+    //ArtistsData.imprimeBin(); ///Funcao para teste onde imprime todo o conteudo de .bin
 
-      /// variaveis relativas as musicas
+    /// =============================================
+
+    /// Manipulacao de Tracks onde segue de forma analoga ao Artists
+
     ifstream tracks;
     ListaEncadeadaTracks TracksData;
 
@@ -131,29 +134,18 @@ int main(int argc, char *argv[])
     float valence_float;
     float tempo_float;
 
-
-
-
-    ///abertura do file para a leitura
     tracks.open(arq2, ios::in | ios::out);
 
-
-    ///verifica se ha problema na abertura do arquivo
-    ///sai do programa caso haja
-
-    if  (tracks.fail())
-    {
-        cout << "erro na leitura tracks.csv" << endl;
+    if  (tracks.fail()) {
+        cout << "> Erro na leitura de tracks.csv" << endl;
         exit(1);
     }
 
     ///Descarta a primeira linha que nao contem informacoes
     getline(tracks,l,'\n');
 
-    ///Loop que se repete ate que todo o arquivo tenha sido percorrido
-    ///E armazena as informacoes na lista
-    while (tracks.good())
-    {
+    ///Loop que se repete ate que todo o arquivo tenha sido percorrido e armazena as informacoes na lista
+    while (tracks.good()) {
         getline(tracks,idT,',');
 
         getline(tracks,nameT,',');
@@ -229,19 +221,19 @@ int main(int argc, char *argv[])
         stringstream ti(time_signature);
         ti >> time_signature_int;
 
-        TracksData.NovaTrack(idT,nameT,popularityT_int,duration_ms_int,explicito_bool,artistsT,
-                                       id_artists,release_date,danceability_float,energy_float,key_float,loudness_float,
-                                        mode_float,speechiness_float,acousticness_float,instrumentalness_float,liveness_float,
-                                        valence_float,tempo_float,time_signature_int);
-    }
+        TracksData.NovaTrack(idT,nameT,popularityT_int,duration_ms_int,explicito_bool,artistsT,id_artists,release_date,danceability_float,
+                            energy_float,key_float,loudness_float,mode_float,speechiness_float,acousticness_float,instrumentalness_float,
+                            liveness_float,valence_float,tempo_float,time_signature_int);
+   }
 
-
-    ///fechamento do file
     tracks.close();
 
-    //TracksData.ImprimeIds(); /// imprime todo o conteudo da lista
+    //TracksData.imprimeIds(); /// ///Funcao para teste onde imprime todo o conteudo da lista
 
-    TracksData.escrevebin(); /// Cria arquivo binario
+    ///Funcao para criacao e escrita do arquivo .bin
+    TracksData.escreveBin();
+
+    //TracksData.imprimeBin(); ///Funcao para teste onde imprime todo o conteudo de .bin
    
     moduloDeTestes(ArtistsData, TracksData);
 

@@ -35,3 +35,7 @@
 *.csv
 *.bin
 *.txt
+
+# VScode Settings
+*.VScode
+*.json
