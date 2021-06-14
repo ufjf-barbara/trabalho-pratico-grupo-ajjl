@@ -172,7 +172,7 @@ void ListaEncadeada::importaBin(int tam) {
         exit(1);
     }
 
-    //Calcula tamanho de linhas do .bin
+    //Calcula numero de linhas do .bin
     artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
     int length = artBin.tellg(); //Salva valor da posicao
     length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes

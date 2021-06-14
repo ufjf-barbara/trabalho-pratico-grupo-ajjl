@@ -255,14 +255,8 @@ bool verifica (vector<Tracks> vetor, Tracks aux) {
 }
 
 //Funcao para importar de arquivo binario para vetor
-void ListaEncadeadaTracks::importaBin(int tam){
+void ListaEncadeadaTracks::importaBin(int tam) {
 
-    //Variavel aux do rand
-    int x=n-1;
-
-    //Vetor que recebera .bin
-    vector<Tracks> vetor;
-    
     ifstream trackBin;
     trackBin.open("tracks.bin",ios::binary);
 
@@ -270,21 +264,27 @@ void ListaEncadeadaTracks::importaBin(int tam){
         cout << "erro na leitura do .bin" << endl;
         exit(1);
     }
+    
+    //Variavel aux do rand
+    int x=n-1;
 
+    //Vetor que recebera .bin
+    vector<Tracks> vetor;
+    
     for (int i=0;i<tam;i++){
         Tracks aleatoria;
     
-        //Gera um numero raleatorio
-        int random = rand()%x;
+        //Gera um numero aleatorio
+        int random = rand()%n;
         //Aponta para essa posicao aleatoria em .bin
         trackBin.seekg(sizeof(Tracks)*random,trackBin.beg);
 
-        //Le de .bin
+        //Le conteudo da linha selecionada de .bin
         trackBin.read((char *) &(aleatoria),sizeof(Tracks));
 
-        //Verifica se o id ja foi importada anteriormente
+        //Verifica se o id ja foi importado anteriormente
         if(verifica(vetor, aleatoria))
-            i--; //Caso seja repetido, o for é executado novamente na mesmo valor de i
+            i--; //Caso seja repetido, o for é executado novamente com mesmo valor de i
         else
             vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
     }
