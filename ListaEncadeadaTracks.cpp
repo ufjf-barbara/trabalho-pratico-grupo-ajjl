@@ -157,26 +157,26 @@ void ListaEncadeadaTracks::Imprimebin() ///função que imprime o arquivo binari
         Tracks esta;
         teste.read((char *) &(esta),sizeof(Tracks));
 
-        cout << esta.id << ",";
-        cout << esta.name<< ",";
-        cout << esta.popularity<< ",";
-        cout << esta.duration_ms<< ",";
-        cout << esta.explicito<<",";
-        cout << esta.artists <<",";
-        cout << esta.id_artists <<",";
-        cout << esta.release_date<< ",";
-        cout << esta.danceability << ",";
-        cout << esta.energy << "," ;
-        cout << esta.key << ",";
-        cout << esta.loudness << ",";
-        cout << esta.mode << ",";
-        cout << esta.speechiness << ",";
-        cout << esta.acousticness<< ",";
-        cout << esta.instrumentalness << "," ;
-        cout << esta.liveness << ",";
-        cout << esta.valence << ",";
-        cout << esta.tempo <<",";
-        cout << esta.time_signature;
+        cout << esta.id << endl;
+        cout << esta.name<< endl;
+        cout << esta.popularity<< endl;
+        cout << esta.duration_ms<< endl;
+        cout << esta.explicito<<endl;
+        cout << esta.artists <<endl;
+        cout << esta.id_artists <<endl;
+        cout << esta.release_date<< endl;
+        cout << esta.danceability << endl;
+        cout << esta.energy << ","  << endl;
+        cout << esta.key << endl;
+        cout << esta.loudness << endl;
+        cout << esta.mode << endl;
+        cout << esta.speechiness << endl;
+        cout << esta.acousticness<< endl;
+        cout << esta.instrumentalness << ","  << endl;
+        cout << esta.liveness << endl;
+        cout << esta.valence << endl;
+        cout << esta.tempo << endl;
+        cout << esta.time_signature << endl;
         cout << endl;
     }
     teste.close();
@@ -253,40 +253,32 @@ bool verifica (vector<Tracks> vetor, Tracks aux)
 }
 
 /// Funcao para importar de arquivo binario
-void ListaEncadeadaTracks::importaBin(int tam)
-{    
+void ListaEncadeadaTracks::importaBin(int tam){
+
+    ifstream teste;
+    int x=n-1;
     vector<Tracks> vetor;
-    ifstream impBin;
-    impBin.open("artists.bin",ios::binary);
+    teste.open("tracks.bin",ios::binary);
 
-    if  (impBin.fail())
+    if  (teste.fail())
         cout << "erro na leitura do .bin" << endl;
- 
-    ///Le tammanho do arquivo
-    impBin.seekg(0,impBin.end);
-    int length = impBin.tellg();   
-    length = length/sizeof(Tracks);
     
-    impBin.seekg(0,impBin.beg);
+    for (int i=0;i<tam;i++){
+    Tracks aleatoria;
 
-    for(int i=0;i<tam;i++)
-    {
-        Tracks listTracks;
+    int random = rand()%x;
+    
+    teste.seekg(sizeof(Tracks)*random,teste.beg);
 
-        ///Pega posicao aleatoria
-        int aleat = (rand()%length)*sizeof(Tracks);
-        impBin.seekg(aleat);
+    teste.read((char *) &(aleatoria),sizeof(Tracks));
 
-        impBin.read((char *) &(listTracks),sizeof(Tracks));
-        
-        // Verificacao se existe repeticao
-        if(verifica(vetor, listTracks))
+    if(verifica(vetor, aleatoria))
             i--;
-        else
-            vetor.push_back(listTracks);
+    else
+        vetor.push_back(aleatoria);
     }
     imprimeTestes(vetor);
-
-    impBin.close();
 }
+
+
 

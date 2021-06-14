@@ -20,6 +20,7 @@ public:
     void imprimeTestes(vector <Tracks>);
     void Imprimebin(); /// imprime a pasta bin
     void importaBin(int tam);
+    
 private:
     int n;
     NoT *primeiro;

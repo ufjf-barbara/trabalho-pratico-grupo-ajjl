@@ -10,7 +10,7 @@ using namespace std;
 /*
 Comandos para compilar via terminal do vscode: 
     g++ *.cpp *.h -o trab
-    ./trab 
+    ./trab SEU/DIRETORIO/trabalho-pratico-grupo-ajjl
 */
 
 void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData){ 
@@ -240,7 +240,6 @@ int main(int argc, char *argv[])
     tracks.close();
 
     //TracksData.ImprimeIds(); /// imprime todo o conteudo da lista
-
 
     TracksData.escrevebin(); /// Cria arquivo binario
    
