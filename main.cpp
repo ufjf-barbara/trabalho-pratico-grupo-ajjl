@@ -52,190 +52,32 @@ int main(int argc, char *argv[])
     
     /// Manipulacao de Artists:
 
-    ///iniciacao das variaveis relativas ao artista
-    ifstream artista;
+
     ListaEncadeada ArtistsData; ///Classe criada para armazenar e manipular nossa struct
-
-    string id,genres,name,popularity,followers,l;
-    int popularity_Int;
-    float followers_Float;
-
-    ///Abertura do file para a leitura
-    artista.open(arq1, ios::in | ios::out);
- 
-    ///Verifica se ha problema na abertura do arquivo
-    if  (artista.fail()) {
-        cout << "> Erro na leitura de artists.csv" << endl;
-        exit(1);
-    }
-
-    ///Descarta a primeira linha que nao contem informacoes
-    getline(artista,l,'\n');
-
-    ///Loop que se repete ate que todo o arquivo tenha sido percorrido e armazena as informacoes na lista
-    while(artista.good()) {
-        getline(artista,id,',');
-
-        getline(artista ,followers,',');
-        stringstream s(followers);
-        s  >> followers_Float;   ///Transformando a string em um float
-
-        getline(artista,l,'[');
-        getline(artista,genres,']');
-        getline(artista,l,',');
+    ArtistsData.NovaLista(arq1);
+    ArtistsData.escreveBin();///Funcao para criacao e escrita do arquivo .bin
 
 
-        getline(artista,name,',');
-
-        getline(artista,popularity,'\n');
-        stringstream ss(popularity);
-        ss  >> popularity_Int;   ///Transformando a string em um int
-
-        //Após leitura salva em nossa struct
-        ArtistsData.NovoArtista(id,followers_Float,genres,name,popularity_Int);
-    }
-
-    ///Fechamento do file
-    artista.close();
-    
     //ArtistsData.imprimeIds();  ///Funcao para teste onde imprime todo o conteudo da lista
-    
-    ///Funcao para criacao e escrita do arquivo .bin
-    ArtistsData.escreveBin();
-
     //ArtistsData.imprimeBin(); ///Funcao para teste onde imprime todo o conteudo de .bin
 
     /// =============================================
 
     /// Manipulacao de Tracks onde segue de forma analoga ao Artists
 
-    ifstream tracks;
+
     ListaEncadeadaTracks TracksData;
-
-    string nameT,popularityT,duration_ms,explicito,danceability,energy,key,loudness,idT,
-    mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,time_signature,artistsT,id_artists,release_date;
-
-
-    bool explicito_bool;
-
-    int popularityT_int;
-    int duration_ms_int;
-    int time_signature_int;
-
-    float danceability_float;
-    float energy_float;
-    float key_float;
-    float loudness_float;
-    float mode_float;
-    float speechiness_float;
-    float acousticness_float;
-    float instrumentalness_float;
-    float liveness_float;
-    float valence_float;
-    float tempo_float;
-
-    tracks.open(arq2, ios::in | ios::out);
-
-    if  (tracks.fail()) {
-        cout << "> Erro na leitura de tracks.csv" << endl;
-        exit(1);
-    }
-
-    ///Descarta a primeira linha que nao contem informacoes
-    getline(tracks,l,'\n');
-
-    ///Loop que se repete ate que todo o arquivo tenha sido percorrido e armazena as informacoes na lista
-    while (tracks.good()) {
-        getline(tracks,idT,',');
-
-        getline(tracks,nameT,',');
-
-        getline(tracks,popularityT,',');
-        stringstream pop(popularityT);
-        pop  >> popularityT_int;
-
-        getline(tracks,duration_ms,',');
-        stringstream du(duration_ms);
-        du >> duration_ms_int;
-
-        getline(tracks,explicito,',');
-        stringstream ex(explicito);
-        ex >> explicito_bool;
-
-        getline(tracks,l,'[');
-        getline(tracks,artistsT,']');
-        getline(tracks,l,',');
-
-
-        getline(tracks,l,'[');
-        getline(tracks,id_artists,']');
-        getline(tracks,l,',');
-
-        getline(tracks, release_date, ',');
-
-        getline(tracks,danceability , ',');
-        stringstream da(danceability);
-        da >> danceability_float;
-
-        getline(tracks,energy , ',');
-        stringstream en(energy);
-        en >> energy_float;
-
-        getline(tracks,key , ',');
-        stringstream ke(key);
-        ke >> key_float;
-
-        getline(tracks,loudness , ',');
-        stringstream lo(loudness);
-        lo >> loudness_float;
-
-        getline(tracks,mode , ',');
-        stringstream mo(mode);
-        mo >> mode_float;
-
-        getline(tracks,speechiness , ',');
-        stringstream sp(speechiness);
-        sp >> speechiness_float;
-
-        getline(tracks,acousticness , ',');
-        stringstream ac(acousticness);
-        ac >> acousticness_float;
-
-        getline(tracks,instrumentalness , ',');
-        stringstream in(instrumentalness);
-        in >> instrumentalness_float;
-
-        getline(tracks,liveness, ',');
-        stringstream li(liveness);
-        li >> liveness_float;
-
-        getline(tracks,valence, ',');
-        stringstream va(valence);
-        va >> valence_float;
-
-        getline(tracks,tempo, ',');
-        stringstream te(tempo);
-        te >> tempo_float;
-
-        getline(tracks,time_signature , '\n');
-        stringstream ti(time_signature);
-        ti >> time_signature_int;
-
-        TracksData.NovaTrack(idT,nameT,popularityT_int,duration_ms_int,explicito_bool,artistsT,id_artists,release_date,danceability_float,
-                            energy_float,key_float,loudness_float,mode_float,speechiness_float,acousticness_float,instrumentalness_float,
-                            liveness_float,valence_float,tempo_float,time_signature_int);
-   }
-
-    tracks.close();
-
-    //TracksData.imprimeIds(); /// ///Funcao para teste onde imprime todo o conteudo da lista
-
-    ///Funcao para criacao e escrita do arquivo .bin
+    TracksData.NovaLista(arq2);
     TracksData.escreveBin();
 
+
     //TracksData.imprimeBin(); ///Funcao para teste onde imprime todo o conteudo de .bin
-   
+    //TracksData.imprimeIds(); /// ///Funcao para teste onde imprime todo o conteudo da lista
+
     moduloDeTestes(ArtistsData, TracksData);
+
+    return 0;
+}
 
     return 0;
 }
