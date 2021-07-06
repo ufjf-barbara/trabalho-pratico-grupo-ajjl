@@ -37,6 +37,7 @@ void ListaEncadeada::NovoArtista(string id,float followers,string genres,string 
         primeiro=p;
         ultimo=p;
         p->setProx(NULL);
+        p->setAnt(NULL);
 
         p->setid(id);
         p->setfollowers(followers);
@@ -50,6 +51,7 @@ void ListaEncadeada::NovoArtista(string id,float followers,string genres,string 
     {
         NoA* p=new NoA();
         ultimo->setProx(p);
+        p->setAnt(ultimo);
         ultimo=p;
         p->setProx(NULL);
 
@@ -61,9 +63,7 @@ void ListaEncadeada::NovoArtista(string id,float followers,string genres,string 
 
         n++;
     }
-
 }
-
 //Funcao para teste onde imprime todo o conteudo da lista
 void ListaEncadeada::imprimeIds()
 {
