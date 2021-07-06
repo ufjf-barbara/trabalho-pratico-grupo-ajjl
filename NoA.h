@@ -25,10 +25,13 @@ private:
     float followers;
 
     NoA *prox;
+    NoA *ant;
 
 public:
     NoA();
     ~NoA();
+    NoA* getAnt()          { return ant; };
+    void setAnt(NoA *p)    { ant = p; };
     NoA* getProx()         { return prox; };
     void setProx(NoA *p)   { prox = p; };
 
