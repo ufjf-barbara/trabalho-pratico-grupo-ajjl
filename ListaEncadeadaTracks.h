@@ -20,6 +20,8 @@ public:
     void imprimeTestes(vector <Tracks>);
     void imprimeBin(); 
     void importaBin(int tam);
+    void NovaLista(string arq2);
+    void deletaultimo();
     
 private:
     int n;
