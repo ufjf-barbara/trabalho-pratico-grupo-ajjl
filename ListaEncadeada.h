@@ -17,6 +17,8 @@ public:
     void imprimeBin();
     void importaBin(int tam);
     void imprimeTestes(vector <Artista>);
+    void NovaLista(string arq1);
+    void deletaultimo()
 
 
 private:
