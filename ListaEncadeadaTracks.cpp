@@ -38,6 +38,7 @@ void ListaEncadeadaTracks::NovaTrack(string id, string name,int popularity,int d
         primeiro=p;
         ultimo=p;
         p->setProx(NULL);
+        p->setAnt(NULL);
 
         p->setid(id);
         p->setname(name);
@@ -66,6 +67,7 @@ void ListaEncadeadaTracks::NovaTrack(string id, string name,int popularity,int d
     {
         NoT* p=new NoT();
         ultimo->setProx(p);
+        p->setAnt(ultimo);
         ultimo=p;
         p->setProx(NULL);
 
