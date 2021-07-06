@@ -201,3 +201,58 @@ void ListaEncadeada::importaBin(int tam) {
     //Apos a criacao do vetor ser terminada, chama a funcao de impressao do vetor
     imprimeTestes(vetor);
 }
+void ListaEncadeada::NovaLista(string arq1)
+{
+    ///iniciacao das variaveis relativas ao artista
+    ifstream artista;
+    string id,genres,name,popularity,followers,l;
+    int popularity_Int;
+    float followers_Float;
+
+    ///Abertura do file para a leitura
+    artista.open(arq1, ios::in | ios::out);
+
+    ///Verifica se ha problema na abertura do arquivo
+    if  (artista.fail()) {
+        cout << "> Erro na leitura de artists.csv" << endl;
+        exit(1);
+    }
+
+    ///Descarta a primeira linha que nao contem informacoes
+    getline(artista,l,'\n');
+
+    ///Loop que se repete ate que todo o arquivo tenha sido percorrido e armazena as informacoes na lista
+    while(artista.good()) {
+        getline(artista,id,',');
+
+        getline(artista ,followers,',');
+        stringstream s(followers);
+        s  >> followers_Float;   ///Transformando a string em um float
+
+        getline(artista,l,'[');
+        getline(artista,genres,']');
+        getline(artista,l,',');
+
+
+        getline(artista,name,',');
+
+        getline(artista,popularity,'\n');
+        stringstream ss(popularity);
+        ss  >> popularity_Int;   ///Transformando a string em um int
+
+        //Após leitura salva em nossa struct
+        NovoArtista(id,followers_Float,genres,name,popularity_Int);
+    }
+    ///Fechamento do file
+    artista.close();
+    deletaultimo();
+
+}
+void ListaEncadeada::deletaultimo()
+{
+    NoA *p=ultimo->getAnt();
+    delete ultimo;
+    ultimo=p;
+    ultimo->setProx(NULL);
+    n--;
+}
