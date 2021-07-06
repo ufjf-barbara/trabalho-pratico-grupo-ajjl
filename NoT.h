@@ -53,11 +53,14 @@ private:
     float tempo;
     int time_signature;
 
+    NoT *ant;
     NoT *prox;
 
 public:
     NoT();
     ~NoT();
+    NoT* getAnt()          { return ant; };
+    void setAnt(NoT *p)    { ant = p; };
     NoT* getProx()         { return prox; };
     void setProx(NoT *p)   { prox = p; };
 
