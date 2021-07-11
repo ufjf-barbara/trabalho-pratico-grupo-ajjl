@@ -59,10 +59,6 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam){
     return vetor;
 }
 
-int MetodosOrdenacao::part(vector <Artista> *vet, int inicio, int r){
-
-}
-
 void MetodosOrdenacao::mergeartista(Artista vetordeartistas[],int inicio,int metade,int fim,int metricasmerge[])
 {
 
@@ -149,6 +145,7 @@ void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim ){
             quickSort(vet, p + 1, fim);
         }
 }
+
 int MetodosOrdenacao::part(vector <Artista> *vet, int inicio, int r){
     Artista pivo = vet->at(r);
     metricasQuick[1]=metricasQuick[1]+1;
