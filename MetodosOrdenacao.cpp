@@ -95,6 +95,25 @@ void MetodosOrdenacao::mergesort(Artista vetordeartistas[],int inicio,int fim,in
         mergeartista(vetordeartistas,inicio,metade,fim,metricasmerge);
     }
 }
+void mergesortinicio(int n,int metricasmerge[])
+{
+    MetodosOrdenacao M;
+
+    vector<Artista> vetordeartistas;
+    vetordeartistas=artistasaleatorios(n);
+
+    Artista *A=new Artista[n];
+    for(int i=0;i<n;i++)
+        A[i]=vetordeartistas[i];
+
+    M.mergesort(A,0,n-1,metricasmerge);
+    for(int i=0;i<n;i++)
+    {
+        cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;
+    }
+
+    delete[] A;
+}
 
 
 
