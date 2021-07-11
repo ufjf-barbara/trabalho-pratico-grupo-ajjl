@@ -17,7 +17,7 @@ Comandos para compilar via terminal:
 
 /// Menu da parte 1 do trabalho
 /*
-void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData){ 
+void menuAntigo(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData){ 
     int opcao, tam, op;
     do{
         cout << "1 - MODULO DE TESTES" << endl;
@@ -46,7 +46,7 @@ void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData)
 }
 */
 
-void menu(){
+void menu(MetodosOrdenacao aux, string arq3, string arq4){
     int opcao;
     do{
         cout << "Executar qual etapa?" << endl;
@@ -57,24 +57,22 @@ void menu(){
         cin >> opcao;
         if (opcao == 1) {
             cout << " Executando ordenacoes" << endl;
-            ordenaQuick();
-            ordenaHeap();
-            ordenaMerge();
+            aux.ordenacoes(arq3);
             cout << " Etapa concluida, resultados salvos em saida.txt" << endl;
         }
         else if (opcao == 2) {
             cout << " Executando tabela Hash" << endl;
-            tabelaHash();
+            //FUNCAO DA TABELA HASH AQUI
             cout << " Etapa concluida" << endl;
         }
         else if (opcao == 3) {
             cout << " Executando modulo de teste" << endl;
-            moduloTeste ();
+            aux.moduloTeste(arq3, arq4);
             cout << " Etapa concluida, resultados salvos em teste.txt" << endl;
         }
         else {
             cout << " Opcao invalida" << endl;
-            menu();
+            menu(aux, arq3, arq4);
         }
     }
     while(opcao != 4);
@@ -82,25 +80,40 @@ void menu(){
 
 int main(int argc, char *argv[])
 {
-    ///Criacao das variaves para  manipulacao do .csv
+    ///Criacao das variaves para  manipulacao do .bin
     string diretorio=argv[1];
     string arq1= diretorio + "/artists.csv";
     string arq2= diretorio + "/tracks.csv";
+    string arq3= diretorio + "/artists.bin";
+    string arq4= diretorio + "/tracks.bin";
     
+    ifstream testeArt;
+    testeArt.open(arq3, ios::binary);
     
-    /// Manipulacao de Artists:
-    ListaEncadeada ArtistsData; ///Classe criada para armazenar e manipular nossa struct
-    ArtistsData.NovaLista(arq1);
-    ArtistsData.escreveBin();///Funcao para criacao e escrita do arquivo .bin
+    if  (testeArt.fail()){
+        cout << "Arquivo artists.bin nao encontrado. Gerando um novo arquivo." << endl;
+        
+        ListaEncadeada ArtistsData; ///Classe criada para armazenar e manipular nossa struct
+        ArtistsData.NovaLista(arq1);    // Cria nova lista
+        ArtistsData.escreveBin();   ///Funcao para criacao e escrita do arquivo .bin
+    }
 
-    /// =============================================
+    ifstream testeTrack;
+    testeTrack.open(arq4, ios::binary);
 
-    /// Manipulacao de Tracks onde segue de forma analoga ao Artists
-    ListaEncadeadaTracks TracksData;
-    TracksData.NovaLista(arq2);
-    TracksData.escreveBin();
+    if  (testeTrack.fail()){
+        cout << "Arquivo tracks.bin nao encontrado. Gerando um novo arquivo." << endl;
+        
+        ListaEncadeadaTracks TracksData;
+        TracksData.NovaLista(arq2);
+        TracksData.escreveBin();
+    }
 
-    menu();
+
+    //menuAntigo(ArtistsData, TracksData);
+    
+    MetodosOrdenacao aux;
+    menu(aux, arq3, arq4);
 
     return 0;
 }

@@ -77,9 +77,7 @@ void ListaEncadeada::imprimeIds()
 }
 
 //Funcao para a criacao e escrita do .bin
-void ListaEncadeada::escreveBin()
-
-{
+void ListaEncadeada::escreveBin() {
     ofstream artistasbin;
 
 

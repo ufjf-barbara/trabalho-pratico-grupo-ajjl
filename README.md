@@ -7,8 +7,8 @@
 
 
 ## Descriçao
-Etapa 1: análise de estruturas implementadas para manipulação de arquivos por meio de uma base real de dados.
-
+Trabalho 1: análise de estruturas implementadas para manipulação de arquivos por meio de uma base real de dados.
+Trabalho 2: análise de metodos de ordenacao
 
 ## Como compilar
 
