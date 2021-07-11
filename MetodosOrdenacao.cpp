@@ -39,3 +39,63 @@ int MetodosOrdenacao::part(vector <Artista> *vet, int inicio, int r){
     contadores->copiasRegistro++;
     return i+1;
 }
+void MetodosOrdenacao::mergeartista(Artista vetordeartistas[],int inicio,int metade,int fim,int metricasmerge[])
+{
+
+   int esquerda= inicio;
+   int direita = metade+1;
+   int tamanho = fim-inicio+1;
+
+   vector<Artista> temporario;
+
+   while(esquerda<=metade && direita<=fim)
+   {
+       metricasmerge[0]=metricasmerge[0]+1;//contador de comparações
+       if(vetordeartistas[esquerda].followers<=vetordeartistas[direita].followers)
+       {
+            temporario.push_back(vetordeartistas[esquerda]);
+            metricasmerge[0]=metricasmerge[0]+1; //contador de comparações
+            esquerda++;
+       }
+       else
+       {
+           metricasmerge[0]=metricasmerge[0]+1; //contador de comparações
+           temporario.push_back(vetordeartistas[direita]);
+           direita++;
+       }
+   }
+    while(esquerda<=metade)
+    {
+        metricasmerge[0]=metricasmerge[0]+1;//contador de comparações
+        temporario.push_back(vetordeartistas[esquerda]);
+        esquerda++;
+    }
+    while(direita<=fim)
+    {
+        metricasmerge[0]=metricasmerge[0]+1;//contador de comparações
+        temporario.push_back(vetordeartistas[direita]);
+        direita++;
+    }
+    int j=0;
+    for(int i=inicio;j<tamanho;i++,j++)
+    {
+        metricasmerge[1]=metricasmerge[1]+1;//contador de movimentações
+        metricasmerge[0]=metricasmerge[0]+1;//contador de comparações
+        vetordeartistas[i]=temporario[j];
+    }
+}
+
+void MetodosOrdenacao::mergesort(Artista vetordeartistas[],int inicio,int fim,int metricasmerge[])
+{
+    int metade;
+    if(inicio<fim){
+        metade=(inicio+fim)/2;
+        mergesort(vetordeartistas,inicio,metade,metricasmerge);
+        mergesort(vetordeartistas,metade+1,fim,metricasmerge);
+        mergeartista(vetordeartistas,inicio,metade,fim,metricasmerge);
+    }
+}
+
+
+
+
