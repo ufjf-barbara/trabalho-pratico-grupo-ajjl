@@ -39,6 +39,61 @@ int MetodosOrdenacao::part(vector <Artista> *vet, int inicio, int r){
     contadores->copiasRegistro++;
     return i+1;
 }
+bool verificaArtista (vector<Artista> vetor, Artista aux){
+
+    for (int i=0; i<vetor.size(); i++){
+        if (vetor[i].id == aux.id)
+            return true;
+    }
+    return false;
+}
+
+vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam){
+    //Vetor que recebera .bin
+    vector<Artista> vetor;
+
+    ifstream artBin;
+    artBin.open("artists.bin",ios::binary);
+
+    if  (artBin.fail()){
+        cout << "erro na leitura do .bin" << endl;
+        exit(1);
+    }
+
+    //Calcula numero de linhas do .bin
+    artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
+    int length = artBin.tellg(); //Salva valor da posicao
+
+    length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
+
+    artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
+
+    for(int i=0;i<tam;i++) {
+        Artista aleatoria;
+        //Gera posicao aleatoria e posiciona o ponteiro em .bin
+
+        int aleat = (rand()%length)*sizeof(Artista);
+        artBin.seekg(aleat);
+
+        //Le conteudo da linha em .bin
+        artBin.read((char *) &(aleatoria),sizeof(Artista));
+
+        //Verificacao se existe repeticao de id com o vetor
+        if(verificaArtista(vetor, aleatoria))
+            i--; //Caso seja repetido, o for é executado novamente no meosm valor de i
+        else
+            vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
+    }
+
+    artBin.close(); //Fecha .bin
+
+    return vetor;
+}
+
+int MetodosOrdenacao::part(vector <Artista> *vet, int inicio, int r){
+
+}
+
 void MetodosOrdenacao::mergeartista(Artista vetordeartistas[],int inicio,int metade,int fim,int metricasmerge[])
 {
 
@@ -97,47 +152,6 @@ void MetodosOrdenacao::mergesort(Artista vetordeartistas[],int inicio,int fim,in
 }
 
 
-vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam){
-    //Vetor que recebera .bin
-    vector<Artista> vetor;
-
-    ifstream artBin;
-    artBin.open("artists.bin",ios::binary);
-
-    if  (artBin.fail()){
-        cout << "erro na leitura do .bin" << endl;
-        exit(1);
-    }
-
-    //Calcula numero de linhas do .bin
-    artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
-    int length = artBin.tellg(); //Salva valor da posicao
-
-    length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
-
-    artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
-
-    for(int i=0;i<tam;i++) {
-        Artista aleatoria;
-        //Gera posicao aleatoria e posiciona o ponteiro em .bin
-
-        int aleat = (rand()%length)*sizeof(Artista);
-        artBin.seekg(aleat);
-
-        //Le conteudo da linha em .bin
-        artBin.read((char *) &(aleatoria),sizeof(Artista));
-
-        //Verificacao se existe repeticao de id com o vetor
-        if(verificaArtista(vetor, aleatoria))
-            i--; //Caso seja repetido, o for é executado novamente no meosm valor de i
-        else
-            vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
-    }
-
-    artBin.close(); //Fecha .bin
-
-    return vetor;
-}
 void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[])
 {
 
@@ -149,12 +163,13 @@ void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[])
         A[i]=vetordeartistas[i];
 
     mergesort(A,0,n-1,metricasmerge);
-    //for(int i=0;i<n;i++)
-    //
-    //    cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;
-    //}
+    for(int i=0;i<n;i++)
+    {
+        cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;
+    }
 
     delete[] A;
 }
+
 
 
