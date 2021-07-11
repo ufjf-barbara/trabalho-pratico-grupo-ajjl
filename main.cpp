@@ -42,9 +42,10 @@ void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData)
     while(opcao != 2);
 }
 
-bool verificaTrack (vector<Tracks> vetor, Tracks aux) {
+bool verificaArtist (vector<Artista> vetor, Artista aux){
+
     for (int i=0; i<vetor.size(); i++){
-        if (vetor[i].name == aux.name)
+        if (vetor[i].id == aux.id)
             return true;
     }
     return false;
