@@ -93,11 +93,53 @@ void MetodosOrdenacao::mergesort(Artista vetordeartistas[],int inicio,int fim,in
         mergesort(vetordeartistas,inicio,metade,metricasmerge);
         mergesort(vetordeartistas,metade+1,fim,metricasmerge);
         mergeartista(vetordeartistas,inicio,metade,fim,metricasmerge);
-    }
+  }
 }
-void mergesortinicio(int n,int metricasmerge[])
+
+
+vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam){
+    //Vetor que recebera .bin
+    vector<Artista> vetor;
+
+    ifstream artBin;
+    artBin.open("artists.bin",ios::binary);
+
+    if  (artBin.fail()){
+        cout << "erro na leitura do .bin" << endl;
+        exit(1);
+    }
+
+    //Calcula numero de linhas do .bin
+    artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
+    int length = artBin.tellg(); //Salva valor da posicao
+
+    length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
+
+    artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
+
+    for(int i=0;i<tam;i++) {
+        Artista aleatoria;
+        //Gera posicao aleatoria e posiciona o ponteiro em .bin
+
+        int aleat = (rand()%length)*sizeof(Artista);
+        artBin.seekg(aleat);
+
+        //Le conteudo da linha em .bin
+        artBin.read((char *) &(aleatoria),sizeof(Artista));
+
+        //Verificacao se existe repeticao de id com o vetor
+        if(verificaArtista(vetor, aleatoria))
+            i--; //Caso seja repetido, o for é executado novamente no meosm valor de i
+        else
+            vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
+    }
+
+    artBin.close(); //Fecha .bin
+
+    return vetor;
+}
+void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[])
 {
-    MetodosOrdenacao M;
 
     vector<Artista> vetordeartistas;
     vetordeartistas=artistasaleatorios(n);
@@ -106,15 +148,13 @@ void mergesortinicio(int n,int metricasmerge[])
     for(int i=0;i<n;i++)
         A[i]=vetordeartistas[i];
 
-    M.mergesort(A,0,n-1,metricasmerge);
-    for(int i=0;i<n;i++)
-    {
-        cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;
-    }
+    mergesort(A,0,n-1,metricasmerge);
+    //for(int i=0;i<n;i++)
+    //
+    //    cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;
+    //}
 
     delete[] A;
 }
-
-
 
 
