@@ -317,3 +317,4 @@ void MetodosOrdenacao::escreveTesteOrd(string arq3) {
     arq << "Movimentos:" << MetricasTeste[1] << endl;
     arq << "Tempo:" << MetricasTeste[2] << endl;
 }
+// -> criar um escreve resultados da tabela hash
