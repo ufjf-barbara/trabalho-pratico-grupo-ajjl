@@ -4,9 +4,23 @@
 
 using namespace std;
 
-MetodosOrdenacao::MetodosOrdenacao(){}
+MetodosOrdenacao::MetodosOrdenacao(){
+    contadores = new Contadores();
 
-MetodosOrdenacao::~MetodosOrdenacao(){}
+}
+
+MetodosOrdenacao::~MetodosOrdenacao(){
+
+    delete contadores;
+}
+
+//Imprime as metricas no terminal
+void MetodosOrdenacao::testeContadores(){
+    cout << "Contador Comparacoes " << contadores->comparacoes<< endl;
+    cout << "Contador Copias " << contadores->movimentos<< endl;
+    contadores->tempo = clock() - contadores->tempo;
+    cout << "Tempo Gasto " << (float)contadores->tempo / (CLOCKS_PER_SEC) << endl;
+}
 
 bool verificaArtista (vector<Artista> vetor, Artista aux){
 
@@ -18,8 +32,7 @@ bool verificaArtista (vector<Artista> vetor, Artista aux){
 }
 
 vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam){
-    //Vetor que recebera .bin
-    vector<Artista> vetor;
+    vector<Artista> vetor; //Vetor que recebera .bin
 
     ifstream artBin;
     artBin.open("artists.bin",ios::binary);
@@ -39,17 +52,15 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam){
 
     for(int i=0;i<tam;i++) {
         Artista aleatoria;
-        //Gera posicao aleatoria e posiciona o ponteiro em .bin
+        
+        int aleat = (rand()%length)*sizeof(Artista); //Gera posicao aleatoria
+        artBin.seekg(aleat); // Posiciona o ponteiro em .bin
 
-        int aleat = (rand()%length)*sizeof(Artista);
-        artBin.seekg(aleat);
+        artBin.read((char *) &(aleatoria),sizeof(Artista)); //Le conteudo da linha em .bin
 
-        //Le conteudo da linha em .bin
-        artBin.read((char *) &(aleatoria),sizeof(Artista));
-
-        //Verificacao se existe repeticao de id com o vetor
-        if(verificaArtista(vetor, aleatoria))
-            i--; //Caso seja repetido, o for é executado novamente no meosm valor de i
+        
+        if(verificaArtista(vetor, aleatoria)) //Verificacao se existe repeticao de id com o vetor
+            i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
         else
             vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
     }
