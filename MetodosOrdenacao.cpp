@@ -47,6 +47,12 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam) {
 
     return vetor;
 }
+void MetodosOrdenacao::zerarmetricas(int metrica[])
+{
+    metrica[0]=0;
+    metrica[1]=0;
+    metrica[2]=0;
+}
 bool verificaArtista (vector<Artista> vetor, Artista aux) {
     for (int i=0; i<vetor.size(); i++){
         if (vetor[i].id == aux.id)
