@@ -22,11 +22,12 @@ class MetodosOrdenacao
         void ordenaQuick();
         void ordenaHeap();
         void ordenaMerge();
-
+        void BlocoMerge();
     private:
         int part(vector <Artista> *vet, int inicio, int r);
         void heapify(vector <Artista> *vet, int n, int i);
         bool verificaArtista (vector<Artista> vetor, Artista aux);
+        int valores[5];
        
 };  
 
