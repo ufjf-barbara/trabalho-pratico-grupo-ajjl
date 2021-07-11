@@ -64,15 +64,15 @@ void MetodosOrdenacao::ordenaQuick() {
 }
 
 void MetodosOrdenacao::ordenaMerge() {
-    // pega tam de input
+    BlocoMerge();
 
-    // chama Merge
+    
 }
 
 void MetodosOrdenacao::ordenaHeap() {
-    // pega tam de input
+    BlocoHeap();
 
-    // chama Heap
+    
 }
 
 void MetodosOrdenacao::ModuloTeste() {
@@ -251,19 +251,15 @@ void MetodosOrdenacao::testedeinput()
 }
 
 // Contadores
-void MetodosOrdenacao::zerarmetricas(int metrica[])
-{
+void MetodosOrdenacao::zerarmetricas(int metrica[]) {
     metrica[0]=0;
     metrica[1]=0;
     metrica[2]=0;
 }
-void MetodosOrdenacao::BlocoMerge()
-{
+void MetodosOrdenacao::BlocoMerge() {
     int MetricasMerge[3][5][3];
-    for (int k=0;k<3;k++)
-    {
-        for(int j=0;j<5;j++)
-        {
+    for (int k=0;k<3;k++) {
+        for(int j=0;j<5;j++) {
             int metricas[3];
             zerarmetricas(metricas);
             mergesortinicio(valores[j],metricas);
@@ -273,22 +269,31 @@ void MetodosOrdenacao::BlocoMerge()
         }
     } 
 }
-
-void MetodosOrdenacao::BlocoQuick()
-{   
-
+void MetodosOrdenacao::BlocoQuick() {   
     int MetricasQuick[3][5][3];
-    for (int k=0;k<3;k++)
-    {
-        for(int j=0;j<5;j++)
-        {
+    for (int k=0;k<3;k++) {
+        for(int j=0;j<5;j++) {
             int metricas[3];
             zerarmetricas(metricas);
             vector<Artista> vetor = artistasaleatorios(valores[j]);
-            quickSort(vetor, 0, valores[j-1], metricas);
+            quickSort(&vetor, 0, valores[j-1], metricas);
             MetricasQuick[k][j][0]=metricas[0];
             MetricasQuick[k][j][1]=metricas[1];
             MetricasQuick[k][j][2]=metricas[2];
+        }
+    } 
+}
+void MetodosOrdenacao::BlocoHeap() {   
+    int MetricasHeap[3][5][3];
+    for (int k=0;k<3;k++) {
+        for(int j=0;j<5;j++) {
+            int metricas[3];
+            zerarmetricas(metricas);
+            vector<Artista> vetor = artistasaleatorios(valores[j]);
+            heapSort(&vetor, valores[j], metricas);
+            MetricasHeap[k][j][0]=metricas[0];
+            MetricasHeap[k][j][1]=metricas[1];
+            MetricasHeap[k][j][2]=metricas[2];
         }
     } 
 }

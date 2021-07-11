@@ -30,6 +30,7 @@ class MetodosOrdenacao
         int valores[5];
         void BlocoMerge();
         void BlocoQuick();
+        void BlocoHeap();
         void zerarmetricas(int metrica[]);
         int MetricasMerge[3][5][3];
 };  
