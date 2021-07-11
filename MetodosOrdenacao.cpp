@@ -145,6 +145,7 @@ void MetodosOrdenacao::mergesort(Artista vetordeartistas[],int inicio,int fim,in
     int metade;
     if(inicio<fim){
         metade=(inicio+fim)/2;
+        
         mergesort(vetordeartistas,inicio,metade,metricasmerge);
         mergesort(vetordeartistas,metade+1,fim,metricasmerge);
         mergeartista(vetordeartistas,inicio,metade,fim,metricasmerge);
@@ -160,12 +161,12 @@ void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[])
 
     Artista *A=new Artista[n];
     for(int i=0;i<n;i++)
-        A[i]=vetordeartistas[i];
+        A[i]=vetordeartistas[i];    /// tranforma um vector em um array
 
     mergesort(A,0,n-1,metricasmerge);
     //for(int i=0;i<n;i++)
     //{
-    //    cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;
+    //    cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;       ///imprime o array depois da ordenação
     //}
 
     delete[] A;
