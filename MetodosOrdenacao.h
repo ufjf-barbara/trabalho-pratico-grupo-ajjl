@@ -18,6 +18,7 @@ class MetodosOrdenacao
         void mergesort(Artista vetordeartistas[],int inicio,int fim,int metricasmerge[]);
         void quickSort(vector <Artista> *vet, int inicio, int fim );
         void heapSort(vector <Artista> *vet, int n);
+        void testedeinput(int valores[]);
 
     private:
         int part(vector <Artista> *vet, int inicio, int r);
