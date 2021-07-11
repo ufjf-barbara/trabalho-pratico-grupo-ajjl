@@ -23,6 +23,7 @@ class MetodosOrdenacao
         void ordenaHeap();
         void ordenaMerge();
         void BlocoMerge();
+        void zerarmetricas(int metrica[]);
     private:
         int part(vector <Artista> *vet, int inicio, int r, int metricasQuick[][][]);
         void heapify(vector <Artista> *vet, int n, int i, int metricasHeap[][][]);
