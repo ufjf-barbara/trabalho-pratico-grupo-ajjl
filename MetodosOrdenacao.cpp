@@ -1,26 +1,13 @@
 #include <vector>
+
 #include "MetodosOrdenacao.h"
 #include "NoA.h"
 
 using namespace std;
 
-MetodosOrdenacao::MetodosOrdenacao(){
-    contadores = new Contadores();
+MetodosOrdenacao::MetodosOrdenacao() {}
 
-}
-
-MetodosOrdenacao::~MetodosOrdenacao(){
-
-    delete contadores;
-}
-
-//Imprime as metricas no terminal
-void MetodosOrdenacao::testeContadores(){
-    cout << "Contador Comparacoes " << contadores->comparacoes<< endl;
-    cout << "Contador Copias " << contadores->movimentos<< endl;
-    contadores->tempo = clock() - contadores->tempo;
-    cout << "Tempo Gasto " << (float)contadores->tempo / (CLOCKS_PER_SEC) << endl;
-}
+MetodosOrdenacao::~MetodosOrdenacao() {}
 
 bool verificaArtista (vector<Artista> vetor, Artista aux){
 
