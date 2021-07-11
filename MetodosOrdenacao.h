@@ -22,14 +22,15 @@ class MetodosOrdenacao
         void ordenaQuick();
         void ordenaHeap();
         void ordenaMerge();
-        void BlocoMerge();
-        void zerarmetricas(int metrica[]);
+        
     private:
         int part(vector <Artista> *vet, int inicio, int r, int metricasQuick[]);
         void heapify(vector <Artista> *vet, int n, int i, int metricasHeap[]);
         bool verificaArtista (vector<Artista> vetor, Artista aux);
         int valores[5];
-       
+        void BlocoMerge();
+        void BlocoQuick();
+        void zerarmetricas(int metrica[]);
 };  
 
 #endif // METODOSORDENACAO_H

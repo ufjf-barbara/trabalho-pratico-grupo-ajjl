@@ -58,7 +58,7 @@ bool verificaArtista (vector<Artista> vetor, Artista aux) {
 
 // Menu para ordenacoes
 void MetodosOrdenacao::ordenaQuick() {
-    // pega tam de input
+    BlocoQuick();
 
     // chama quick
 }
@@ -259,7 +259,6 @@ void MetodosOrdenacao::zerarmetricas(int metrica[])
 }
 void MetodosOrdenacao::BlocoMerge()
 {
-    
     int MetricasMerge[3][5][3];
     for (int k=0;k<3;k++)
     {
@@ -273,6 +272,24 @@ void MetodosOrdenacao::BlocoMerge()
             MetricasMerge[k][j][2]=metricas[2];
         }
     } 
-    
+}
+
+void MetodosOrdenacao::BlocoQuick()
+{   
+
+    int MetricasQuick[3][5][3];
+    for (int k=0;k<3;k++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            int metricas[3];
+            zerarmetricas(metricas);
+            vector<Artista> vetor = artistasaleatorios(valores[j]);
+            quickSort(vetor, 0, valores[j-1], metricas);
+            MetricasQuick[k][j][0]=metricas[0];
+            MetricasQuick[k][j][1]=metricas[1];
+            MetricasQuick[k][j][2]=metricas[2];
+        }
+    } 
 }
 
