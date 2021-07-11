@@ -163,10 +163,10 @@ void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[])
         A[i]=vetordeartistas[i];
 
     mergesort(A,0,n-1,metricasmerge);
-    for(int i=0;i<n;i++)
-    {
-        cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;
-    }
+    //for(int i=0;i<n;i++)
+    //{
+    //    cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;
+    //}
 
     delete[] A;
 }
