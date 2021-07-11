@@ -257,8 +257,8 @@ void MetodosOrdenacao::BlocoMerge()
         for(int j=0;j<5;j++)
         {
             int metricas[3];
-            M.zerarmetricas(metricas);
-            M.mergesortinicio(valores[j],metricas);
+            zerarmetricas(metricas);
+            mergesortinicio(valores[j],metricas);
             MetricasMerge[k][j][0]=metricas[0];
             MetricasMerge[k][j][1]=metricas[1];
             MetricasMerge[k][j][2]=metricas[2];
