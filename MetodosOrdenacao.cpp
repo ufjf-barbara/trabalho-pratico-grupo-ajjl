@@ -266,21 +266,4 @@ void MetodosOrdenacao::BlocoMerge()
     } 
     
 }
-void MetodosOrdenacao::BlocoMerge()
-{
-    
-    int MetricasMerge[3][5][3];
-    for (int k=0;k<3;k++)
-    {
-        for(int j=0;j<5;j++)
-        {
-            int metricas[3];
-            zerarmetricas(metricas);
-            mergesortinicio(valores[j],metricas);
-            MetricasMerge[k][j][0]=metricas[0];
-            MetricasMerge[k][j][1]=metricas[1];
-            MetricasMerge[k][j][2]=metricas[2];
-        }
-    } 
-    
-}
+
