@@ -47,12 +47,6 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam) {
 
     return vetor;
 }
-void MetodosOrdenacao::zerarmetricas(int metrica[])
-{
-    metrica[0]=0;
-    metrica[1]=0;
-    metrica[2]=0;
-}
 bool verificaArtista (vector<Artista> vetor, Artista aux) {
     for (int i=0; i<vetor.size(); i++){
         if (vetor[i].id == aux.id)
@@ -60,6 +54,7 @@ bool verificaArtista (vector<Artista> vetor, Artista aux) {
     }
     return false;
 }
+
 
 // Menu para ordenacoes
 void MetodosOrdenacao::ordenaQuick() {
@@ -253,6 +248,14 @@ void MetodosOrdenacao::testedeinput()
         inputexiste.open("input.dat");
     }
     inputexiste >>valores[0]>>valores[1]>>valores[2]>>valores[3]>>valores[4];
+}
+
+// Contadores
+void MetodosOrdenacao::zerarmetricas(int metrica[])
+{
+    metrica[0]=0;
+    metrica[1]=0;
+    metrica[2]=0;
 }
 void MetodosOrdenacao::BlocoMerge()
 {
