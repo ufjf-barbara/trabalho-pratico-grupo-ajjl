@@ -191,7 +191,7 @@ void ListaEncadeada::importaBin(int tam) {
         
         //Verificacao se existe repeticao de id com o vetor
         if(verifica(vetor, aleatoria))
-            i--; //Caso seja repetido, o for é executado novamente no meosm valor de i
+            i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
         else
             vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
     }
@@ -201,6 +201,7 @@ void ListaEncadeada::importaBin(int tam) {
     //Apos a criacao do vetor ser terminada, chama a funcao de impressao do vetor
     imprimeTestes(vetor);
 }
+
 void ListaEncadeada::NovaLista(string arq1)
 {
     ///iniciacao das variaveis relativas ao artista
