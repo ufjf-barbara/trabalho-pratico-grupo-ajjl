@@ -19,6 +19,9 @@ class MetodosOrdenacao
         void quickSort(vector <Artista> *vet, int inicio, int fim );
         void heapSort(vector <Artista> *vet, int n);
         void testedeinput(int valores[]);
+        void ordenaQuick();
+        void ordenaHeap();
+        void ordenaMerge();
 
     private:
         int part(vector <Artista> *vet, int inicio, int r);

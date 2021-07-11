@@ -9,16 +9,8 @@ MetodosOrdenacao::MetodosOrdenacao() {}
 
 MetodosOrdenacao::~MetodosOrdenacao() {}
 
-bool verificaArtista (vector<Artista> vetor, Artista aux){
-
-    for (int i=0; i<vetor.size(); i++){
-        if (vetor[i].id == aux.id)
-            return true;
-    }
-    return false;
-}
-
-vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam){
+// Seleciona N artista aleatorios
+vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam) {
     vector<Artista> vetor; //Vetor que recebera .bin
 
     ifstream artBin;
@@ -56,9 +48,36 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam){
 
     return vetor;
 }
+bool verificaArtista (vector<Artista> vetor, Artista aux) {
+    for (int i=0; i<vetor.size(); i++){
+        if (vetor[i].id == aux.id)
+            return true;
+    }
+    return false;
+}
 
-void MetodosOrdenacao::mergeartista(Artista vetordeartistas[],int inicio,int metade,int fim,int metricasmerge[])
-{
+// Menu para ordenacoes
+void MetodosOrdenacao::ordenaQuick() {
+    // pega tam de input
+
+    // chama quick
+}
+
+void MetodosOrdenacao::ordenaMerge() {
+    // pega tam de input
+
+    // chama Merge
+}
+
+void MetodosOrdenacao::ordenaHeap() {
+    // pega tam de input
+
+    // chama Heap
+}
+
+
+// Metodos de Ordenacao
+void MetodosOrdenacao::mergeartista(Artista vetordeartistas[],int inicio,int metade,int fim,int metricasmerge[]) {
 
    int esquerda= inicio;
    int direita = metade+1;
@@ -102,7 +121,6 @@ void MetodosOrdenacao::mergeartista(Artista vetordeartistas[],int inicio,int met
         vetordeartistas[i]=temporario[j];
     }
 }
-
 void MetodosOrdenacao::mergesort(Artista vetordeartistas[],int inicio,int fim,int metricasmerge[])
 {
     int metade;
@@ -114,8 +132,6 @@ void MetodosOrdenacao::mergesort(Artista vetordeartistas[],int inicio,int fim,in
         mergeartista(vetordeartistas,inicio,metade,fim,metricasmerge);
   }
 }
-
-
 void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[])
 {
 
@@ -135,7 +151,6 @@ void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[])
     delete[] A;
 }
 
-
 void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim ){
         if(inicio < fim){
             int p = part(vet, inicio, fim);
@@ -143,7 +158,6 @@ void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim ){
             quickSort(vet, p + 1, fim);
         }
 }
-
 int MetodosOrdenacao::part(vector <Artista> *vet, int inicio, int r){
     Artista pivo = vet->at(r);
     metricasQuick[1]=metricasQuick[1]+1;
@@ -180,7 +194,6 @@ void MetodosOrdenacao::heapSort(vector <Artista> *vet, int n) {
         heapify(vet, i, 0); // Chama max heapify
     }
 }
-
 void MetodosOrdenacao::heapify(vector <Artista> *vet, int n, int i) {
     int maior = i; // Inicializa maior elemento como raiz
     int esq = 2 * i + 1; // filho esquerdo = 2*i + 1
@@ -204,6 +217,7 @@ void MetodosOrdenacao::heapify(vector <Artista> *vet, int n, int i) {
         heapify(vet, n, maior); // Chama heapify para a sub-árvore correspondente.
     }
 }
+
 void MetodosOrdenacao::testedeinput(int valores[])
 {
     ifstream inputexiste;
