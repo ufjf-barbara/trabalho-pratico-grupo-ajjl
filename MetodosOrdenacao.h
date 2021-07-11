@@ -31,6 +31,7 @@ class MetodosOrdenacao
         void BlocoMerge();
         void BlocoQuick();
         void zerarmetricas(int metrica[]);
+        int MetricasMerge[3][5][3];
 };  
 
 #endif // METODOSORDENACAO_H
