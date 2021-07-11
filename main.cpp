@@ -2,6 +2,8 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <vector>
+#include "MetodosOrdenacao.h"       // funcoes de ordenacao
 #include "ListaEncadeada.h"         // estrutura de dados que armazena as informacoes dos artistas
 #include "ListaEncadeadaTracks.h"   // estrutura de dados que armazena as informacoes das tracks
 
@@ -13,7 +15,8 @@ Comandos para compilar via terminal:
     ./main SEU/DIRETORIO/trabalho-pratico-grupo-ajjl
 */
 
-/// Esta é a função que utilizaremos para o menu de opcoes do console
+/// Menu da parte 1 do trabalho
+/*
 void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData){ 
     int opcao, tam, op;
     do{
@@ -41,58 +44,41 @@ void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData)
     }
     while(opcao != 2);
 }
+*/
 
-bool verificaArtist (vector<Artista> vetor, Artista aux){
-
-    for (int i=0; i<vetor.size(); i++){
-        if (vetor[i].id == aux.id)
-            return true;
+void menu(){
+    int opcao;
+    do{
+        cout << "Executar qual etapa?" << endl;
+        cout << " 1 - Ordenacao" << endl;
+        cout << " 2 - Hash" << endl;
+        cout << " 3 - Modulo de Teste" << endl;
+        cout << " 4 - Sair" << endl;
+        cin >> opcao;
+        if (opcao == 1) {
+            cout << " Executando ordenacoes" << endl;
+            ordenaQuick();
+            ordenaHeap();
+            ordenaMerge();
+            cout << " Etapa concluida, resultados salvos em saida.txt" << endl;
+        }
+        else if (opcao == 2) {
+            cout << " Executando tabela Hash" << endl;
+            tabelaHash();
+            cout << " Etapa concluida" << endl;
+        }
+        else if (opcao == 3) {
+            cout << " Executando modulo de teste" << endl;
+            moduloTeste ();
+            cout << " Etapa concluida, resultados salvos em teste.txt" << endl;
+        }
+        else {
+            cout << " Opcao invalida" << endl;
+            menu();
+        }
     }
-    return false;
+    while(opcao != 4);
 }
-
-vector<Artista> artistasaleatorios(int tam){
-    //Vetor que recebera .bin
-    vector<Artista> vetor;
-
-    ifstream artBin;
-    artBin.open("artists.bin",ios::binary);
-
-    if  (artBin.fail()){
-        cout << "erro na leitura do .bin" << endl;
-        exit(1);
-    }
-
-    //Calcula numero de linhas do .bin
-    artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
-    int length = artBin.tellg(); //Salva valor da posicao
-
-    length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
-
-    artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
-
-    for(int i=0;i<tam;i++) {
-        Artista aleatoria;
-        //Gera posicao aleatoria e posiciona o ponteiro em .bin
-
-        int aleat = (rand()%length)*sizeof(Artista);
-        artBin.seekg(aleat);
-
-        //Le conteudo da linha em .bin
-        artBin.read((char *) &(aleatoria),sizeof(Artista));
-
-        //Verificacao se existe repeticao de id com o vetor
-        if(verificaArtist(vetor, aleatoria))
-            i--; //Caso seja repetido, o for é executado novamente no meosm valor de i
-        else
-            vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
-    }
-
-    artBin.close(); //Fecha .bin
-
-    return vetor;  // retorna o vetor com os artistas aleatorios 
-}
-
 
 int main(int argc, char *argv[])
 {
@@ -103,30 +89,18 @@ int main(int argc, char *argv[])
     
     
     /// Manipulacao de Artists:
-
-
     ListaEncadeada ArtistsData; ///Classe criada para armazenar e manipular nossa struct
     ArtistsData.NovaLista(arq1);
     ArtistsData.escreveBin();///Funcao para criacao e escrita do arquivo .bin
 
-
-    //ArtistsData.imprimeIds();  ///Funcao para teste onde imprime todo o conteudo da lista
-    //ArtistsData.imprimeBin(); ///Funcao para teste onde imprime todo o conteudo de .bin
-
     /// =============================================
 
     /// Manipulacao de Tracks onde segue de forma analoga ao Artists
-
-
     ListaEncadeadaTracks TracksData;
     TracksData.NovaLista(arq2);
     TracksData.escreveBin();
 
-
-    //TracksData.imprimeBin(); ///Funcao para teste onde imprime todo o conteudo de .bin
-    //TracksData.imprimeIds(); /// ///Funcao para teste onde imprime todo o conteudo da lista
-
-    moduloDeTestes(ArtistsData, TracksData);
+    menu();
 
     return 0;
 }
