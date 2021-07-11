@@ -204,6 +204,27 @@ void MetodosOrdenacao::heapify(vector <Artista> *vet, int n, int i) {
         heapify(vet, n, maior); // Chama heapify para a sub-árvore correspondente.
     }
 }
-
+void MetodosOrdenacao::testedeinput(int valores[])
+{
+    ifstream inputexiste;
+    inputexiste.open("input.dat");
+    if(!inputexiste)
+    {
+        inputexiste.close();
+        ofstream output;
+        output.open("input.dat");
+        int informacao[5];
+        informacao[0]=10000;
+        informacao[1]=50000;
+        informacao[2]=100000;
+        informacao[3]=500000;
+        informacao[4]=800000;
+        for(int i=0;i<5;i++)
+            output<<informacao[i]<<'\n';
+        output.close();
+        inputexiste.open("input.dat");
+    }
+    inputexiste >>valores[0]>>valores[1]>>valores[2]>>valores[3]>>valores[4];
+}
 
 
