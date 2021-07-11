@@ -1,5 +1,4 @@
 #include <vector>
-
 #include "MetodosOrdenacao.h"
 #include "NoA.h"
 
@@ -75,6 +74,15 @@ void MetodosOrdenacao::ordenaHeap() {
     // chama Heap
 }
 
+void MetodosOrdenacao::ModuloTeste() {
+    vector<Artista> teste = artistasaleatorios(100);
+    quickSort(&teste, 0, 99, metricasQuick);
+    escreveTeste(metricasQuick);
+    mergesortinicio(100, metricasmerge);
+    escreveTeste(metricasmerge);
+    heapSort(&teste, 100, metricasHeap);
+    escreveTeste(metricasHeap);
+}
 
 // Metodos de Ordenacao
 void MetodosOrdenacao::mergeartista(Artista vetordeartistas[],int inicio,int metade,int fim,int metricasmerge[]) {
@@ -151,14 +159,14 @@ void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[])
     delete[] A;
 }
 
-void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim ){
+void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim, int metricasQuick[] ){
         if(inicio < fim){
             int p = part(vet, inicio, fim);
             quickSort(vet, inicio, p - 1);
             quickSort(vet, p + 1, fim);
         }
 }
-int MetodosOrdenacao::part(vector <Artista> *vet, int inicio, int r){
+int MetodosOrdenacao::part(vector <Artista> *vet, int inicio, int r, int metricasQuick[]){
     Artista pivo = vet->at(r);
     metricasQuick[1]=metricasQuick[1]+1;
     int i = inicio-1;
@@ -179,7 +187,7 @@ int MetodosOrdenacao::part(vector <Artista> *vet, int inicio, int r){
     return i+1;
 }
 
-void MetodosOrdenacao::heapSort(vector <Artista> *vet, int n) {
+void MetodosOrdenacao::heapSort(vector <Artista> *vet, int n, int metricasHeap[]) {
     for (int i = n / 2 -1; i >= 0; i--) // Constroi a heap (rearranja o array)
         heapify(vet, n, i);
     
@@ -194,7 +202,7 @@ void MetodosOrdenacao::heapSort(vector <Artista> *vet, int n) {
         heapify(vet, i, 0); // Chama max heapify
     }
 }
-void MetodosOrdenacao::heapify(vector <Artista> *vet, int n, int i) {
+void MetodosOrdenacao::heapify(vector <Artista> *vet, int n, int i, int metricasHeap[]) {
     int maior = i; // Inicializa maior elemento como raiz
     int esq = 2 * i + 1; // filho esquerdo = 2*i + 1
     int dir = 2 * i + 2; // filho direito = 2*i + 2
