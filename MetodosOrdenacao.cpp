@@ -274,9 +274,7 @@ void MetodosOrdenacao::BlocoMerge()
     } 
 }
 
-void MetodosOrdenacao::BlocoQuick()
-{   
-
+void MetodosOrdenacao::BlocoQuick() {   
     int MetricasQuick[3][5][3];
     for (int k=0;k<3;k++)
     {
@@ -285,10 +283,27 @@ void MetodosOrdenacao::BlocoQuick()
             int metricas[3];
             zerarmetricas(metricas);
             vector<Artista> vetor = artistasaleatorios(valores[j]);
-            quickSort(vetor, 0, valores[j-1], metricas);
+            quickSort(&vetor, 0, valores[j-1], metricas);
             MetricasQuick[k][j][0]=metricas[0];
             MetricasQuick[k][j][1]=metricas[1];
             MetricasQuick[k][j][2]=metricas[2];
+        }
+    } 
+}
+
+void MetodosOrdenacao::BlocoHeap() {   
+    int MetricasHeap[3][5][3];
+    for (int k=0;k<3;k++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            int metricas[3];
+            zerarmetricas(metricas);
+            vector<Artista> vetor = artistasaleatorios(valores[j]);
+            heapSort(&vetor, 0, valores[j-1], metricas);
+            MetricasHeap[k][j][0]=metricas[0];
+            MetricasHeap[k][j][1]=metricas[1];
+            MetricasHeap[k][j][2]=metricas[2];
         }
     } 
 }
