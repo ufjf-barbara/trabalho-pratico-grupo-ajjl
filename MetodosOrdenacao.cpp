@@ -218,7 +218,7 @@ void MetodosOrdenacao::heapify(vector <Artista> *vet, int n, int i) {
     }
 }
 
-void MetodosOrdenacao::testedeinput(int valores[])
+void MetodosOrdenacao::testedeinput()
 {
     ifstream inputexiste;
     inputexiste.open("input.dat");
