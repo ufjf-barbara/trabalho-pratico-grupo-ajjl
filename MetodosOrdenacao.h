@@ -40,7 +40,7 @@ class MetodosOrdenacao
         void BlocoQuick(int opc, string arq3);
         void BlocoHeap(int opc, string arq3);
         void zerarmetricas(int metrica[]);
-
+        void imprimeBloco();
         
         
 };  

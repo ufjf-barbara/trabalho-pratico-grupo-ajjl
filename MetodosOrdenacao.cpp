@@ -65,6 +65,7 @@ void MetodosOrdenacao::ordenacoes(string arq3) {
     BlocoMerge(1, arq3);
     BlocoQuick(1, arq3);
     BlocoHeap(1, arq3);
+    imprimeBloco();
 
 }
 
