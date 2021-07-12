@@ -18,8 +18,8 @@ public:
     void imprimeIds(); 
     void escreveBin();
     void imprimeTestes(vector <Tracks>);
-    void imprimeBin(); 
-    vector<Tracks> importaBin(int tam);
+    void importaBin(int tam);
+    void imprimeBin();
     void NovaLista(string arq2);
     void deletaultimo();
     

@@ -257,7 +257,7 @@ bool verifica (vector<Tracks> vetor, Tracks aux) {
 }
 
 //Funcao para importar de arquivo binario para vetor
-vector<Tracks> ListaEncadeadaTracks::importaBin(int tam) {
+void ListaEncadeadaTracks::importaBin(int tam) {
 
     ifstream trackBin;
     trackBin.open("tracks.bin",ios::binary);
@@ -295,7 +295,6 @@ vector<Tracks> ListaEncadeadaTracks::importaBin(int tam) {
 
     //Apos a criacao do vetor ser terminada, chama a funcao de impressao do vetor
     imprimeTestes(vetor);
-    return vetor;
 }
 void ListaEncadeadaTracks::NovaLista(string arq2)
 {
