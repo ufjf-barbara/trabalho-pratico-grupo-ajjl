@@ -70,10 +70,6 @@ void menu(MetodosOrdenacao aux, string arq3, string arq4){
             aux.moduloTeste(arq3, arq4);
             cout << " Etapa concluida, resultados salvos em teste.txt" << endl;
         }
-        else {
-            cout << " Opcao invalida" << endl;
-            menu(aux, arq3, arq4);
-        }
     }
     while(opcao != 4);
 }
@@ -97,6 +93,7 @@ int main(int argc, char *argv[])
         ArtistsData.NovaLista(arq1);    // Cria nova lista
         ArtistsData.escreveBin();   ///Funcao para criacao e escrita do arquivo .bin
     }
+    testeArt.close();
 
     ifstream testeTrack;
     testeTrack.open(arq4, ios::binary);
@@ -108,7 +105,7 @@ int main(int argc, char *argv[])
         TracksData.NovaLista(arq2);
         TracksData.escreveBin();
     }
-
+    testeTrack.close();
 
     //menuAntigo(ArtistsData, TracksData);
     

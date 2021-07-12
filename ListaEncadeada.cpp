@@ -8,17 +8,13 @@
 
 using namespace std;
 
-ListaEncadeada::ListaEncadeada()
-{
-    cout << "criando o objeto"<< endl;
+ListaEncadeada::ListaEncadeada() {
     n=0;
     primeiro=NULL;
     ultimo=NULL;
 }
 
-ListaEncadeada::~ListaEncadeada()
-{
-    cout << "apagando o objeto"<< endl;
+ListaEncadeada::~ListaEncadeada() {
     NoA *p=primeiro;
     while (p != NULL)
     {

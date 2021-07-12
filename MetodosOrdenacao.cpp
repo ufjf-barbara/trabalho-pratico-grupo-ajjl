@@ -9,7 +9,16 @@ MetodosOrdenacao::MetodosOrdenacao() {}
 MetodosOrdenacao::~MetodosOrdenacao() {}
 
 // Seleciona N artista aleatorios
+bool MetodosOrdenacao::verificaArtista (vector<Artista> vetor, Artista aux) {
+    for (int i=0; i<vetor.size(); i++){
+        if (vetor[i].id == aux.id)
+            return true;
+    }
+    return false;
+}
 vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) {
+    cout << "Gerando vetor" << endl;
+    
     vector<Artista> vetor; //Vetor que recebera .bin
 
     ifstream artBin;
@@ -47,20 +56,13 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) {
 
     return vetor;
 }
-bool verificaArtista (vector<Artista> vetor, Artista aux) {
-    for (int i=0; i<vetor.size(); i++){
-        if (vetor[i].id == aux.id)
-            return true;
-    }
-    return false;
-}
-
 
 // Menu para ordenacoes
 void MetodosOrdenacao::ordenacoes(string arq3) {
     BlocoQuick(1, arq3);
     BlocoMerge(1, arq3);
     BlocoHeap(1, arq3);
+
 }
 
 void MetodosOrdenacao::moduloTeste(string arq3, string arq4) {
@@ -239,6 +241,7 @@ void MetodosOrdenacao::zerarmetricas(int metrica[]) {
 }
 void MetodosOrdenacao::BlocoMerge(int opc, string arq3) {
     if (opc == 1) {
+        cout << "=== Iniciando Teste de Merge:" << endl;
         for (int k=0;k<3;k++) {
             for(int j=0;j<5;j++) {
                 int metricas[3];
@@ -247,16 +250,20 @@ void MetodosOrdenacao::BlocoMerge(int opc, string arq3) {
                 MetricasMerge[k][j][0]=metricas[0];
                 MetricasMerge[k][j][1]=metricas[1];
                 MetricasMerge[k][j][2]=metricas[2];
+                cout << "Concluido N=" << valores[j] << endl;
             }
+            cout << "Conluido teste " << k+1 << endl; 
         } 
+        cout << "=== Merge Concluido" << endl;
     }  
     else if (opc == 2) {
         zerarmetricas(MetricasTeste);
-        mergesortinicio(100,MetricasTeste, arq3);
+        mergesortinicio(100, MetricasTeste, arq3);
     } 
 }
 void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {   
     if (opc == 1) {
+        cout << "=== Iniciando Teste de Quick:" << endl;
         for (int k=0;k<3;k++) {
             for(int j=0;j<5;j++) {
                 int metricas[3];
@@ -266,8 +273,11 @@ void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
                 MetricasQuick[k][j][0]=metricas[0];
                 MetricasQuick[k][j][1]=metricas[1];
                 MetricasQuick[k][j][2]=metricas[2];
+                cout << "Concluido N=" << valores[j] << endl;
             }
+            cout << "Conluido teste " << k+1 << endl; 
         } 
+        cout << "=== Quick Concluido" << endl;
     }
     else if (opc == 2) {
             zerarmetricas(MetricasTeste);
@@ -277,6 +287,7 @@ void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
 }
 void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {   
     if (opc == 1) {
+        cout << "=== Iniciando Teste de Heap:" << endl;
         for (int k=0;k<3;k++) {
             for(int j=0;j<5;j++) {
                 int metricas[3];
@@ -286,8 +297,11 @@ void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
                 MetricasHeap[k][j][0]=metricas[0];
                 MetricasHeap[k][j][1]=metricas[1];
                 MetricasHeap[k][j][2]=metricas[2];
+                cout << "Concluido N=" << valores[j] << endl;
             }
+            cout << "Conluido teste " << k+1 << endl; 
         } 
+        cout << "=== Heap Concluido" << endl;
     }
     else if (opc == 2) {
     zerarmetricas(MetricasTeste);
@@ -300,17 +314,17 @@ void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
 // Escreve teste.txt
 void MetodosOrdenacao::escreveTesteOrd(string arq3) {
     ofstream arq("teste.txt");
-    BlocoQuick(2, arq3);
     arq << "Teste de ordenação para N=100" << endl;
+    BlocoQuick(2, arq3);
     arq << "Resultados para QuickSort:" << endl; 
     arq << "Comparações:" << MetricasTeste[0] << endl;
     arq << "Movimentos:" << MetricasTeste[1] << endl;
-    arq << "Tempo:" << MetricasTeste[2] << endl;
+    arq << "Tempo:" << MetricasTeste[2] << endl;/*
     BlocoHeap(2, arq3);
     arq << "Resultados para HeapSort:" << endl; 
     arq << "Comparações:" << MetricasTeste[0] << endl;
     arq << "Movimentos:" << MetricasTeste[1] << endl;
-    arq << "Tempo:" << MetricasTeste[2] << endl;
+    arq << "Tempo:" << MetricasTeste[2] << endl; */
     BlocoMerge(2, arq3);
     arq << "Resultados para MergeSort:" << endl; 
     arq << "Comparações:" << MetricasTeste[0] << endl;
