@@ -48,9 +48,9 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) {
         artBin.read((char *) &(aleatoria),sizeof(Artista)); //Le conteudo da linha em .bin
 
         
-        if(verificaArtista(vetor, aleatoria)) //Verificacao se existe repeticao de id com o vetor
-            i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
-        else
+        //if(verificaArtista(vetor, aleatoria)) //Verificacao se existe repeticao de id com o vetor
+        //    i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
+        //else
             vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
     }
 
@@ -62,9 +62,9 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) {
 
 // Menu para ordenacoes
 void MetodosOrdenacao::ordenacoes(string arq3) {
-    BlocoQuick(1, arq3);
     BlocoMerge(1, arq3);
     BlocoHeap(1, arq3);
+    BlocoQuick(1, arq3);
     imprimeBloco();
 
 }
@@ -160,13 +160,13 @@ int MetodosOrdenacao::partQuick(vector <Artista> *vet, int inicio, int r, long i
     Artista pivo = vet->at(r);
     metricasQuick[1]=metricasQuick[1]+1;
     int i = inicio-1;
-    for(int j = inicio;j<r;j++){
+    for(int x = inicio;x<r;x++){
         metricasQuick[0]=metricasQuick[0]+1;
-        if(vet->at(j).followers <= pivo.followers){
+        if(vet->at(x).followers <= pivo.followers){
             i++;
             Artista aux = vet->at(i);
-            vet->at(i) = vet->at(j);
-            vet->at(j) = aux;
+            vet->at(i) = vet->at(x);
+            vet->at(x) = aux;
             metricasQuick[1]=metricasQuick[1]+1;
         }
     }
@@ -225,11 +225,11 @@ void MetodosOrdenacao::testedeinput() {
         ofstream output;
         output.open("input.dat");
         int informacao[5];
-        informacao[0]=10000;
-        informacao[1]=50000;
-        informacao[2]=100000;
-        informacao[3]=500000;
-        informacao[4]=800000;
+        informacao[0]=1000;
+        informacao[1]=5000;
+        informacao[2]=10000;
+        informacao[3]=50000;
+        informacao[4]=80000;
         for(int i=0;i<5;i++)
             output<<informacao[i]<<'\n';
         output.close();
