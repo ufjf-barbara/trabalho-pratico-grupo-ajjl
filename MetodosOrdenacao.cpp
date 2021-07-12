@@ -145,11 +145,11 @@ void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[], string arq3)
 }
 
 void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim, int metricasQuick[] ){
-        if(inicio < fim){
-            int p = partQuick(vet, inicio, fim, metricasQuick);
-            quickSort(vet, inicio, p - 1, metricasQuick);
-            quickSort(vet, p + 1, fim, metricasQuick);
-        }
+    if(inicio < fim){
+        int p = partQuick(vet, inicio, fim, metricasQuick);
+        quickSort(vet, inicio, p - 1, metricasQuick);
+        quickSort(vet, p + 1, fim, metricasQuick);
+    }
 }
 int MetodosOrdenacao::partQuick(vector <Artista> *vet, int inicio, int r, int metricasQuick[]){
     Artista pivo = vet->at(r);
@@ -282,7 +282,7 @@ void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
     else if (opc == 2) {
             zerarmetricas(MetricasTeste);
             vector<Artista> vetor = artistasaleatorios(100, arq3);
-            quickSort(&vetor, 0, 100, MetricasTeste);
+            quickSort(&vetor, 0, 99, MetricasTeste);
     }
 }
 void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {   
@@ -315,20 +315,25 @@ void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
 void MetodosOrdenacao::escreveTesteOrd(string arq3) {
     ofstream arq("teste.txt");
     arq << "Teste de ordenação para N=100" << endl;
+    arq << " " << endl;
     BlocoQuick(2, arq3);
     arq << "Resultados para QuickSort:" << endl; 
-    arq << "Comparações:" << MetricasTeste[0] << endl;
-    arq << "Movimentos:" << MetricasTeste[1] << endl;
-    arq << "Tempo:" << MetricasTeste[2] << endl;/*
+    arq << "- Comparações:" << MetricasTeste[0] << endl;
+    arq << "- Movimentos:" << MetricasTeste[1] << endl;
+    arq << "- Tempo:" << MetricasTeste[2] << endl;
+    arq << " " << endl;
     BlocoHeap(2, arq3);
     arq << "Resultados para HeapSort:" << endl; 
-    arq << "Comparações:" << MetricasTeste[0] << endl;
-    arq << "Movimentos:" << MetricasTeste[1] << endl;
-    arq << "Tempo:" << MetricasTeste[2] << endl; */
+    arq << "- Comparações:" << MetricasTeste[0] << endl;
+    arq << "- Movimentos:" << MetricasTeste[1] << endl;
+    arq << "- Tempo:" << MetricasTeste[2] << endl; 
+    arq << " " << endl;
     BlocoMerge(2, arq3);
     arq << "Resultados para MergeSort:" << endl; 
-    arq << "Comparações:" << MetricasTeste[0] << endl;
-    arq << "Movimentos:" << MetricasTeste[1] << endl;
-    arq << "Tempo:" << MetricasTeste[2] << endl;
+    arq << "- Comparações:" << MetricasTeste[0] << endl;
+    arq << "- Movimentos:" << MetricasTeste[1] << endl;
+    arq << "- Tempo:" << MetricasTeste[2] << endl;
+    arq << " " << endl;
+
 }
 // -> criar um escreve resultados da tabela hash

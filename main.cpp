@@ -69,6 +69,7 @@ void menu(MetodosOrdenacao aux, string arq3, string arq4){
             cout << " Executando modulo de teste" << endl;
             aux.moduloTeste(arq3, arq4);
             cout << " Etapa concluida, resultados salvos em teste.txt" << endl;
+            cout << " " << endl;
         }
     }
     while(opcao != 4);
