@@ -336,4 +336,51 @@ void MetodosOrdenacao::escreveTesteOrd(string arq3) {
     arq << " " << endl;
 
 }
+void MetodosOrdenacao::imprimeBloco()
+{
+    ofstream arq("testeBlocoMerge.txt");
+    for (int i=0;i<3;i++)
+    {
+        arq << i+1 << " execução:" << endl << endl;
+        for(int j=0;j<5;j++)
+        {
+            arq << "teste realativos a: " << valores[j]<< endl;;
+            arq << "- Comparações:" << MetricasMerge[i][j][0] << endl;
+            arq << "- Movimentos:" << MetricasMerge[i][j][1] << endl;
+            arq << "- Tempo:" << MetricasMerge[i][j][2] << endl;
+        }
+        arq << endl ;
+    }
+    arq.close();
+
+    arq.open("testeBlocoquick.txt");
+        for (int i=0;i<3;i++)
+    {
+        arq << i+1 << " execução:" << endl << endl;
+        for(int j=0;j<5;j++)
+        {
+            arq << "teste realativos a: " << valores[j]<< endl;;
+            arq << "- Comparações:" << MetricasQuick[i][j][0] << endl;
+            arq << "- Movimentos:" << MetricasQuick[i][j][1] << endl;
+            arq << "- Tempo:" << MetricasQuick[i][j][2] << endl;
+        }
+        arq << endl ;
+    }
+    arq.close();
+    arq.open("testeBlocoHeap.txt");
+    for (int i=0;i<3;i++)
+    {
+        arq << i+1 << " execução:" << endl << endl;
+        for(int j=0;j<5;j++)
+        {
+            arq << "teste realativos a: " << valores[j]<< endl;;
+            arq << "- Comparações:" << MetricasHeap[i][j][0] << endl;
+            arq << "- Movimentos:" << MetricasHeap[i][j][1] << endl;
+            arq << "- Tempo:" << MetricasHeap[i][j][2] << endl;
+        }
+        arq << endl ;
+    }
+    arq.close();
+}
+
 // -> criar um escreve resultados da tabela hash
