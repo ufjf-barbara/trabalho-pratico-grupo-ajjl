@@ -509,7 +509,7 @@ void MetodosOrdenacao::DesempenhoMedio(){
     }
 
 
-    arq << "Desempenho medio de merge: " << endl << endl;
+    arq << "Desempenho medio de Heap: " << endl << endl;
     for(int j=0;j<5;j++)
         {
             arq << "media de merge realativos para " << valores[j] << " entradas:"<< endl;;
