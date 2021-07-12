@@ -4,7 +4,9 @@
 
 using namespace std;
 
-MetodosOrdenacao::MetodosOrdenacao() {}
+MetodosOrdenacao::MetodosOrdenacao() {
+    testedeinput();
+}
 
 MetodosOrdenacao::~MetodosOrdenacao() {}
 
@@ -135,11 +137,12 @@ void MetodosOrdenacao::mergesortinicio(int n,int metricasmerge[], string arq3)
     for(int i=0;i<n;i++)
         A[i]=vetordeartistas[i];    /// tranforma um vector em um array
 
+    clock_t start, end;
+    start=clock();
     mergesort(A,0,n-1,metricasmerge);
-    //for(int i=0;i<n;i++)
-    //{
-    //    cout <<i<<"-"<< A[i].id <<"-"<< A[i].name << endl;       ///imprime o array depois da ordenação
-    //}
+    end= clock();
+
+    metricasmerge[2]=int(end-start);
 
     delete[] A;
 }
@@ -261,7 +264,7 @@ void MetodosOrdenacao::BlocoMerge(int opc, string arq3) {
         mergesortinicio(100, MetricasTeste, arq3);
     } 
 }
-void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {   
+void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
     if (opc == 1) {
         cout << "=== Iniciando Teste de Quick:" << endl;
         for (int k=0;k<3;k++) {
@@ -269,23 +272,30 @@ void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
                 int metricas[3];
                 zerarmetricas(metricas);
                 vector<Artista> vetor = artistasaleatorios(valores[j], arq3);
+                clock_t start, end;
+                start=clock();
                 quickSort(&vetor, 0, valores[j-1], metricas);
+                end=clock();
                 MetricasQuick[k][j][0]=metricas[0];
                 MetricasQuick[k][j][1]=metricas[1];
-                MetricasQuick[k][j][2]=metricas[2];
+                MetricasQuick[k][j][2]=end-start;
                 cout << "Concluido N=" << valores[j] << endl;
             }
-            cout << "Conluido teste " << k+1 << endl; 
-        } 
+            cout << "Conluido teste " << k+1 << endl;
+        }
         cout << "=== Quick Concluido" << endl;
     }
     else if (opc == 2) {
             zerarmetricas(MetricasTeste);
             vector<Artista> vetor = artistasaleatorios(100, arq3);
+            clock_t start, end;
+            start=clock();
             quickSort(&vetor, 0, 99, MetricasTeste);
+            end=clock();
+            MetricasTeste[2]=end-start;
     }
 }
-void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {   
+void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
     if (opc == 1) {
         cout << "=== Iniciando Teste de Heap:" << endl;
         for (int k=0;k<3;k++) {
@@ -293,20 +303,27 @@ void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
                 int metricas[3];
                 zerarmetricas(metricas);
                 vector<Artista> vetor = artistasaleatorios(valores[j], arq3);
+                clock_t start, end;
+                start=clock();
                 heapSort(&vetor, valores[j], metricas);
+                end=clock();
                 MetricasHeap[k][j][0]=metricas[0];
                 MetricasHeap[k][j][1]=metricas[1];
-                MetricasHeap[k][j][2]=metricas[2];
+                MetricasHeap[k][j][2]=end-start;
                 cout << "Concluido N=" << valores[j] << endl;
             }
-            cout << "Conluido teste " << k+1 << endl; 
-        } 
+            cout << "Conluido teste " << k+1 << endl;
+        }
         cout << "=== Heap Concluido" << endl;
     }
     else if (opc == 2) {
     zerarmetricas(MetricasTeste);
     vector<Artista> vetor = artistasaleatorios(100,arq3);
+    clock_t start, end;
+    start=clock();
     heapSort(&vetor, 100, MetricasTeste);
+    end=clock();
+    MetricasTeste[2]=end-start;
     }
 }
 
