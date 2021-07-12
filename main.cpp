@@ -6,6 +6,8 @@
 #include "MetodosOrdenacao.h"       // funcoes de ordenacao
 #include "ListaEncadeada.h"         // estrutura de dados que armazena as informacoes dos artistas
 #include "ListaEncadeadaTracks.h"   // estrutura de dados que armazena as informacoes das tracks
+#include "TabelaHash.h" // tabela hash
+#include "NoHash.h"
 
 using namespace std;
 
@@ -45,6 +47,41 @@ void moduloDeTestes(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData)
     while(opcao != 2);
 }
 */
+
+vector<string> divideString(string tokenString){
+    vector<string> tokens;
+
+   // stream de strings de input inicializado com a string a ser separada
+   istringstream tokenizer { tokenString };
+   string token;
+
+   // separa as sub-strings por vírgula e coloca no vetor destino
+   while (getline(tokenizer, token, ','))
+      tokens.push_back(token);
+
+      return tokens;
+}
+
+void tabelaHash(int tam){
+    ListaEncadeadaTracks TracksData;
+    vector<Tracks> tracksRandom = TracksData.importaBin(tam);
+    TabelaHash tabela(tam*2);
+    for(int i = 0; i < tracksRandom.size();i++){
+        vector<string> artists = divideString(tracksRandom[i].artists);
+        vector<string> idArtists = divideString(tracksRandom[i].id_artists);
+        if(artists.size() > 1){
+            for(int j = 0; j < artists.size(); j++){
+                NoHash *novoArtista = new NoHash(idArtists[j], artists[j], 1, tracksRandom[i].name, tracksRandom[i].popularity);
+                tabela.insere(novoArtista);
+            }
+        }
+        else{
+            NoHash *novoArtista = new NoHash(tracksRandom[i].id_artists, tracksRandom[i].artists, 1, tracksRandom[i].name, tracksRandom[i].popularity);
+            tabela.insere(novoArtista);
+        }
+    }
+    tabela.print();
+}
 
 void menu(){
     int opcao;
@@ -100,7 +137,8 @@ int main(int argc, char *argv[])
     TracksData.NovaLista(arq2);
     TracksData.escreveBin();
 
-    menu();
+
+    // menu();
 
     return 0;
 }
