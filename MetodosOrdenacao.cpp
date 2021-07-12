@@ -1,6 +1,7 @@
 #include <vector>
 #include "MetodosOrdenacao.h"
 #include "NoA.h"
+#include <bits/stdc++.h>
 
 using namespace std;
 
