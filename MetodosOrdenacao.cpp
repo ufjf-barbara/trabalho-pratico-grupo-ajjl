@@ -402,4 +402,120 @@ void MetodosOrdenacao::imprimeBloco()
     arq.close();
 }
 
+///função para escrever .txt com as saidas medias do desempenho de cada metodo de ordenação
+void MetodosOrdenacao::DesempenhoMedio(){
+
+    //arquivo desaida
+    ofstream arq("saida.txt");
+
+    //variavel parar realizar os calculos das medias
+    int media[5][3];
+
+    //limpa o vetor
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            media[j][i]=0;
+        }
+    }
+
+    // a variavel recebe o somatorio de todos os valores obtidos
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            media[j][0]=MetricasMerge[i][j][0]+media[j][0];
+            media[j][1]=MetricasMerge[i][j][1]+media[j][1];
+            media[j][2]=MetricasMerge[i][j][2]+media[j][2];
+        }
+    }
+    // a media é calculada
+    for(int j=0;j<5;j++)
+    {
+        media[j][0]=media[j][0]/3;
+        media[j][1]=media[j][1]/3;
+        media[j][2]=media[j][2]/3;
+    }
+
+    // os resultados são então escritos na saida
+    arq << "Desempenho medio de merge: " << endl << endl;
+    for(int j=0;j<5;j++)
+        {
+            arq << "media de merge realativos para " << valores[j] << " entradas:"<< endl;;
+            arq << "- Comparações:" << media[j][0] << endl;
+            arq << "- Movimentos:" << media[j][1] << endl;
+            arq << "- Tempo:" << media[j][2] << endl;
+        }
+    arq << endl ;
+    arq << endl ;
+
+    // o mesmo se repete para todos os estilos de ordenação
+        for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            media[j][i]=0;
+        }
+    }
+        for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            media[j][0]=MetricasQuick[i][j][0]+media[j][0];
+            media[j][1]=MetricasQuick[i][j][1]+media[j][1];
+            media[j][2]=MetricasQuick[i][j][2]+media[j][2];
+        }
+    }
+    for(int j=0;j<5;j++)
+    {
+        media[j][0]=media[j][0]/3;
+        media[j][1]=media[j][1]/3;
+        media[j][2]=media[j][2]/3;
+    }
+
+    arq << "Desempenho medio de Quick: " << endl << endl;
+    for(int j=0;j<5;j++)
+        {
+            arq << "media de Quick realativos para " << valores[j] << " entradas:"<< endl;;
+            arq << "- Comparações:" << media[j][0] << endl;
+            arq << "- Movimentos:" << media[j][1] << endl;
+            arq << "- Tempo:" << media[j][2] << endl;
+        }
+
+    arq << endl ;
+    arq << endl ;
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            media[j][i]=0;
+        }
+    }
+        for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            media[j][0]=MetricasHeap[i][j][0]+media[j][0];
+            media[j][1]=MetricasHeap[i][j][1]+media[j][1];
+            media[j][2]=MetricasHeap[i][j][2]+media[j][2];
+        }
+    }
+    for(int j=0;j<5;j++)
+    {
+        media[j][0]=media[j][0]/3;
+        media[j][1]=media[j][1]/3;
+        media[j][2]=media[j][2]/3;
+    }
+
+
+    arq << "Desempenho medio de merge: " << endl << endl;
+    for(int j=0;j<5;j++)
+        {
+            arq << "media de merge realativos para " << valores[j] << " entradas:"<< endl;;
+            arq << "- Comparações:" << media[j][0] << endl;
+            arq << "- Movimentos:" << media[j][1] << endl;
+            arq << "- Tempo:" << media[j][2] << endl;
+        }
+}
 
