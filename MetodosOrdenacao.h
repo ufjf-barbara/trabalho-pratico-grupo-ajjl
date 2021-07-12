@@ -15,6 +15,7 @@ class MetodosOrdenacao
         vector<Artista> artistasaleatorios(int tam, string arq3);
         void ordenacoes(string arq3);
         void moduloTeste(string arq3, string arq4);
+        void imprimeBloco();
         
     private:
         int MetricasMerge[3][5][3];
