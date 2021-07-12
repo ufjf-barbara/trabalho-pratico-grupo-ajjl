@@ -63,10 +63,11 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) {
 
 // Menu para ordenacoes
 void MetodosOrdenacao::ordenacoes(string arq3) {
-    BlocoQuick(1, arq3);
     BlocoMerge(1, arq3);
     BlocoHeap(1, arq3);
+    BlocoQuick(1, arq3);
     imprimeBloco();
+    DesempenhoMedio();
 
 }
 
