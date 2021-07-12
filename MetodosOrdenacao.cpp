@@ -22,6 +22,7 @@ bool MetodosOrdenacao::verificaArtista (vector<Artista> vetor, Artista aux) {
 vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) {
     cout << "Criando vetor -";  
     vector<Artista> vetor; //Vetor que recebera .bin
+    vetor.reserve (tam);
 
     ifstream artBin;
     artBin.open(arq3,ios::binary);
@@ -62,9 +63,9 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) {
 
 // Menu para ordenacoes
 void MetodosOrdenacao::ordenacoes(string arq3) {
+    BlocoQuick(1, arq3);
     BlocoMerge(1, arq3);
     BlocoHeap(1, arq3);
-    BlocoQuick(1, arq3);
     imprimeBloco();
 
 }
@@ -225,11 +226,11 @@ void MetodosOrdenacao::testedeinput() {
         ofstream output;
         output.open("input.dat");
         int informacao[5];
-        informacao[0]=1000;
-        informacao[1]=5000;
-        informacao[2]=10000;
-        informacao[3]=50000;
-        informacao[4]=80000;
+        informacao[0]=10000;
+        informacao[1]=50000;
+        informacao[2]=100000;
+        informacao[3]=500000;
+        informacao[4]=800000;
         for(int i=0;i<5;i++)
             output<<informacao[i]<<'\n';
         output.close();
@@ -247,7 +248,7 @@ void MetodosOrdenacao::zerarmetricas(long int metrica[]) {
 void MetodosOrdenacao::BlocoMerge(int opc, string arq3) {
     if (opc == 1) {
         cout << "=== Iniciando Teste de Merge:" << endl;
-        for (int k=0;k<1;k++) {
+        for (int k=0;k<3;k++) {
             for(int j=0;j<5;j++) {
                 long int metricas[3];
                 zerarmetricas(metricas);
@@ -269,14 +270,14 @@ void MetodosOrdenacao::BlocoMerge(int opc, string arq3) {
 void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
     if (opc == 1) {
         cout << "=== Iniciando Teste de Quick:" << endl;
-        for (int k=0;k<1;k++) {
+        for (int k=0;k<3;k++) {
             for(int j=0;j<5;j++) {
                 long int metricas[3];
                 zerarmetricas(metricas);
                 vector<Artista> vetor = artistasaleatorios(valores[j], arq3);
                 clock_t start, end;
                 start=clock();
-                quickSort(&vetor, 0, valores[j-1], metricas);
+                quickSort(&vetor, 0, valores[j]-1, metricas);
                 end=clock();
                 MetricasQuick[k][j][0]=metricas[0];
                 MetricasQuick[k][j][1]=metricas[1];
@@ -300,7 +301,7 @@ void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
 void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
     if (opc == 1) {
         cout << "=== Iniciando Teste de Heap:" << endl;
-        for (int k=0;k<1;k++) {
+        for (int k=0;k<3;k++) {
             for(int j=0;j<5;j++) {
                 long int metricas[3];
                 zerarmetricas(metricas);
