@@ -8,17 +8,13 @@
 
 using namespace std;
 
-ListaEncadeada::ListaEncadeada()
-{
-    cout << "criando o objeto"<< endl;
+ListaEncadeada::ListaEncadeada() {
     n=0;
     primeiro=NULL;
     ultimo=NULL;
 }
 
-ListaEncadeada::~ListaEncadeada()
-{
-    cout << "apagando o objeto"<< endl;
+ListaEncadeada::~ListaEncadeada() {
     NoA *p=primeiro;
     while (p != NULL)
     {
@@ -77,9 +73,7 @@ void ListaEncadeada::imprimeIds()
 }
 
 //Funcao para a criacao e escrita do .bin
-void ListaEncadeada::escreveBin()
-
-{
+void ListaEncadeada::escreveBin() {
     ofstream artistasbin;
 
 
