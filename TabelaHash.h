@@ -3,7 +3,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "NoHash.h"
+#include "ListaEncadeadaTracks.h"
 
 
 typedef std::string string;
@@ -14,6 +16,9 @@ public:
     int getTam() { return tam; }
     void insere(NoHash* n);
     void print();
+    void insereArtists(int tam, string arq4);
+    vector<Tracks> tracksAleatorias(int tam, string arq4);
+    bool verificaArtista (vector<Tracks> vetor, Tracks aux);
 
 private:
     int tam;

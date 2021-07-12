@@ -48,40 +48,6 @@ void menuAntigo(ListaEncadeada ArtistsData, ListaEncadeadaTracks TracksData){
 }
 */
 
-vector<string> divideString(string tokenString){
-    vector<string> tokens;
-
-   // stream de strings de input inicializado com a string a ser separada
-   istringstream tokenizer { tokenString };
-   string token;
-
-   // separa as sub-strings por vírgula e coloca no vetor destino
-   while (getline(tokenizer, token, ','))
-      tokens.push_back(token);
-
-      return tokens;
-}
-
-void tabelaHash(int tam){
-    ListaEncadeadaTracks TracksData;
-    vector<Tracks> tracksRandom = TracksData.importaBin(tam);
-    TabelaHash tabela(tam*2);
-    for(int i = 0; i < tracksRandom.size();i++){
-        vector<string> artists = divideString(tracksRandom[i].artists);
-        vector<string> idArtists = divideString(tracksRandom[i].id_artists);
-        if(artists.size() > 1){
-            for(int j = 0; j < artists.size(); j++){
-                NoHash *novoArtista = new NoHash(idArtists[j], artists[j], 1, tracksRandom[i].name, tracksRandom[i].popularity);
-                tabela.insere(novoArtista);
-            }
-        }
-        else{
-            NoHash *novoArtista = new NoHash(tracksRandom[i].id_artists, tracksRandom[i].artists, 1, tracksRandom[i].name, tracksRandom[i].popularity);
-            tabela.insere(novoArtista);
-        }
-    }
-    tabela.print();
-}
 
 void menu(MetodosOrdenacao aux, string arq3, string arq4){
     int opcao;
@@ -99,7 +65,9 @@ void menu(MetodosOrdenacao aux, string arq3, string arq4){
         }
         else if (opcao == 2) {
             cout << " Executando tabela Hash" << endl;
-            //FUNCAO DA TABELA HASH AQUI
+            int tam = 150;
+            TabelaHash tabela(tam*2);
+            tabela.insereArtists(tam,arq4);
             cout << " Etapa concluida" << endl;
         }
         else if (opcao == 3) {
@@ -149,6 +117,7 @@ int main(int argc, char *argv[])
     
     MetodosOrdenacao aux;
     menu(aux, arq3, arq4);
+    
 
     return 0;
 }
