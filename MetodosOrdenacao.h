@@ -16,6 +16,7 @@ class MetodosOrdenacao
         void ordenacoes(string arq3);
         void moduloTeste(string arq3, string arq4);
         void imprimeBloco();
+        void DesempenhoMedio();
 
     private:
         int MetricasMerge[3][5][3];
