@@ -116,10 +116,10 @@ int main(int argc, char *argv[])
 {
     ///Criacao das variaves para  manipulacao do .bin
     string diretorio=argv[1];
-    string arq1= diretorio + "/artists.csv";
-    string arq2= diretorio + "/tracks.csv";
-    string arq3= diretorio + "/artists.bin";
-    string arq4= diretorio + "/tracks.bin";
+    string arq1 = diretorio + "/artists.csv";
+    string arq2 = diretorio + "/tracks.csv";
+    string arq3 = diretorio + "/artists.bin";
+    string arq4 = diretorio + "/tracks.bin";
     
     ifstream testeArt;
     testeArt.open(arq3, ios::binary);
