@@ -16,7 +16,7 @@ public:
                     float valence,float tempo,int time_signature);
 
     void imprimeIds(); 
-    void escreveBin();
+    void escreveBin(string arq4);
     void imprimeTestes(vector <Tracks>);
     void importaBin(int tam);
     void imprimeBin();

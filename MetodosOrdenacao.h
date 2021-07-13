@@ -15,7 +15,7 @@ class MetodosOrdenacao
         virtual ~MetodosOrdenacao();
         vector<Artista> artistasaleatorios(int tam, string arq3);
         void ordenacoes(string arq3);
-        void moduloTeste(string arq3, string arq4);
+        void moduloTeste(string arq3);
         void imprimeBloco();
         void DesempenhoMedio();
         void ordenaTabelaHash(NoHash **vet, int tam);
@@ -30,7 +30,6 @@ class MetodosOrdenacao
         
         bool verificaArtista (vector<Artista> vetor, Artista aux);
         void testedeinput();
-        void escreveTesteOrd(string arq3);
 
         void mergesortinicio(int n, long int metricasmerge[], string arq3);
         void mergeartista(Artista vetordeartistas[],int inicio,int metade,int fim,long int metricasmerge[]);
@@ -42,13 +41,14 @@ class MetodosOrdenacao
         void quickSortTabelaHash(NoHash **vet, int inicio, int fim);
         int partQuickTabelaHash(NoHash **vet, int esq, int dir);
 
-        void BlocoMerge(int opc, string arq3);
-        void BlocoQuick(int opc, string arq3);
-        void BlocoHeap(int opc, string arq3);
+        void BlocoMerge(string arq3);
+        void BlocoQuick(string arq3);
+        void BlocoHeap(string arq3);
         void zerarmetricas(int long metrica[]);
-        
-        
-        
+
+        vector<Artista> moduloHeap(string arq3);
+        vector<Artista> moduloQuick(string arq3); 
+        void ModuloQuick(Artista A[],string arq3);
 };  
 
 #endif // METODOSORDENACAO_H
