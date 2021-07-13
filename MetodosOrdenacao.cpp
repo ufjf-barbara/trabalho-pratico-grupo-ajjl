@@ -324,19 +324,19 @@ void MetodosOrdenacao::moduloTeste(string arq3) {
     arq << "Resultados para QuickSort:" << endl; 
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
-    arq << "- Tempo:" << MetricasTeste[2] << endl;
+    arq << "- Tempo:" << (float)MetricasTeste[2]/CLOCKS_PER_SEC << "sec" << endl;
     arq << " " << endl;
     BlocoHeap(2, arq3);
     arq << "Resultados para HeapSort:" << endl; 
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
-    arq << "- Tempo:" << MetricasTeste[2] << endl; 
+    arq << "- Tempo:" << (float)MetricasTeste[2]/CLOCKS_PER_SEC << "sec" << endl; 
     arq << " " << endl;
     BlocoMerge(2, arq3);
     arq << "Resultados para MergeSort:" << endl; 
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
-    arq << "- Tempo:" << MetricasTeste[2] << endl;
+    arq << "- Tempo:" << (float)MetricasTeste[2]/CLOCKS_PER_SEC << "sec" << endl;
     arq << " " << endl;
 
 }
@@ -430,7 +430,7 @@ void MetodosOrdenacao::DesempenhoMedio(){
             arq << "media de merge realativos para " << valores[j] << " entradas:"<< endl;;
             arq << "- Comparações:" << media[j][0] << endl;
             arq << "- Movimentos:" << media[j][1] << endl;
-            arq << "- Tempo:" << media[j][2] << endl;
+            arq << "- Tempo:" << (float)media[j][2]/CLOCKS_PER_SEC << "sec"  << endl;
         }
     arq << endl ;
     arq << endl ;
@@ -465,7 +465,7 @@ void MetodosOrdenacao::DesempenhoMedio(){
             arq << "media de Quick realativos para " << valores[j] << " entradas:"<< endl;;
             arq << "- Comparações:" << media[j][0] << endl;
             arq << "- Movimentos:" << media[j][1] << endl;
-            arq << "- Tempo:" << media[j][2] << endl;
+            arq << "- Tempo:" << (float)media[j][2]/CLOCKS_PER_SEC << "sec"  << endl;
         }
 
     arq << endl ;
@@ -500,7 +500,7 @@ void MetodosOrdenacao::DesempenhoMedio(){
             arq << "media de merge realativos para " << valores[j] << " entradas:"<< endl;;
             arq << "- Comparações:" << media[j][0] << endl;
             arq << "- Movimentos:" << media[j][1] << endl;
-            arq << "- Tempo:" << media[j][2] << endl;
+            arq << "- Tempo:" << (float)media[j][2]/CLOCKS_PER_SEC << "sec"  << endl;
         }
 }
 
