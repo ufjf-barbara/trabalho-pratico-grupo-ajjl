@@ -13,7 +13,7 @@ public:
 
     void NovoArtista(string id,float followers,string genres,string name,int popularity); //cria um novo no e armazena as informacoes do artista
     void imprimeIds(); 
-    void escreveBin();
+    void escreveBin(string arq3);
     void imprimeBin();
     void importaBin(int tam);
     void imprimeTestes(vector <Artista>);

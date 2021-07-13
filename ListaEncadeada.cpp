@@ -73,11 +73,11 @@ void ListaEncadeada::imprimeIds()
 }
 
 //Funcao para a criacao e escrita do .bin
-void ListaEncadeada::escreveBin() {
+void ListaEncadeada::escreveBin(string arq3) {
     ofstream artistasbin;
 
 
-    artistasbin.open("artists.bin",ios::binary);
+    artistasbin.open(arq3,ios::binary);
     for(NoA *p=primeiro;p!=NULL;p=p->getProx())
     {
 

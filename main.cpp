@@ -17,7 +17,7 @@ Comandos para compilar via terminal:
     ./main SEU/DIRETORIO/trabalho-pratico-grupo-ajjl
 */
 
-void menu(MetodosOrdenacao aux, string arq3, string arq4) { // Menu para selecionar as opcoes 
+void menu(string arq3, string arq4) { // Menu para selecionar as opcoes 
     int opcao;
     do{
         cout << "Executar qual etapa?" << endl;
@@ -28,7 +28,8 @@ void menu(MetodosOrdenacao aux, string arq3, string arq4) { // Menu para selecio
         cin >> opcao;
         if (opcao == 1) {
             cout << " Executando ordenacoes" << endl;
-            aux.ordenacoes(arq3); // Chama a execucao das ordenacoes
+            MetodosOrdenacao ord;
+            ord.ordenacoes(arq3); // Chama a execucao das ordenacoes
             cout << " Ordenacoes concluidas, resultados salvos em saida.txt" << endl;
             cout << endl;
         }
@@ -42,7 +43,8 @@ void menu(MetodosOrdenacao aux, string arq3, string arq4) { // Menu para selecio
         }
         else if (opcao == 3) {
             cout << " Executando modulo de teste" << endl;
-            aux.moduloTeste(arq3); // Chama a execucao do Modulo de Teste
+            MetodosOrdenacao ord;
+            ord.moduloTeste(arq3); // Chama a execucao do Modulo de Teste
             cout << " Modulo teste concluido, resultados salvos em teste.txt" << endl;
             cout << endl;
         }
@@ -66,7 +68,7 @@ int main(int argc, char *argv[])
         cout << "Arquivo artists.bin nao encontrado. Gerando um novo arquivo." << endl;
         ListaEncadeada ArtistsData;     //Classe criada para armazenar e manipular nossa struct
         ArtistsData.NovaLista(arq1);    // Cria nova lista
-        ArtistsData.escreveBin();       //Funcao para criacao e escrita do arquivo .bin
+        ArtistsData.escreveBin(arq3);       //Funcao para criacao e escrita do arquivo .bin
     }
     testeArt.close();
 
@@ -77,12 +79,11 @@ int main(int argc, char *argv[])
         cout << "Arquivo tracks.bin nao encontrado. Gerando um novo arquivo." << endl;
         ListaEncadeadaTracks TracksData;
         TracksData.NovaLista(arq2);
-        TracksData.escreveBin();
+        TracksData.escreveBin(arq4);
     }
     testeTrack.close();
    
-    MetodosOrdenacao aux;
-    menu(aux, arq3, arq4); //Chamada para o menu
+    menu(arq3, arq4); //Chamada para o menu
 
     return 0;
 }

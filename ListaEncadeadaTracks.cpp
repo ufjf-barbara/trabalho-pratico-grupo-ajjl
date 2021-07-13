@@ -113,11 +113,11 @@ void ListaEncadeadaTracks::imprimeIds() {
 }
 
 //Funcao para a criacao e escrita do .bin
-void ListaEncadeadaTracks::escreveBin()
+void ListaEncadeadaTracks::escreveBin(string arq4)
 {
     ofstream tracksbin;
 
-    tracksbin.open("tracks.bin",ios::binary);
+    tracksbin.open(arq4,ios::binary);
 
     for(NoT *p=primeiro;p!=NULL;p=p->getProx())
 
