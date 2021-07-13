@@ -19,9 +19,9 @@ class MetodosOrdenacao
         void DesempenhoMedio();
 
     private:
-        int MetricasMerge[3][5][3];
-        int MetricasQuick[3][5][3];
-        int MetricasHeap[3][5][3];
+        long int MetricasMerge[3][5][3];
+        long int MetricasQuick[3][5][3];
+        long int MetricasHeap[3][5][3];
         long int MetricasTeste [3];
         int valores[5];
         
