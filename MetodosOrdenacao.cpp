@@ -50,8 +50,8 @@ void MetodosOrdenacao::ordenacoes(string arq3) { // Chama as ordenacoes
     BlocoQuick(1, arq3);
     BlocoHeap(1, arq3);
     BlocoMerge(1, arq3);
-    //imprimeBloco();  // Funcao para teste individuais
     DesempenhoMedio(); // Cria saida.txt com os resultados obtidos
+    //imprimeBloco();  // Funcao para teste individuais
 }
 
 // Metodos de Ordenacao
@@ -128,7 +128,7 @@ void MetodosOrdenacao::mergesortinicio(int n,long int metricasmerge[], string ar
     delete[] A;
 }
 
-void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim, long int metricasQuick[] ){
+void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim, long int metricasQuick[] ){ 
     if(inicio < fim){
         int p = partQuick(vet, inicio, fim, metricasQuick);
         quickSort(vet, inicio, p - 1, metricasQuick);
