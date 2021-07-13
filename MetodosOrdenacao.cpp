@@ -149,7 +149,7 @@ int MetodosOrdenacao::partQuick(vector <Artista> *vet, int esq, int dir, long in
             metricasQuick[0]=metricasQuick[0]+1; // Contador de comparacoes
         }
         if(i <= j) { 
-            Artista aux = vet->at(i); // auxiliar para a troca
+            Artista aux = vet->at(i); // auxiliar para fazer a troca
             vet->at(i) = vet->at(j);
             vet->at(j) = aux;
             metricasQuick[1]=metricasQuick[1]+1; // Contador de movimentos
@@ -157,21 +157,18 @@ int MetodosOrdenacao::partQuick(vector <Artista> *vet, int esq, int dir, long in
             j--;
         }
     }
-    return i;
+    return i; // Retorna indice para o pivo
 }
 
 void MetodosOrdenacao::heapSort(vector <Artista> *vet, int n, long int metricasHeap[]) {
     for (int i = n / 2 -1; i >= 0; i--) // Constroi a heap (rearranja o array)
-        heapify(vet, n, i, metricasHeap);
+        heapify(vet, n, i, metricasHeap); // Chama max heapify
     
     for (int i=n-1; i>=0; i--) { // Extrai elemento da heap
-        // Move raiz para fim
-        Artista aux = vet->at(0);
-        vet->at(0) = vet->at(i);
+        Artista aux = vet->at(0); // auxiliar para fazer a troca
+        vet->at(0) = vet->at(i);// Move raiz para fim
         vet->at(i) = aux;
-
         metricasHeap[1]=metricasHeap[1]+1; // Contador movimento
-       
         heapify(vet, i, 0, metricasHeap); // Chama max heapify
     }
 }
@@ -183,19 +180,17 @@ void MetodosOrdenacao::heapify(vector <Artista> *vet, int n, int i, long int met
     metricasHeap[0]=metricasHeap[0]+1;
     if (esq < n && vet->at(esq).followers > vet->at(maior).followers)   // Se o filho esquerdo é maior que pai (raiz)
         maior = esq;
-    
+
     metricasHeap[0]=metricasHeap[0]+1;
     if (dir < n && vet->at(dir).followers > vet->at(maior).followers)   // Se o filho direito é maior que o maior até agora
         maior = dir;
     
     if (maior != i) {   //Se o maior não é a raiz
-        Artista aux = vet->at(maior);
+        Artista aux = vet->at(maior); // auxiliar para fazer a troca
         vet->at(maior) = vet->at(i);
         vet->at(i) = aux;
-
-        metricasHeap[1]=metricasHeap[1]+1; // Contador movimento
-        
-        heapify(vet, n, maior, metricasHeap); // Chama heapify para a sub-árvore correspondente.
+        metricasHeap[1]=metricasHeap[1]+1; // Contador movimento       
+        heapify(vet, n, maior, metricasHeap); // Chama heapify para a sub-árvore correspondente
     }
 }
 
