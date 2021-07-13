@@ -14,7 +14,7 @@ class MetodosOrdenacao
         virtual ~MetodosOrdenacao();
         vector<Artista> artistasaleatorios(int tam, string arq3);
         void ordenacoes(string arq3);
-        void moduloTeste(string arq3, string arq4);
+        void moduloTeste(string arq3);
         void imprimeBloco();
         void DesempenhoMedio();
 
@@ -27,7 +27,6 @@ class MetodosOrdenacao
         
         bool verificaArtista (vector<Artista> vetor, Artista aux);
         void testedeinput();
-        void escreveTesteOrd(string arq3);
 
         void mergesortinicio(int n, long int metricasmerge[], string arq3);
         void mergeartista(Artista vetordeartistas[],int inicio,int metade,int fim,long int metricasmerge[]);

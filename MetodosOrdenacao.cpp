@@ -6,72 +6,52 @@
 using namespace std;
 
 MetodosOrdenacao::MetodosOrdenacao() {
-    testedeinput();
+    testedeinput(); // Obtem informação sobre input.dat
 }
-
 MetodosOrdenacao::~MetodosOrdenacao() {}
 
-// Seleciona N artista aleatorios
-bool MetodosOrdenacao::verificaArtista (vector<Artista> vetor, Artista aux) {
+
+bool MetodosOrdenacao::verificaArtista (vector<Artista> vetor, Artista aux) { // Funcao para verificacao de repeticao
     for (int i=0; i<vetor.size(); i++){
         if (vetor[i].id == aux.id)
-            return true;
+            return true; // Caso artista for repetido
     }
-    return false;
+    return false; // Caso seja um novo artista
 }
-vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) {
-    cout << "Criando vetor -";  
-    vector<Artista> vetor; //Vetor que recebera .bin
-    vetor.reserve (tam);
-
+vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) { // Cria vetor de N artistas aleatorios
+    vector<Artista> vetor; //Vetor que recebera dados de artists.bin
+    vetor.reserve (tam);  // Aloca espaco
     ifstream artBin;
-    artBin.open(arq3,ios::binary);
-
-    if  (artBin.fail()){ // excluir esse teste depois
-        cout << "erro na leitura do .bin dentro de artista aleatorio" << endl;
-        exit(1);
-    }
-
+    artBin.open(arq3,ios::binary); // Abre artists.bin
+    
     //Calcula numero de linhas do .bin
     artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
     int length = artBin.tellg(); //Salva valor da posicao
-
     length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
-
     artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
 
     for(int i=0;i<tam;i++) {
         Artista aleatoria;
-        
         int aleat = (rand()%length)*sizeof(Artista); //Gera posicao aleatoria
         artBin.seekg(aleat); // Posiciona o ponteiro em .bin
 
         artBin.read((char *) &(aleatoria),sizeof(Artista)); //Le conteudo da linha em .bin
 
-        
         //if(verificaArtista(vetor, aleatoria)) //Verificacao se existe repeticao de id com o vetor
         //    i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
         //else
             vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
     }
-
     artBin.close(); //Fecha .bin
-
-    cout << " Vetor concluido" << endl;
     return vetor;
 }
 
-// Menu para ordenacoes
-void MetodosOrdenacao::ordenacoes(string arq3) {
+void MetodosOrdenacao::ordenacoes(string arq3) { // Chama as ordenacoes
     BlocoQuick(1, arq3);
     BlocoHeap(1, arq3);
     BlocoMerge(1, arq3);
-    imprimeBloco();
-    DesempenhoMedio();
-}
-
-void MetodosOrdenacao::moduloTeste(string arq3, string arq4) {
-    escreveTesteOrd(arq3);
+    //imprimeBloco();  // Funcao para teste individuais
+    DesempenhoMedio(); // Cria saida.txt com os resultados obtidos
 }
 
 // Metodos de Ordenacao
@@ -251,7 +231,7 @@ void MetodosOrdenacao::zerarmetricas(long int metrica[]) {
 }
 void MetodosOrdenacao::BlocoMerge(int opc, string arq3) {
     if (opc == 1) {
-        cout << "=== Iniciando Teste de Merge:" << endl;
+        cout << "Iniciando ordenacao por  MergeSort: " << endl;
         for (int k=0;k<3;k++) {
             for(int j=0;j<5;j++) {
                 long int metricas[3];
@@ -260,11 +240,11 @@ void MetodosOrdenacao::BlocoMerge(int opc, string arq3) {
                 MetricasMerge[k][j][0]=metricas[0];
                 MetricasMerge[k][j][1]=metricas[1];
                 MetricasMerge[k][j][2]=metricas[2];
-                cout << "Concluido N=" << valores[j] << endl;
+                cout << " Concluido para N=" << valores[j] << endl;
             }
-            cout << "Conluido teste " << k+1 << endl; 
+            cout << "  Conluido teste: " << k+1 << endl; 
         } 
-        cout << "=== Merge Concluido" << endl;
+        cout << "Ordenacao por MergeSort concluido" << endl;
     }  
     else if (opc == 2) {
         zerarmetricas(MetricasTeste);
@@ -273,7 +253,7 @@ void MetodosOrdenacao::BlocoMerge(int opc, string arq3) {
 }
 void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
     if (opc == 1) {
-        cout << "=== Iniciando Teste de Quick:" << endl;
+        cout << "Iniciando Ordenacao por QuickSort:" << endl;
         for (int k=0;k<3;k++) {
             for(int j=0;j<5;j++) {
                 long int metricas[3];
@@ -286,11 +266,11 @@ void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
                 MetricasQuick[k][j][0]=metricas[0];
                 MetricasQuick[k][j][1]=metricas[1];
                 MetricasQuick[k][j][2]=end-start;
-                cout << "Concluido N=" << valores[j] << endl;
+                cout << "Concluido para N = " << valores[j] << endl;
             }
-            cout << "Conluido teste " << k+1 << endl;
+            cout << "  Conluido teste: " << k+1 << endl;
         }
-        cout << "=== Quick Concluido" << endl;
+        cout << "Ordenacao por QuickSort oncluido" << endl;
     }
     else if (opc == 2) {
             zerarmetricas(MetricasTeste);
@@ -304,7 +284,7 @@ void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
 }
 void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
     if (opc == 1) {
-        cout << "=== Iniciando Teste de Heap:" << endl;
+        cout << "Iniciando ordenacao por HeapSort:" << endl;
         for (int k=0;k<3;k++) {
             for(int j=0;j<5;j++) {
                 long int metricas[3];
@@ -317,11 +297,11 @@ void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
                 MetricasHeap[k][j][0]=metricas[0];
                 MetricasHeap[k][j][1]=metricas[1];
                 MetricasHeap[k][j][2]=end-start;
-                cout << "Concluido N=" << valores[j] << endl;
+                cout << " Concluido para N = " << valores[j] << endl;
             }
-            cout << "Conluido teste " << k+1 << endl;
+            cout << "  Conluido teste: " << k+1 << endl;
         }
-        cout << "=== Heap Concluido" << endl;
+        cout << "Ordenacao por HeapSor concluido" << endl;
     }
     else if (opc == 2) {
     zerarmetricas(MetricasTeste);
@@ -336,7 +316,7 @@ void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
 
 
 // Escreve teste.txt
-void MetodosOrdenacao::escreveTesteOrd(string arq3) {
+void MetodosOrdenacao::moduloTeste(string arq3) {
     ofstream arq("teste.txt");
     arq << "Teste de ordenação para N=100" << endl;
     arq << " " << endl;
