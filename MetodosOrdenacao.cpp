@@ -299,9 +299,22 @@ vector<Artista> MetodosOrdenacao::moduloHeap(string arq3) {
     MetricasTeste[2]=end-start;
     return vetor;
 }
+void MetodosOrdenacao::ModuloQuick(Artista A[],string arq3){
+    zerarmetricas(MetricasTeste);
+    vector<Artista> vetordeartistas;
+    vetordeartistas=artistasaleatorios(100, arq3);
+
+    for(int i=0;i<100;i++)
+        A[i]=vetordeartistas[i];    /// tranforma um vector em um array
+
+    mergesort(A,0,99,MetricasTeste);
+
+
+}
 // Escreve teste.txt
 void MetodosOrdenacao::moduloTeste(string arq3) {
     vector<Artista> vetor;
+    Artista A[100];
     ofstream arq("teste.txt");
     arq << "Teste de ordenação para N=100" << endl;
     arq << endl;
@@ -322,7 +335,11 @@ void MetodosOrdenacao::moduloTeste(string arq3) {
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
     arq << endl;
     arq << "-> Resultados para MergeSort:" << endl; 
-    //BlocoMerge(arq3);
+    ModuloQuick(A,arq3);
+    for (int i=0; i<100; i++){
+        arq << i <<" - Follows: "<< A[i].followers << " - Id: " << A[i].id << " - Name: " << A[i].name << endl;
+    }
+    
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
     arq << endl;
