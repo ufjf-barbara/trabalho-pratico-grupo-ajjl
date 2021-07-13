@@ -131,7 +131,7 @@ void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim, lon
     if(inicio < fim){ // Enquanto posicao de inicio nao ultrapassar final
         int p = partQuick(vet, inicio, fim, metricasQuick); // Calcula posicao do pivo
         quickSort(vet, inicio, p - 1, metricasQuick); // Recursividade da primeira metade do vetor
-        quickSort(vet, p + 1, fim, metricasQuick); // Recursividade da segunda metade do vetor
+        quickSort(vet, p, fim, metricasQuick); // Recursividade da segunda metade do vetor
     }
 }
 int MetodosOrdenacao::partQuick(vector <Artista> *vet, int esq, int dir, long int metricasQuick[]){
@@ -139,7 +139,7 @@ int MetodosOrdenacao::partQuick(vector <Artista> *vet, int esq, int dir, long in
     Artista pivo = vet->at(p); // posiciona pivo utilizando ponteiro
     metricasQuick[1]=metricasQuick[1]+1; // Contador de movimento
     int i = esq; // Posicao percorrida pela esquerda
-    int j = dir-1; // Posicao percorrida pela direita
+    int j = dir; // Posicao percorrida pela direita
     while(i<=j) { // Enquanto esquerda nao ultrapassar direita
         while(vet->at(i).followers < pivo.followers) { // Compara followers de pivo com posicao mais a esquerda
             i++;
@@ -333,14 +333,6 @@ void MetodosOrdenacao::moduloTeste(string arq3) {
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
     arq << endl;
 
-}
-void MetodosOrdenacao::escreveVetor(vector <Artista> *vet){
-    ofstream arq;
-    arq.open("teste.txt", ios::app);
-    for (int i=0; i<100; i++) {
-        arq << i <<" - Follows: "<< vet->at(i).followers << " - Id: " << vet->at(i).id << " - Name: " << vet->at(i).name << endl;
-    }
-    arq.close();
 }
 void MetodosOrdenacao::imprimeBloco()
 {
