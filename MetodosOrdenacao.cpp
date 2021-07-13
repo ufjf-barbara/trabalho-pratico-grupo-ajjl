@@ -12,8 +12,8 @@ MetodosOrdenacao::MetodosOrdenacao() {
 MetodosOrdenacao::~MetodosOrdenacao() {}
 
 
-bool MetodosOrdenacao::verificaArtista (vector<Artista> vetor, Artista aux) { // Funcao para verificacao de repeticao
-    for (int i=0; i<vetor.size(); i++){
+bool MetodosOrdenacao::verificaArtista (vector<Artista> vetor, Artista aux, int max) { // Funcao para verificacao de repeticao
+    for (int i=0; i<=max; i++){
         if (vetor[i].id == aux.id)
             return true; // Caso artista for repetido
     }
@@ -30,7 +30,6 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) { // 
     int length = artBin.tellg(); //Salva valor da posicao
     length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
     artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
-
     for(int i=0;i<tam;i++) {
         Artista aleatoria;
         int aleat = (rand()%length)*sizeof(Artista); //Gera posicao aleatoria
@@ -38,7 +37,7 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) { // 
 
         artBin.read((char *) &(aleatoria),sizeof(Artista)); //Le conteudo da linha em .bin
 
-        if(verificaArtista(vetor, aleatoria)) //Verificacao se existe repeticao de id com o vetor
+        if(verificaArtista(vetor, aleatoria, i)) //Verificacao se existe repeticao de id com o vetor
             i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
         else
             vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin

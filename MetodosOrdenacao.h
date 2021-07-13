@@ -28,7 +28,7 @@ class MetodosOrdenacao
         long int MetricasTeste [3];
         int valores[5];
         
-        bool verificaArtista (vector<Artista> vetor, Artista aux);
+        bool verificaArtista (vector<Artista> vetor, Artista aux, int max);
         void testedeinput();
 
         void mergesortinicio(int n, long int metricasmerge[], string arq3);
