@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <fstream>
 #include "NoA.h"
+#include "NoHash.h"
 
 class MetodosOrdenacao
 {
@@ -17,6 +18,8 @@ class MetodosOrdenacao
         void moduloTeste(string arq3, string arq4);
         void imprimeBloco();
         void DesempenhoMedio();
+        void ordenaTabelaHash(NoHash **vet, int tam);
+
 
     private:
         long int MetricasMerge[3][5][3];
@@ -36,7 +39,9 @@ class MetodosOrdenacao
         int partQuick(vector <Artista> *vet, int esq, int dir, long int metricasQuick[]);
         void heapSort(vector <Artista> *vet, int n, long int metricasHeap[]);
         void heapify(vector <Artista> *vet, int n, int i, long int metricasHeap[]);
-               
+        void quickSortTabelaHash(NoHash **vet, int inicio, int fim);
+        int partQuickTabelaHash(NoHash **vet, int esq, int dir);
+
         void BlocoMerge(int opc, string arq3);
         void BlocoQuick(int opc, string arq3);
         void BlocoHeap(int opc, string arq3);

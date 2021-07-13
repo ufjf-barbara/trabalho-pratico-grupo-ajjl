@@ -16,13 +16,16 @@ public:
     int getTam() { return tam; }
     void insere(NoHash* n);
     void print();
-    void insereArtists(int tam, string arq4);
+    void insereArtists(int tam, string arq4, int M);
     vector<Tracks> tracksAleatorias(int tam, string arq4);
     bool verificaArtista (vector<Tracks> vetor, Tracks aux);
+    NoHash **copiaTabelaSemNull();
+    void maisFrequentes(NoHash **copia, int M);
 
 private:
     int tam;
-    int funct(string,int);
+    int ocupacao;
+    int funct(string, int);
     NoHash **tabela;
 };
 

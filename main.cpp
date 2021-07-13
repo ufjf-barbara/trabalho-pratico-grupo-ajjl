@@ -64,10 +64,14 @@ void menu(MetodosOrdenacao aux, string arq3, string arq4){
             cout << " Etapa concluida, resultados salvos em saida.txt" << endl;
         }
         else if (opcao == 2) {
+            int M;
+            int tam = 1000;
             cout << " Executando tabela Hash" << endl;
-            int tam = 150;
+            cout << "Digite o numero de artistas mais frequentes desejado: ";
+            cin >> M;
+            
             TabelaHash tabela(tam*2);
-            tabela.insereArtists(tam,arq4);
+            tabela.insereArtists(tam,arq4, M);
             cout << " Etapa concluida" << endl;
         }
         else if (opcao == 3) {

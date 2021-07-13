@@ -4,6 +4,7 @@
 #include <string.h>
 #include "TabelaHash.h"
 #include "ListaEncadeadaTracks.h"
+#include "MetodosOrdenacao.h"
 #include <sstream>
 #include <fstream>
 #include <vector>
@@ -132,7 +133,29 @@ vector<string> divideString(string tokenString){
       return tokens;
 }
 
-void TabelaHash::insereArtists(int tam, string arq4){
+NoHash** TabelaHash::copiaTabelaSemNull(){
+    NoHash **copia = (NoHash**) malloc(sizeof(NoHash*)*tam);
+    int j = 0;
+    for (int i = 0; i < tam; i++)
+    {
+        if(tabela[i]!=NULL){
+            copia[j] = &(*tabela[i]);
+            j++;
+        }
+    }
+    this->ocupacao = j;
+    return copia;
+}
+
+void TabelaHash::maisFrequentes(NoHash** copia, int M){
+    cout << "ARTISTAS MAIS FREQUENTES" << endl;
+    for (int i = 0; i < M; i++)
+    {
+        cout << i + 1 << "° artista: " << copia[i]->nome << ", Musica mais popular: " << copia[i]->musicaPopular << ", Frequencia: " << copia[i]->frequencia << " vezes."<< endl;
+    }
+}
+
+void TabelaHash::insereArtists(int tam, string arq4, int M){
 
     vector<Tracks> tracksRandom = tracksAleatorias(tam,arq4);
     for(int i = 0; i < tracksRandom.size(); i++){
@@ -149,5 +172,8 @@ void TabelaHash::insereArtists(int tam, string arq4){
             insere(novoArtista);
         }
     }
-    print();
+    MetodosOrdenacao quick;
+    NoHash **copia = copiaTabelaSemNull();
+    quick.ordenaTabelaHash(copia, ocupacao);
+    maisFrequentes(copia, M);
 }

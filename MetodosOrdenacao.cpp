@@ -1,6 +1,7 @@
 #include <vector>
 #include "MetodosOrdenacao.h"
 #include "NoA.h"
+#include "TabelaHash.h"
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -178,6 +179,41 @@ int MetodosOrdenacao::partQuick(vector <Artista> *vet, int esq, int dir, long in
             i++;
             j--;
         }
+    }
+    return i;
+}
+void MetodosOrdenacao::ordenaTabelaHash(NoHash **vet, int tam){
+    quickSortTabelaHash(vet, 0, tam - 1);   
+}
+
+void MetodosOrdenacao::quickSortTabelaHash(NoHash **vet, int inicio, int fim){
+    if(inicio < fim){
+        int p = partQuickTabelaHash(vet, inicio, fim);
+        quickSortTabelaHash(vet, inicio, p - 1);
+        quickSortTabelaHash(vet, p + 1, fim);
+    }
+}
+int MetodosOrdenacao::partQuickTabelaHash(NoHash **vet, int esq, int dir){
+    int p = esq + (dir - esq) / 2;
+    NoHash* pivo = vet[p];
+
+    int i = esq;
+    int j = dir-1;
+    while(i<=j) {
+        while(vet[i]->frequencia > pivo->frequencia) {
+            i++;
+        }
+        while(vet[j]->frequencia < pivo->frequencia) {
+            j--;
+        }
+        if(i <= j) {
+            NoHash *aux = vet[i];
+            vet[i] = vet[j];
+            vet[j] = aux;
+            i++;
+            j--;
+        }
+        
     }
     return i;
 }
