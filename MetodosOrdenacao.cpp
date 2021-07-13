@@ -137,7 +137,6 @@ void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim, lon
 int MetodosOrdenacao::partQuick(vector <Artista> *vet, int esq, int dir, long int metricasQuick[]){
     int p = esq + (dir - esq) / 2; // indicado do pivo recebe a metade do vetor como posicao
     Artista pivo = vet->at(p); // posiciona pivo utilizando ponteiro
-    metricasQuick[1]=metricasQuick[1]+1; // Contador de movimento
     int i = esq; // Posicao percorrida pela esquerda
     int j = dir; // Posicao percorrida pela direita
     while(i<=j) { // Enquanto esquerda nao ultrapassar direita
@@ -149,11 +148,11 @@ int MetodosOrdenacao::partQuick(vector <Artista> *vet, int esq, int dir, long in
             j--;
             metricasQuick[0]=metricasQuick[0]+1; // Contador de comparacoes
         }
-        if(i <= j) {
-            Artista aux = vet->at(i);
+        if(i <= j) { 
+            Artista aux = vet->at(i); // auxiliar para a troca
             vet->at(i) = vet->at(j);
             vet->at(j) = aux;
-            metricasQuick[1]=metricasQuick[1]+1;
+            metricasQuick[1]=metricasQuick[1]+1; // Contador de movimentos
             i++;
             j--;
         }
@@ -332,9 +331,8 @@ void MetodosOrdenacao::moduloTeste(string arq3) {
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
     arq << endl;
-
 }
-void MetodosOrdenacao::imprimeBloco()
+void MetodosOrdenacao::imprimeBloco() // Apenas para auxiliar nosso teste interno
 {
     ofstream arq("testeBlocoMerge.txt");
     for (int i=0;i<3;i++)

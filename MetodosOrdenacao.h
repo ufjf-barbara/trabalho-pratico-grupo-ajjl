@@ -42,11 +42,7 @@ class MetodosOrdenacao
         void zerarmetricas(int long metrica[]);
 
         vector<Artista> moduloHeap(string arq3);
-        vector<Artista> moduloQuick(string arq3);
-        void escreveVetor(vector <Artista> *vet);
-        
-        
-        
+        vector<Artista> moduloQuick(string arq3);   
 };  
 
 #endif // METODOSORDENACAO_H
