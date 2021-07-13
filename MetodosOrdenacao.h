@@ -15,7 +15,7 @@ class MetodosOrdenacao
         virtual ~MetodosOrdenacao();
         vector<Artista> artistasaleatorios(int tam, string arq3);
         void ordenacoes(string arq3);
-        void moduloTeste(string arq3);
+        void moduloTeste(string arq3, string arq4, int M);
         void imprimeBloco();
         void DesempenhoMedio();
         void ordenaTabelaHash(NoHash **vet, int tam);

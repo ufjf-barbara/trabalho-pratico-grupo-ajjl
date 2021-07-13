@@ -147,15 +147,25 @@ NoHash** TabelaHash::copiaTabelaSemNull(){
     return copia;
 }
 
-void TabelaHash::maisFrequentes(NoHash** copia, int M){
-    cout << "ARTISTAS MAIS FREQUENTES" << endl;
-    for (int i = 0; i < M; i++)
-    {
-        cout << i + 1 << "° artista: " << copia[i]->nome << ", Musica mais popular: " << copia[i]->musicaPopular << ", Frequencia: " << copia[i]->frequencia << " vezes."<< endl;
+void TabelaHash::maisFrequentes(NoHash** copia, int M, int op){
+    if(op == 1){
+        cout << "ARTISTAS MAIS FREQUENTES" << endl;
+        for (int i = 0; i < M; i++)
+        {
+            cout << i + 1 << "° artista: " << copia[i]->nome << ", Musica mais popular: " << copia[i]->musicaPopular << ", Frequencia: " << copia[i]->frequencia << " vezes."<< endl;
+        } 
+    }
+    else if(op == 2){
+        ofstream arq("teste.txt");
+        arq << "ARTISTAS MAIS FREQUENTES" << endl;
+        for (int i = 0; i < M; i++)
+        {
+            arq << i + 1 << "° artista: " << copia[i]->nome << ", Musica mais popular: " << copia[i]->musicaPopular << ", Frequencia: " << copia[i]->frequencia << " vezes."<< endl;
+        } 
     }
 }
 
-void TabelaHash::insereArtists(int tam, string arq4, int M){
+void TabelaHash::insereArtists(int tam, string arq4, int M, int op){
 
     vector<Tracks> tracksRandom = tracksAleatorias(tam,arq4);
     for(int i = 0; i < tracksRandom.size(); i++){
@@ -175,5 +185,5 @@ void TabelaHash::insereArtists(int tam, string arq4, int M){
     MetodosOrdenacao quick;
     NoHash **copia = copiaTabelaSemNull();
     quick.ordenaTabelaHash(copia, ocupacao);
-    maisFrequentes(copia, M);
+    maisFrequentes(copia, M, op);
 }

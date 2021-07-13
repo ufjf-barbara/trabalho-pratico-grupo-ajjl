@@ -34,20 +34,24 @@ void menu(string arq3, string arq4) { // Menu para selecionar as opcoes
             cout << endl;
         }
         else if (opcao == 2) {
-            int M;
-            int tam = 1000;
+            int M, N;
             cout << " Executando tabela Hash" << endl;
+            cout << "Digite o valor de N: ";
+            cin >> N;
             cout << "Digite o numero de artistas mais frequentes desejado: ";
             cin >> M;
             
-            TabelaHash tabela(tam*2);
-            tabela.insereArtists(tam,arq4, M);
+            TabelaHash tabela(N*2);
+            tabela.insereArtists(N,arq4, M, 1);
             cout << " Etapa concluida" << endl;
         }
         else if (opcao == 3) {
             cout << " Executando modulo de teste" << endl;
+            int M;
+            cout << "Digite o numero de artistas mais frequentes desejado: ";
+            cin >> M;
             MetodosOrdenacao ord;
-            ord.moduloTeste(arq3); // Chama a execucao do Modulo de Teste
+            ord.moduloTeste(arq3, arq4, M); // Chama a execucao do Modulo de Teste
             cout << " Modulo teste concluido, resultados salvos em teste.txt" << endl;
             cout << endl;
         }
