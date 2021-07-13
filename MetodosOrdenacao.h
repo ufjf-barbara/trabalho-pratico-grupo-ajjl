@@ -36,10 +36,14 @@ class MetodosOrdenacao
         void heapSort(vector <Artista> *vet, int n, long int metricasHeap[]);
         void heapify(vector <Artista> *vet, int n, int i, long int metricasHeap[]);
                
-        void BlocoMerge(int opc, string arq3);
-        void BlocoQuick(int opc, string arq3);
-        void BlocoHeap(int opc, string arq3);
+        void BlocoMerge(string arq3);
+        void BlocoQuick(string arq3);
+        void BlocoHeap(string arq3);
         void zerarmetricas(int long metrica[]);
+
+        vector<Artista> moduloHeap(string arq3);
+        vector<Artista> moduloQuick(string arq3);
+        void escreveVetor(vector <Artista> *vet);
         
         
         

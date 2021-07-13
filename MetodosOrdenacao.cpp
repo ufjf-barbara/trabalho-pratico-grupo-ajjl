@@ -37,9 +37,9 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) { // 
 
         artBin.read((char *) &(aleatoria),sizeof(Artista)); //Le conteudo da linha em .bin
 
-        //if(verificaArtista(vetor, aleatoria)) //Verificacao se existe repeticao de id com o vetor
-        //    i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
-        //else
+        if(verificaArtista(vetor, aleatoria)) //Verificacao se existe repeticao de id com o vetor
+            i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
+        else
             vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
     }
     artBin.close(); //Fecha .bin
@@ -47,9 +47,9 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) { // 
 }
 
 void MetodosOrdenacao::ordenacoes(string arq3) { // Chama as ordenacoes
-    BlocoQuick(1, arq3);
-    BlocoHeap(1, arq3);
-    BlocoMerge(1, arq3);
+    BlocoQuick(arq3);
+    BlocoHeap(arq3);
+    BlocoMerge(arq3);
     DesempenhoMedio(); // Cria saida.txt com os resultados obtidos
     //imprimeBloco();  // Funcao para teste individuais
 }
@@ -124,31 +124,30 @@ void MetodosOrdenacao::mergesortinicio(int n,long int metricasmerge[], string ar
     end= clock();
 
     metricasmerge[2]=int(end-start);
-
     delete[] A;
 }
 
-void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim, long int metricasQuick[] ){ 
-    if(inicio < fim){
-        int p = partQuick(vet, inicio, fim, metricasQuick);
-        quickSort(vet, inicio, p - 1, metricasQuick);
-        quickSort(vet, p + 1, fim, metricasQuick);
+void MetodosOrdenacao::quickSort(vector <Artista> *vet, int inicio, int fim, long int metricasQuick[]){ 
+    if(inicio < fim){ // Enquanto posicao de inicio nao ultrapassar final
+        int p = partQuick(vet, inicio, fim, metricasQuick); // Calcula posicao do pivo
+        quickSort(vet, inicio, p - 1, metricasQuick); // Recursividade da primeira metade do vetor
+        quickSort(vet, p + 1, fim, metricasQuick); // Recursividade da segunda metade do vetor
     }
 }
 int MetodosOrdenacao::partQuick(vector <Artista> *vet, int esq, int dir, long int metricasQuick[]){
-    int p = esq + (dir - esq) / 2;
-    Artista pivo = vet->at(p);
-    metricasQuick[1]=metricasQuick[1]+1;
-    int i = esq;
-    int j = dir-1;
-    while(i<=j) {
-        while(vet->at(i).followers < pivo.followers) {
+    int p = esq + (dir - esq) / 2; // indicado do pivo recebe a metade do vetor como posicao
+    Artista pivo = vet->at(p); // posiciona pivo utilizando ponteiro
+    metricasQuick[1]=metricasQuick[1]+1; // Contador de movimento
+    int i = esq; // Posicao percorrida pela esquerda
+    int j = dir-1; // Posicao percorrida pela direita
+    while(i<=j) { // Enquanto esquerda nao ultrapassar direita
+        while(vet->at(i).followers < pivo.followers) { // Compara followers de pivo com posicao mais a esquerda
             i++;
-            metricasQuick[0]=metricasQuick[0]+1;
+            metricasQuick[0]=metricasQuick[0]+1; // Contador de comparacoes
         }
-        while(vet->at(j).followers > pivo.followers) {
+        while(vet->at(j).followers > pivo.followers) { // Compara followers de pivo com posicao mais a direita
             j--;
-            metricasQuick[0]=metricasQuick[0]+1;
+            metricasQuick[0]=metricasQuick[0]+1; // Contador de comparacoes
         }
         if(i <= j) {
             Artista aux = vet->at(i);
@@ -229,81 +228,74 @@ void MetodosOrdenacao::zerarmetricas(long int metrica[]) {
     metrica[1]=0;
     metrica[2]=0;
 }
-void MetodosOrdenacao::BlocoMerge(int opc, string arq3) {
-    if (opc == 1) {
-        cout << "Iniciando ordenacao por  MergeSort: " << endl;
-        for (int k=0;k<3;k++) {
-            for(int j=0;j<5;j++) {
-                long int metricas[3];
-                zerarmetricas(metricas);
-                mergesortinicio(valores[j],metricas, arq3);
-                MetricasMerge[k][j][0]=metricas[0];
-                MetricasMerge[k][j][1]=metricas[1];
-                MetricasMerge[k][j][2]=metricas[2];
-                cout << " Concluido para N=" << valores[j] << endl;
-            }
-            cout << "  Conluido teste: " << k+1 << endl; 
-        } 
-        cout << "Ordenacao por MergeSort concluido" << endl;
-    }  
-    else if (opc == 2) {
-        zerarmetricas(MetricasTeste);
-        mergesortinicio(100, MetricasTeste, arq3);
-    } 
-}
-void MetodosOrdenacao::BlocoQuick(int opc, string arq3) {
-    if (opc == 1) {
-        cout << "Iniciando Ordenacao por QuickSort:" << endl;
-        for (int k=0;k<3;k++) {
-            for(int j=0;j<5;j++) {
-                long int metricas[3];
-                zerarmetricas(metricas);
-                vector<Artista> vetor = artistasaleatorios(valores[j], arq3);
-                clock_t start, end;
-                start=clock();
-                quickSort(&vetor, 0, valores[j]-1, metricas);
-                end=clock();
-                MetricasQuick[k][j][0]=metricas[0];
-                MetricasQuick[k][j][1]=metricas[1];
-                MetricasQuick[k][j][2]=end-start;
-                cout << "Concluido para N = " << valores[j] << endl;
-            }
-            cout << "  Conluido teste: " << k+1 << endl;
+void MetodosOrdenacao::BlocoMerge(string arq3) {
+    cout << "Iniciando ordenacao por  MergeSort: " << endl;
+    for (int k=0;k<3;k++) {
+        for(int j=0;j<5;j++) {
+            long int metricas[3];
+            zerarmetricas(metricas);
+            mergesortinicio(valores[j],metricas, arq3);
+            MetricasMerge[k][j][0]=metricas[0];
+            MetricasMerge[k][j][1]=metricas[1];
+            MetricasMerge[k][j][2]=metricas[2];
+            cout << " Concluido para N=" << valores[j] << endl;
         }
-        cout << "Ordenacao por QuickSort oncluido" << endl;
-    }
-    else if (opc == 2) {
-            zerarmetricas(MetricasTeste);
-            vector<Artista> vetor = artistasaleatorios(100, arq3);
+        cout << "  Conluido teste: " << k+1 << endl; 
+    } 
+    cout << "Ordenacao por MergeSort concluido" << endl;
+}
+void MetodosOrdenacao::BlocoQuick(string arq3) {
+    cout << "Iniciando Ordenacao por QuickSort:" << endl;
+    for (int k=0;k<3;k++) {
+        for(int j=0;j<5;j++) {
+            long int metricas[3];
+            zerarmetricas(metricas);
+            vector<Artista> vetor = artistasaleatorios(valores[j], arq3);
             clock_t start, end;
             start=clock();
-            quickSort(&vetor, 0, 99, MetricasTeste);
+            quickSort(&vetor, 0, valores[j]-1, metricas);
             end=clock();
-            MetricasTeste[2]=end-start;
-    }
-}
-void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
-    if (opc == 1) {
-        cout << "Iniciando ordenacao por HeapSort:" << endl;
-        for (int k=0;k<3;k++) {
-            for(int j=0;j<5;j++) {
-                long int metricas[3];
-                zerarmetricas(metricas);
-                vector<Artista> vetor = artistasaleatorios(valores[j], arq3);
-                clock_t start, end;
-                start=clock();
-                heapSort(&vetor, valores[j], metricas);
-                end=clock();
-                MetricasHeap[k][j][0]=metricas[0];
-                MetricasHeap[k][j][1]=metricas[1];
-                MetricasHeap[k][j][2]=end-start;
-                cout << " Concluido para N = " << valores[j] << endl;
-            }
-            cout << "  Conluido teste: " << k+1 << endl;
+            MetricasQuick[k][j][0]=metricas[0];
+            MetricasQuick[k][j][1]=metricas[1];
+            MetricasQuick[k][j][2]=end-start;
+            cout << "Concluido para N = " << valores[j] << endl;
         }
-        cout << "Ordenacao por HeapSor concluido" << endl;
+        cout << "  Conluido teste: " << k+1 << endl;
     }
-    else if (opc == 2) {
+    cout << "Ordenacao por QuickSort oncluido" << endl;
+}
+void MetodosOrdenacao::BlocoHeap(string arq3) {
+    cout << "Iniciando ordenacao por HeapSort:" << endl;
+    for (int k=0;k<3;k++) {
+        for(int j=0;j<5;j++) {
+            long int metricas[3];
+            zerarmetricas(metricas);
+            vector<Artista> vetor = artistasaleatorios(valores[j], arq3);
+            clock_t start, end;
+            start=clock();
+            heapSort(&vetor, valores[j], metricas);
+            end=clock();
+            MetricasHeap[k][j][0]=metricas[0];
+            MetricasHeap[k][j][1]=metricas[1];
+             MetricasHeap[k][j][2]=end-start;
+            cout << " Concluido para N = " << valores[j] << endl;
+        }
+        cout << "  Conluido teste: " << k+1 << endl;
+    }
+    cout << "Ordenacao por HeapSort concluido" << endl;
+}
+
+vector<Artista> MetodosOrdenacao::moduloQuick(string arq3) {
+    zerarmetricas(MetricasTeste);
+    vector<Artista> vetor = artistasaleatorios(100, arq3);
+    clock_t start, end;
+    start=clock();
+    quickSort(&vetor, 0, 99, MetricasTeste);
+    end=clock();
+    MetricasTeste[2]=end-start;
+    return vetor;
+}
+vector<Artista> MetodosOrdenacao::moduloHeap(string arq3) {
     zerarmetricas(MetricasTeste);
     vector<Artista> vetor = artistasaleatorios(100,arq3);
     clock_t start, end;
@@ -311,34 +303,44 @@ void MetodosOrdenacao::BlocoHeap(int opc, string arq3) {
     heapSort(&vetor, 100, MetricasTeste);
     end=clock();
     MetricasTeste[2]=end-start;
-    }
+    return vetor;
 }
-
-
 // Escreve teste.txt
 void MetodosOrdenacao::moduloTeste(string arq3) {
+    vector<Artista> vetor;
     ofstream arq("teste.txt");
     arq << "Teste de ordenação para N=100" << endl;
-    arq << " " << endl;
-    BlocoQuick(2, arq3);
-    arq << "Resultados para QuickSort:" << endl; 
+    arq << endl;
+    arq << "-> Resultados para QuickSort:" << endl; 
+    vetor = moduloQuick(arq3);
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
-    arq << "- Tempo:" << (float)MetricasTeste[2]/CLOCKS_PER_SEC << "sec" << endl;
-    arq << " " << endl;
-    BlocoHeap(2, arq3);
-    arq << "Resultados para HeapSort:" << endl; 
+    for (int i=0; i<100; i++) {
+        arq << i <<" - Follows: "<< vetor[i].followers << " - Id: " << vetor[i].id << " - Name: " << vetor[i].name << endl;
+    }
+    arq << endl;
+    arq << "-> Resultados para HeapSort:" << endl; 
+    vetor = moduloHeap(arq3);
+    for (int i=0; i<100; i++) {
+        arq << i <<" - Follows: "<< vetor[i].followers << " - Id: " << vetor[i].id << " - Name: " << vetor[i].name << endl;
+    }
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
-    arq << "- Tempo:" << (float)MetricasTeste[2]/CLOCKS_PER_SEC << "sec" << endl; 
-    arq << " " << endl;
-    BlocoMerge(2, arq3);
-    arq << "Resultados para MergeSort:" << endl; 
+    arq << endl;
+    arq << "-> Resultados para MergeSort:" << endl; 
+    //BlocoMerge(arq3);
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
-    arq << "- Tempo:" << (float)MetricasTeste[2]/CLOCKS_PER_SEC << "sec" << endl;
-    arq << " " << endl;
+    arq << endl;
 
+}
+void MetodosOrdenacao::escreveVetor(vector <Artista> *vet){
+    ofstream arq;
+    arq.open("teste.txt", ios::app);
+    for (int i=0; i<100; i++) {
+        arq << i <<" - Follows: "<< vet->at(i).followers << " - Id: " << vet->at(i).id << " - Name: " << vet->at(i).name << endl;
+    }
+    arq.close();
 }
 void MetodosOrdenacao::imprimeBloco()
 {
