@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
-#include <string.h>
 #include "TabelaHash.h"
 #include "ListaEncadeadaTracks.h"
 #include "MetodosOrdenacao.h"
@@ -64,7 +63,7 @@ void TabelaHash::print(){
     for(int i=0;i<tam;i++)
     {
         if(tabela[i]!=NULL){
-            cout<< "id: " << tabela[i]->id << " nome: " << tabela[i]->nome << " freq: " << tabela[i]->frequencia 
+            cout<< "id: " << tabela[i]->id << " nome: " << tabela[i]->id << " freq: " << tabela[i]->frequencia 
             << " musicaPopular: " << tabela[i]->musicaPopular << " popularity: " << tabela[i]->popularity << endl;
         }
 }
@@ -152,7 +151,7 @@ void TabelaHash::maisFrequentes(NoHash** copia, int M, int op){
         cout << "ARTISTAS MAIS FREQUENTES" << endl;
         for (int i = 0; i < M; i++)
         {
-            cout << i + 1 << "° artista: " << copia[i]->nome << ", Musica mais popular: " << copia[i]->musicaPopular << ", Frequencia: " << copia[i]->frequencia << " vezes."<< endl;
+            cout << i + 1 << "° artista: " << copia[i]->id << ", Musica mais popular: " << copia[i]->musicaPopular << ", Frequencia: " << copia[i]->frequencia << " vezes."<< endl;
         } 
     }
     else if(op == 2){
@@ -160,7 +159,7 @@ void TabelaHash::maisFrequentes(NoHash** copia, int M, int op){
         arq << "ARTISTAS MAIS FREQUENTES" << endl;
         for (int i = 0; i < M; i++)
         {
-            arq << i + 1 << "° artista: " << copia[i]->nome << ", Musica mais popular: " << copia[i]->musicaPopular << ", Frequencia: " << copia[i]->frequencia << " vezes."<< endl;
+            arq << i + 1 << "° artista: " << copia[i]->id << ", Musica mais popular: " << copia[i]->musicaPopular << ", Frequencia: " << copia[i]->frequencia << " vezes."<< endl;
         } 
     }
 }
@@ -170,18 +169,25 @@ void TabelaHash::insereArtists(int tam, string arq4, int M, int op){
     vector<Tracks> tracksRandom = tracksAleatorias(tam,arq4);
     for (int i = 0; i < tracksRandom.size(); i++)
     {
-        vector<string> artists = divideString(tracksRandom[i].artists);
-        vector<string> idArtists = divideString(tracksRandom[i].id_artists);
-        if(artists.size() > 1){
-            for(int j = 0; j < artists.size(); j++){
-                NoHash *novoArtista = new NoHash(idArtists[j], artists[j], 1, tracksRandom[i].name, tracksRandom[i].popularity);
-                insere(novoArtista);
-            }
+        if(tracksRandom[i].artists != "" && tracksRandom[i].id_artists != "" ){
+            // vector<string> artists;
+            // artists = divideString(tracksRandom[i].artists);
+            vector<string> idArtists;
+            idArtists = divideString(tracksRandom[i].id_artists);
+            if (idArtists.size() > 1)
+            {
+                for (int j = 0; j < idArtists.size(); j++)
+                {
+                    NoHash *novoArtista = new NoHash(idArtists[j], 1, tracksRandom[i].name, tracksRandom[i].popularity);
+                    insere(novoArtista);
+                }
         }
         else{
-            NoHash *novoArtista = new NoHash(tracksRandom[i].id_artists, tracksRandom[i].artists, 1, tracksRandom[i].name, tracksRandom[i].popularity);
+            NoHash *novoArtista = new NoHash(tracksRandom[i].id_artists, 1, tracksRandom[i].name, tracksRandom[i].popularity);
             insere(novoArtista);
         }
+        }
+   
     }
     MetodosOrdenacao quick;
     NoHash **copia = copiaTabelaSemNull();

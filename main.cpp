@@ -46,7 +46,7 @@ void menu(string arq3, string arq4) { // Menu para selecionar as opcoes
             cout << " Etapa concluida" << endl;
         }
         else if (opcao == 3) {
-            int N = 700;
+            int N = 1000;
             cout << " Executando modulo de teste" << endl;
             int M;
             cout << "Digite o numero de artistas mais frequentes desejado: ";
