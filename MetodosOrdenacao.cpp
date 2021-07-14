@@ -167,7 +167,7 @@ void MetodosOrdenacao::quickSortTabelaHash(NoHash **vet, int inicio, int fim){
     if(inicio < fim){
         int p = partQuickTabelaHash(vet, inicio, fim);
         quickSortTabelaHash(vet, inicio, p - 1);
-        quickSortTabelaHash(vet, p + 1, fim);
+        quickSortTabelaHash(vet, p, fim);
     }
 }
 int MetodosOrdenacao::partQuickTabelaHash(NoHash **vet, int esq, int dir){
@@ -175,7 +175,7 @@ int MetodosOrdenacao::partQuickTabelaHash(NoHash **vet, int esq, int dir){
     NoHash* pivo = vet[p];
 
     int i = esq;
-    int j = dir-1;
+    int j = dir;
     while(i<=j) {
         while(vet[i]->frequencia > pivo->frequencia) {
             i++;
