@@ -37,9 +37,9 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) { // 
 
         artBin.read((char *) &(aleatoria),sizeof(Artista)); //Le conteudo da linha em .bin
 
-        if(verificaArtista(vetor, aleatoria, i)) //Verificacao se existe repeticao de id com o vetor
-            i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
-        else
+        // if(verificaArtista(vetor, aleatoria, i)) //Verificacao se existe repeticao de id com o vetor
+        //     i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
+        // else
             vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
     }
     artBin.close(); //Fecha .bin
@@ -167,7 +167,7 @@ void MetodosOrdenacao::quickSortTabelaHash(NoHash **vet, int inicio, int fim){
     if(inicio < fim){
         int p = partQuickTabelaHash(vet, inicio, fim);
         quickSortTabelaHash(vet, inicio, p - 1);
-        quickSortTabelaHash(vet, p + 1, fim);
+        quickSortTabelaHash(vet, p, fim);
     }
 }
 int MetodosOrdenacao::partQuickTabelaHash(NoHash **vet, int esq, int dir){
@@ -175,7 +175,7 @@ int MetodosOrdenacao::partQuickTabelaHash(NoHash **vet, int esq, int dir){
     NoHash* pivo = vet[p];
 
     int i = esq;
-    int j = dir-1;
+    int j = dir;
     while(i<=j) {
         while(vet[i]->frequencia > pivo->frequencia) {
             i++;
@@ -348,6 +348,7 @@ void MetodosOrdenacao::ModuloQuick(Artista A[],string arq3){
 }
 // Escreve teste.txt
 void MetodosOrdenacao::moduloTeste(string arq3, string arq4, int M) {
+    int N = 1000;
     vector<Artista> vetor;
     Artista A[100];
     ofstream arq("teste.txt");
@@ -378,8 +379,9 @@ void MetodosOrdenacao::moduloTeste(string arq3, string arq4, int M) {
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
     arq << endl;
-    TabelaHash *table = new TabelaHash(2000);
-    table->insereArtists(1000, arq4, M, 2);
+
+    TabelaHash table(N*2);
+    table.insereArtists(N, arq4, M, 2);
 }
 void MetodosOrdenacao::imprimeBloco() // Apenas para auxiliar nosso teste interno
 {

@@ -39,6 +39,7 @@ int TabelaHash::funct(string id,int j){
 }
 
 void TabelaHash::insere(NoHash *item){
+
     int i; int j = 0;
     do{
         i=funct(item->id,j++);
@@ -114,7 +115,6 @@ vector<Tracks> TabelaHash::tracksAleatorias(int tam, string arq4) {
     }
 
     artBin.close(); //Fecha .bin
-
     return vetor;
 }
 
@@ -122,15 +122,15 @@ vector<Tracks> TabelaHash::tracksAleatorias(int tam, string arq4) {
 vector<string> divideString(string tokenString){
     vector<string> tokens;
 
-   // stream de strings de input inicializado com a string a ser separada
-   istringstream tokenizer { tokenString };
-   string token;
+    // stream de strings de input inicializado com a string a ser separada
+    istringstream tokenizer{tokenString};
+    string token;
 
-   // separa as sub-strings por vírgula e coloca no vetor destino
-   while (getline(tokenizer, token, ','))
-      tokens.push_back(token);
+    // separa as sub-strings por vírgula e coloca no vetor destino
+    while (getline(tokenizer, token, ','))
+        tokens.push_back(token);
 
-      return tokens;
+    return tokens;
 }
 
 NoHash** TabelaHash::copiaTabelaSemNull(){
@@ -168,7 +168,8 @@ void TabelaHash::maisFrequentes(NoHash** copia, int M, int op){
 void TabelaHash::insereArtists(int tam, string arq4, int M, int op){
 
     vector<Tracks> tracksRandom = tracksAleatorias(tam,arq4);
-    for(int i = 0; i < tracksRandom.size(); i++){
+    for (int i = 0; i < tracksRandom.size(); i++)
+    {
         vector<string> artists = divideString(tracksRandom[i].artists);
         vector<string> idArtists = divideString(tracksRandom[i].id_artists);
         if(artists.size() > 1){
