@@ -156,7 +156,7 @@ void TabelaHash::maisFrequentes(NoHash** copia, int M, int op){
         } 
     }
     else if(op == 2){
-        ofstream arq("teste.txt");
+        ofstream arq("teste.txt", ios::app);
         arq << "ARTISTAS MAIS FREQUENTES" << endl;
         for (int i = 0; i < M; i++)
         {

@@ -347,8 +347,7 @@ void MetodosOrdenacao::ModuloQuick(Artista A[],string arq3){
 
 }
 // Escreve teste.txt
-void MetodosOrdenacao::moduloTeste(string arq3, string arq4, int M) {
-    int N = 1000;
+void MetodosOrdenacao::moduloTeste(string arq3) {
     vector<Artista> vetor;
     Artista A[100];
     ofstream arq("teste.txt");
@@ -379,9 +378,6 @@ void MetodosOrdenacao::moduloTeste(string arq3, string arq4, int M) {
     arq << "- Comparações:" << MetricasTeste[0] << endl;
     arq << "- Movimentos:" << MetricasTeste[1] << endl;
     arq << endl;
-
-    TabelaHash table(N*2);
-    table.insereArtists(N, arq4, M, 2);
 }
 void MetodosOrdenacao::imprimeBloco() // Apenas para auxiliar nosso teste interno
 {

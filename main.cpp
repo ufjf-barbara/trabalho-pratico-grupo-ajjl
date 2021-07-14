@@ -46,12 +46,17 @@ void menu(string arq3, string arq4) { // Menu para selecionar as opcoes
             cout << " Etapa concluida" << endl;
         }
         else if (opcao == 3) {
+            int N = 700;
             cout << " Executando modulo de teste" << endl;
             int M;
             cout << "Digite o numero de artistas mais frequentes desejado: ";
             cin >> M;
             MetodosOrdenacao ord;
-            ord.moduloTeste(arq3, arq4, M); // Chama a execucao do Modulo de Teste
+            ord.moduloTeste(arq3); // Chama a execucao do Modulo de Teste
+
+            TabelaHash tabela(N*2);
+            tabela.insereArtists(N,arq4, M, 2);
+
             cout << " Modulo teste concluido, resultados salvos em teste.txt" << endl;
             cout << endl;
         }
