@@ -8,8 +8,8 @@
             "label": "C/C++: cpp build active file",
             "command": "g++",
             "args": [
-                "*.cpp",
-                "*.h",
+                "-g",
+                "*.c*",
                 "-o",
                 "main"
             ],
