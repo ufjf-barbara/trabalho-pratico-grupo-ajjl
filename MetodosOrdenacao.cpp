@@ -6,9 +6,7 @@
 
 using namespace std;
 
-MetodosOrdenacao::MetodosOrdenacao() {
-    testedeinput(); // Obtem informação sobre input.dat
-}
+MetodosOrdenacao::MetodosOrdenacao() {}
 MetodosOrdenacao::~MetodosOrdenacao() {}
 
 
@@ -46,7 +44,8 @@ vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) { // 
     return vetor;
 }
 
-void MetodosOrdenacao::ordenacoes(string arq3) { // Chama as ordenacoes
+void MetodosOrdenacao::ordenacoes(string arq3, string arq5) { // Chama as ordenacoes
+    testedeinput(arq5); // Obtem informação sobre input.dat
     BlocoQuick(arq3);
     BlocoHeap(arq3);
     BlocoMerge(arq3);
@@ -229,14 +228,14 @@ void MetodosOrdenacao::heapify(vector <Artista> *vet, int n, int i, long int met
     }
 }
 
-void MetodosOrdenacao::testedeinput() {
+void MetodosOrdenacao::testedeinput(string arq5) {
     ifstream inputexiste;
-    inputexiste.open("input.dat");
+    inputexiste.open(arq5);
     if(!inputexiste)
     {
         inputexiste.close();
         ofstream output;
-        output.open("input.dat");
+        output.open(arq5);
         int informacao[5];
         informacao[0]=10000;
         informacao[1]=50000;
@@ -246,7 +245,7 @@ void MetodosOrdenacao::testedeinput() {
         for(int i=0;i<5;i++)
             output<<informacao[i]<<'\n';
         output.close();
-        inputexiste.open("input.dat");
+        inputexiste.open(arq5);
     }
     inputexiste >>valores[0]>>valores[1]>>valores[2]>>valores[3]>>valores[4];
 }
@@ -350,7 +349,7 @@ void MetodosOrdenacao::ModuloQuick(Artista A[],string arq3){
 void MetodosOrdenacao::moduloTeste(string arq3) {
     vector<Artista> vetor;
     Artista A[100];
-    ofstream arq("teste.txt");
+    ofstream arq("/Saida/teste.txt");
     arq << "Teste de ordenação para N=100" << endl;
     arq << endl;
     arq << "-> Resultados para QuickSort:" << endl; 
@@ -381,7 +380,7 @@ void MetodosOrdenacao::moduloTeste(string arq3) {
 }
 void MetodosOrdenacao::imprimeBloco() // Apenas para auxiliar nosso teste interno
 {
-    ofstream arq("testeBlocoMerge.txt");
+    ofstream arq("/Saida/testeBlocoMerge.txt");
     for (int i=0;i<3;i++)
     {
         arq << i+1 << " execução:" << endl << endl;
@@ -396,7 +395,7 @@ void MetodosOrdenacao::imprimeBloco() // Apenas para auxiliar nosso teste intern
     }
     arq.close();
 
-    arq.open("testeBlocoQuick.txt");
+    arq.open("/Saida/testeBlocoQuick.txt");
         for (int i=0;i<3;i++)
     {
         arq << i+1 << " execução:" << endl << endl;
@@ -410,7 +409,7 @@ void MetodosOrdenacao::imprimeBloco() // Apenas para auxiliar nosso teste intern
         arq << endl ;
     }
     arq.close();
-    arq.open("testeBlocoHeap.txt");
+    arq.open("/Saida/testeBlocoHeap.txt");
     for (int i=0;i<3;i++)
     {
         arq << i+1 << " execução:" << endl << endl;
@@ -430,7 +429,7 @@ void MetodosOrdenacao::imprimeBloco() // Apenas para auxiliar nosso teste intern
 void MetodosOrdenacao::DesempenhoMedio(){
 
     //arquivo desaida
-    ofstream arq("saida.txt");
+    ofstream arq("/Saida/saida.txt");
 
     //variavel parar realizar os calculos das medias
     int media[5][3];

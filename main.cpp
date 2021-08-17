@@ -17,7 +17,7 @@ Comandos para compilar via terminal:
     ./main SEU/DIRETORIO/trabalho-pratico-grupo-ajjl
 */
 
-void menu(string arq3, string arq4) { // Menu para selecionar as opcoes 
+void menu(string arq3, string arq4, string arq5) { // Menu para selecionar as opcoes 
     int opcao;
     do{
         cout << "Executar qual etapa?" << endl;
@@ -29,7 +29,7 @@ void menu(string arq3, string arq4) { // Menu para selecionar as opcoes
         if (opcao == 1) {
             cout << " Executando ordenacoes" << endl;
             MetodosOrdenacao ord;
-            ord.ordenacoes(arq3); // Chama a execucao das ordenacoes
+            ord.ordenacoes(arq3, arq5); // Chama a execucao das ordenacoes
             cout << " Ordenacoes concluidas, resultados salvos em saida.txt" << endl;
             cout << endl;
         }
@@ -72,6 +72,7 @@ int main(int argc, char *argv[])
     string arq2 = diretorio + "/tracks.csv";
     string arq3 = diretorio + "/artists.bin";
     string arq4 = diretorio + "/tracks.bin";
+    string arq5 = diretorio + "/input.dat";
     
     ifstream testeArt;
     testeArt.open(arq3, ios::binary); // Abertura de artists.bin
@@ -95,7 +96,7 @@ int main(int argc, char *argv[])
     }
     testeTrack.close();
    
-    menu(arq3, arq4); //Chamada para o menu
+    menu(arq3, arq4, arq5); //Chamada para o menu
 
     return 0;
 }
