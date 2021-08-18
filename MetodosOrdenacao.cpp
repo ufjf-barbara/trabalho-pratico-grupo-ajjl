@@ -10,38 +10,37 @@ MetodosOrdenacao::MetodosOrdenacao() {}
 MetodosOrdenacao::~MetodosOrdenacao() {}
 
 
-bool MetodosOrdenacao::verificaArtista (vector<Artista> vetor, Artista aux, int max) { // Funcao para verificacao de repeticao
-    for (int i=0; i<=max; i++){
-        if (vetor[i].id == aux.id)
-            return true; // Caso artista for repetido
-    }
-    return false; // Caso seja um novo artista
-}
 vector<Artista> MetodosOrdenacao::artistasaleatorios(int tam, string arq3) { // Cria vetor de N artistas aleatorios
-    vector<Artista> vetor; //Vetor que recebera dados de artists.bin
-    vetor.reserve (tam);  // Aloca espaco
+    vector<Artista> lista; // Lista que recebera dados de artists.bin
+
     ifstream artBin;
     artBin.open(arq3,ios::binary); // Abre artists.bin
-    
     //Calcula numero de linhas do .bin
     artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
     int length = artBin.tellg(); //Salva valor da posicao
     length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
     artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
-    for(int i=0;i<tam;i++) {
-        Artista aleatoria;
-        int aleat = (rand()%length)*sizeof(Artista); //Gera posicao aleatoria
-        artBin.seekg(aleat); // Posiciona o ponteiro em .bin
+    length --; // ignora ultima linha
 
-        artBin.read((char *) &(aleatoria),sizeof(Artista)); //Le conteudo da linha em .bin
-
-        // if(verificaArtista(vetor, aleatoria, i)) //Verificacao se existe repeticao de id com o vetor
-        //     i--; //Caso seja repetido, o for é executado novamente no mesmo valor de i
-        // else
-            vetor.push_back(aleatoria); //Nao havendo repeticao, o vetor recebe a linha de .bin
+    for(int i=0;i<length;i++) {
+        Artista aux;
+        int pos = i*sizeof(Artista); //pega posicao i
+        artBin.seekg(pos); // Posiciona o ponteiro em .bin
+        artBin.read((char *) &(aux),sizeof(Artista)); //Le conteudo da linha em .bin
+        lista.push_back(aux); //Salva Artista na lista
     }
-    artBin.close(); //Fecha .bin
-    return vetor;
+    artBin.close(); //Fecha .bin    
+
+    vector<Artista> random; // Vetor para a coleta da amostra aleatoria
+    for(int i=0;i<tam;i++) {
+        int limit = length-i; //Define o limite para o r
+        int r = rand()%limit; // gera posicao aleatoria
+        random.push_back(lista[r]); //Salva em nosso vetor random um elemento aleatorio da lista
+        auto remove = lista.begin() + r; // ponteiro para artista da lista
+        lista.erase(remove); // remove artista da lista
+    }
+
+    return random;
 }
 
 void MetodosOrdenacao::ordenacoes(string arq3, string arq5) { // Chama as ordenacoes

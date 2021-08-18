@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
     }
     testeArt.close();
 
-    ifstream testeTrack;
+/*    ifstream testeTrack;
     testeTrack.open(arq4, ios::binary); // Abertura de tracks.bin
 
     if  (testeTrack.fail()){ // Se não foi encontrado .bin, então será processado um novo arquivo
@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
         TracksData.escreveBin(arq4);
     }
     testeTrack.close();
-   
+*/   
     menu(arq3, arq4, arq5); //Chamada para o menu
 
     return 0;
