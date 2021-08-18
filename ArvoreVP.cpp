@@ -9,9 +9,11 @@ ArvoreVP::~ArvoreVP() {}
 void ArvoreVP::start(string arq2){
     vector<Artista> vet;
     vet = getAleatorios(10, arq2);
-    for(int i=0;i<10;i++)
+    
+    for(int i=0;i<10;i++) // para imprimir amostra
         cout << vet[i].name << endl;
 
+    criaArvore(&vet);
     return;
 }
 
@@ -35,7 +37,7 @@ vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de
         lista.push_back(aux); //Salva Artista na lista
 
     }
-    artBin.close(); //Fecha .bin    
+    artBin.close(); //Fecha .bin 
 
     vector<Artista> random; // Vetor para a coleta da amostra aleatoria
     for(int i=0;i<tam;i++) {
@@ -48,6 +50,8 @@ vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de
 
     return random;
 }
+
+bool ArvoreVP::calculaNome(Artista art1, Artista art2){}
 
 void ArvoreVP::criaArvore(vector<Artista> *artista){
     for(auto i = artista->begin(); i != artista->end(); i++) {
@@ -65,24 +69,81 @@ void ArvoreVP::insere(Artista artista){
     balanceia(raiz, newNo);
 }
 
-NoVP* ArvoreVP::auxInsere(NoVP *raiz, NoVP* newNo){
+NoVP* ArvoreVP::auxInsere(NoVP *no, NoVP* newNo){
 
-    if(raiz == nullptr)
-        raiz = newNo;
-
-    if(newNo->getArtista() < raiz->getArtista()) { // pensar em como fazer a comparacao do nome
-        raiz->setEsquerdo(auxInsere(raiz->getEsquerdo(), newNo));
-        raiz->getEsquerdo()->setPai(raiz);
+    if(no == nullptr)
+        no = newNo;
+    else if(newNo->getArtista().name  <  no->getArtista().name) {
+        no->setEsquerdo(auxInsere(no->getEsquerdo(), newNo));
+        no->getEsquerdo()->setPai(no);
     }
-    else if (newNo->getArtista() > raiz->getArtista()) { // pensar em como fazer a comparacao do nome
+    else if (newNo->getArtista().name  > no->getArtista().name) { 
 
-        raiz->setDireito(auxInsere(raiz->getDireito(), newNo));
-        raiz->getDireito()->setPai(raiz);
+        no->setDireito(auxInsere(no->getDireito(), newNo));
+        no->getDireito()->setPai(no);
     }
-    return raiz;
+    return no;
 }
 
-void ArvoreVP::balanceia(NoVP *&raiz, NoVP *&newNo){}
+
+
+void ArvoreVP::balanceia(NoVP *&raiz, NoVP *&no){
+    //pai e avô do novo nó inserido
+    NoVP *pai = nullptr;
+    NoVP *avo = nullptr;
+
+    while ((no != raiz) && (no->getCor()) && (no->getPai()->getCor())) {
+
+        pai = no->getPai();
+        avo = no->getPai()->getPai();
+
+        
+        if (pai == avo->getEsquerdo()) {//pai do nó é filho a esquerda do avô do nó
+
+            NoVP *tio = avo->getDireito();
+            
+            if (tio != nullptr && tio->getCor()) { //tio vermelho, apenas recoloração               
+                avo->setCor(RED);
+                pai->setCor(BLACK);
+                tio->setCor(BLACK);
+                no = avo;
+            }
+            else {  // nó nao tem tio ou tio preto           
+                if (no == pai->getDireito()) {  // rotação dupla
+                    rotacionaEsquerda(raiz, pai);
+                    no = pai;
+                    pai = no->getPai();
+                }
+
+                rotacionaDireita(raiz, avo);
+                trocaCor(pai, avo);
+                no = pai;
+            }
+        }
+        else { //pai do nó é filho a direita do avô do nó
+
+            NoVP *tio = avo->getEsquerdo();
+ 
+            if ((tio != nullptr) && (tio->getCor())) {  //tio vermelho, apenas recoloração   
+                avo->setCor(RED);
+                pai->setCor(BLACK);
+                tio->setCor(BLACK);
+                no = avo;
+            }
+            else { // nó nao tem tio ou tio preto 
+                if (no == pai->getEsquerdo()) {     // rotação dupla
+                    rotacionaDireita(raiz, pai);
+                    no = pai;
+                    pai = no->getPai();
+                }
+                rotacionaEsquerda(raiz, avo);
+                trocaCor(pai, avo);
+                no = pai;
+            }
+        }
+    }
+    raiz->setCor(BLACK);
+}
 
 void ArvoreVP::rotacionaEsquerda(NoVP *&raiz, NoVP *&no){
 
@@ -128,7 +189,11 @@ void ArvoreVP::rotacionaDireita(NoVP *&raiz, NoVP *&no){
     no->setPai(noEsquerdo);
 }
 
-void ArvoreVP::trocaCor(NoVP *no1, NoVP *no2){} 
+void ArvoreVP::trocaCor(NoVP *no1, NoVP *no2){
+    bool cor = no1->getCor();
+    no1->setCor(no2->getCor());
+    no2->setCor(cor);
+} 
 
 
 

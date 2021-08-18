@@ -1,5 +1,5 @@
-#ifndef ARVOREVP_H
-#define ARVOREVP_H
+#ifndef ARVOREVP_H_INCLUDED
+#define ARVOREVP_H_INCLUDED
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -21,21 +21,22 @@ class ArvoreVP
         void start(string arq3);
 
     private:
-        NoVP* raiz;
+        NoVP* raiz; // Ponteiro para a raiz da arvore
 
-        vector<Artista> getAleatorios(int tam, string arq3);
+        vector<Artista> getAleatorios(int tam, string arq3); // Seleciona amostra aleatoria de artistas
+        bool calculaNome(Artista art1, Artista art2); //Compara dois nomes
 
-        void criaArvore(vector <Artista> *artista);
+        void criaArvore(vector <Artista> *artista); 
         void insere(Artista artista);
         NoVP* auxInsere(NoVP *raiz, NoVP *newNo);
-        void balanceia(NoVP *&raiz, NoVP *&newNo); // Falta fazer
+        void balanceia(NoVP *&raiz, NoVP *&newNo); 
 
         void rotacionaEsquerda(NoVP *&raiz, NoVP *&no);
         void rotacionaDireita(NoVP *&raiz, NoVP *&no);
-        void trocaCor(NoVP *no1, NoVP *no2); // Falta Fazer
+        void trocaCor(NoVP *no1, NoVP *no2); 
 
         
 
 };  
 
-#endif // ARVOREVP_H
+#endif // ARVOREVP_H_INCLUDED
