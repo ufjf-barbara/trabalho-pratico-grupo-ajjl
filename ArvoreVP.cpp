@@ -49,8 +49,7 @@ vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de
     return random;
 }
 
-void ArvoreVP::criaArvore(vector<Artista> *artista)
-{
+void ArvoreVP::criaArvore(vector<Artista> *artista){
     for(auto i = artista->begin(); i != artista->end(); i++) {
         Artista no = *i;
         insere(no);
@@ -83,6 +82,7 @@ NoVP* ArvoreVP::auxInsere(NoVP *raiz, NoVP* newNo){
     return raiz;
 }
 
+void ArvoreVP::balanceia(NoVP *&raiz, NoVP *&newNo){}
 
 void ArvoreVP::rotacionaEsquerda(NoVP *&raiz, NoVP *&no){
 
@@ -127,6 +127,8 @@ void ArvoreVP::rotacionaDireita(NoVP *&raiz, NoVP *&no){
     noEsquerdo->setDireito(no);
     no->setPai(noEsquerdo);
 }
+
+void ArvoreVP::trocaCor(NoVP *no1, NoVP *no2){} 
 
 
 
