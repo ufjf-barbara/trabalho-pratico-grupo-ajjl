@@ -57,8 +57,8 @@ private:
     NoT *prox;
 
 public:
-    NoT();
-    ~NoT();
+    NoT(){};
+    ~NoT(){};
     NoT* getAnt()          { return ant; };
     void setAnt(NoT *p)    { ant = p; };
     NoT* getProx()         { return prox; };

@@ -7,14 +7,14 @@
 
 
 ## Descriçao
-Trabalho 1: análise de estruturas implementadas para manipulação de arquivos por meio de uma base real de dados.
-Trabalho 2: análise de metodos de ordenacao
+Trabalho v1: análise de estruturas implementadas para manipulação de arquivos por meio de uma base real de dados.
+Trabalho v2: análise de metodos de ordenacao
 
 ## Como compilar
 
 No terminal utilize para compilação:  
 
-  g++ *.cpp *.h -o main 
+  g++ *.c* -o main 
 
 
 ## Como rodar

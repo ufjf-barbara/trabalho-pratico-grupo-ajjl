@@ -11,7 +11,6 @@ typedef struct
     char name [400];
     int popularity;
     float followers;
-    int local;
 
 }
 Artista;
