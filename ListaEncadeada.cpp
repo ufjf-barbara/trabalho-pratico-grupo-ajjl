@@ -1,10 +1,4 @@
 #include "ListaEncadeada.h"
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <fstream>
-#include <string.h>
-#include <vector>  
 
 using namespace std;
 

@@ -22,12 +22,17 @@ class ArvoreVP
 
     private:
         NoVP* raiz;
-        int comparacoes;
 
         vector<Artista> getAleatorios(int tam, string arq3);
 
-        void rotacionaEsquerda(NoVP *&raiz, NoVP *&noh);
-        void rotacionaDireita(NoVP *&raiz, NoVP *&noh);
+        void criaArvore(vector <Artista> *artista);
+        void insere(Artista artista);
+        NoVP* auxInsere(NoVP *raiz, NoVP *newNo);
+        void balanceia(NoVP *&raiz, NoVP *&newNo); // Falta fazer
+
+        void rotacionaEsquerda(NoVP *&raiz, NoVP *&no);
+        void rotacionaDireita(NoVP *&raiz, NoVP *&no);
+        void trocaCor(NoVP *no1, NoVP *no2); // Falta Fazer
 
         
 

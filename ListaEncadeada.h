@@ -1,7 +1,11 @@
 #ifndef LISTAENCADEADA_H
 #define LISTAENCADEADA_H
-#include <string>
-#include <vector>  
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <string.h>
+#include <vector> 
+#include <string> 
 #include "NoA.h" /// No referente ao artista
 
 

@@ -2,12 +2,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include <vector>
-#include "MetodosOrdenacao.h"       // funcoes de ordenacao
 #include "ListaEncadeada.h"         // estrutura de dados que armazena as informacoes dos artistas
-#include "ListaEncadeadaTracks.h"   // estrutura de dados que armazena as informacoes das tracks
-#include "TabelaHash.h" // tabela hash
-#include "NoHash.h"
 #include "ArvoreVP.h"
 
 using namespace std;
@@ -40,6 +35,6 @@ int main(int argc, char *argv[])
     testeArt.close();
 
     ArvoreVP tree;
-    tree.start(arq2);
+    tree.start(arq2); // provisorio ate ter menu
     return 0;
 }

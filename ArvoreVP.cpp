@@ -2,10 +2,7 @@
 
 using namespace std;
 
-ArvoreVP::ArvoreVP() {
-    raiz = nullptr;
-    comparacoes = 0;
-}
+ArvoreVP::ArvoreVP() { raiz = nullptr; }
 
 ArvoreVP::~ArvoreVP() {}
 
@@ -52,7 +49,39 @@ vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de
     return random;
 }
 
+void ArvoreVP::criaArvore(vector<Artista> *artista)
+{
+    for(auto i = artista->begin(); i != artista->end(); i++) {
+        Artista no = *i;
+        insere(no);
+    }
+}
 
+void ArvoreVP::insere(Artista artista){
+
+    NoVP *newNo = new NoVP(artista);
+
+    raiz = auxInsere(raiz, newNo);
+
+    balanceia(raiz, newNo);
+}
+
+NoVP* ArvoreVP::auxInsere(NoVP *raiz, NoVP* newNo){
+
+    if(raiz == nullptr)
+        raiz = newNo;
+
+    if(newNo->getArtista() < raiz->getArtista()) { // pensar em como fazer a comparacao do nome
+        raiz->setEsquerdo(auxInsere(raiz->getEsquerdo(), newNo));
+        raiz->getEsquerdo()->setPai(raiz);
+    }
+    else if (newNo->getArtista() > raiz->getArtista()) { // pensar em como fazer a comparacao do nome
+
+        raiz->setDireito(auxInsere(raiz->getDireito(), newNo));
+        raiz->getDireito()->setPai(raiz);
+    }
+    return raiz;
+}
 
 
 void ArvoreVP::rotacionaEsquerda(NoVP *&raiz, NoVP *&no){

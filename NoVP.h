@@ -1,5 +1,7 @@
 #ifndef NOVP_H_INCLUDED
 #define NOVP_H_INCLUDED
+#include <iostream>
+#include <string>
 #include "NoA.h"
 
 /*
@@ -20,7 +22,7 @@ Propriedades:
 
 class NoVP {
     protected:
-        Artista* artista;
+        Artista artista;
         NoVP* direito;
         NoVP* esquerdo;
         NoVP* pai;
@@ -29,7 +31,7 @@ class NoVP {
     public:
         NoVP(){};
 
-        NoVP(Artista *artista){
+        NoVP(Artista artista){
             this->artista = artista;
             this->direito = nullptr;
             this->esquerdo = nullptr;
@@ -39,9 +41,9 @@ class NoVP {
 
         ~NoVP() = default;
 
-        Artista* getArtista() { return this->artista; }
+        Artista getArtista() { return this->artista; }
 
-        void setArtista(Artista *artista) { this->artista = artista; }
+        void setArtista(Artista artista) { this->artista = artista; }
 
         NoVP *getDireito() const{
             if(this == nullptr)
