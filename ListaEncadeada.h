@@ -23,7 +23,8 @@ public:
     void imprimeTestes(vector <Artista>);
     void NovaLista(string arq1);
     void deletaultimo();
-
+    vector<Artista> getAll(string arq2);
+    vector<Artista> getAleatorios(int tam, string arq2);
 
 private:
     int n;
