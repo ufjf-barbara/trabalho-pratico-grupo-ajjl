@@ -17,29 +17,31 @@ class ArvoreVP
     public:
         ArvoreVP();
         ~ArvoreVP();
-        int comparacoes = 0;
+        int comparacoes = 0; // Contador de comparações
 
-        void start(int tam, string arq3);
-        bool busca(string name, int *local, string *codigo);
+        void start(int tam, string arq3); // Inicializa as operações
+        bool busca(string name, int *local, string *codigo); // Realiza a busca pela arvore apartir da raiz
         void insere(Artista artista);
+        void geraGrafo(); // gera um grafo da arvore para testes
 
 
     private:
         NoVP* raiz; // Ponteiro para a raiz da arvore
 
-        vector<Artista> getAleatorios(int tam, string arq3); // Seleciona amostra aleatoria de artistas
-        NoVP *auxBusca(NoVP *raiz, string name);
+        void getAleatorios(int tam, string arq3); // Seleciona amostra aleatoria de artistas
+        
+        NoVP *auxBusca(NoVP *raiz, string name); // Responsável pela recursividade na operação de busca
 
-        void criaArvore(vector <Artista> *artista); 
-        NoVP* auxInsere(NoVP *raiz, NoVP *newNo);
+        void criaArvore(vector <Artista> *artista);  // Cria e inicializa nó com o Artista selecionado
 
-        void balanceia(NoVP *&raiz, NoVP *&newNo); 
-        void rotacionaEsquerda(NoVP *&raiz, NoVP *&no);
+        NoVP* auxInsere(NoVP *raiz, NoVP *newNo);   // Responsável pela recursividade na operação de inserção
+
+        void balanceia(NoVP *&raiz, NoVP *&newNo);  // Responsável pela analise de balanceamento e chama as operações abaixo se necessário
+        void rotacionaEsquerda(NoVP *&raiz, NoVP *&no); 
         void rotacionaDireita(NoVP *&raiz, NoVP *&no);
         void trocaCor(NoVP *no1, NoVP *no2); 
 
-        void geraGrafo(); // gera um grafo da arvore para testes
-        void auxGeraGrafo(NoVP *no); // aux para recursividade
+        void auxGeraGrafo(NoVP *no); // aux para recursividade na geração do grafo
 
         
 

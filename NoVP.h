@@ -22,11 +22,11 @@ Propriedades:
 
 class NoVP {
     protected:
-        Artista artista;
-        NoVP* direito;
-        NoVP* esquerdo;
-        NoVP* pai;
-        bool cor; // true se o no eh vermelho, false preto
+        Artista artista; // Recebe todos dados do artista
+        NoVP* direito; // Ponteiro para filho direito do nó
+        NoVP* esquerdo; // Ponteiro para filho esquerdo do nó
+        NoVP* pai; // Ponteiro para pai do nó
+        bool cor; // RED = 1, BLACK = 0
 
     public:
         NoVP(){};
@@ -36,14 +36,12 @@ class NoVP {
             this->direito = nullptr;
             this->esquerdo = nullptr;
             this->pai = nullptr;
-            this->cor = RED;
+            this->cor = RED; // Para obedecer propriedade de que todo nó inserido deve ser vermelho
         }
 
         ~NoVP() = default;
 
         Artista getArtista() { return this->artista; }
-
-        void setArtista(Artista artista) { this->artista = artista; }
 
         NoVP *getDireito() const{
             if(this == nullptr)

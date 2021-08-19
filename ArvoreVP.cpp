@@ -7,13 +7,12 @@ ArvoreVP::ArvoreVP() { raiz = nullptr; }
 ArvoreVP::~ArvoreVP() {}
 
 void ArvoreVP::start(int tam, string arq2) {
-    vector<Artista> vet = getAleatorios(tam, arq2);
-
-    criaArvore(&vet);
+    getAleatorios(tam, arq2);
+    //geraGrafo();
 }
 
 
-vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de N artistas aleatorios
+void ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de N artistas aleatorios
     vector<Artista> lista; // Lista que recebera dados de artists.bin
 
     ifstream artBin;
@@ -35,20 +34,19 @@ vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de
     }
     artBin.close(); //Fecha .bin 
 
-//    clock_t t;  // Usado para pegar posicao aleatoria a cada execucao
-//    t = clock(); // Usado para pegar posicao aleatoria a cada execucao
-
-    vector<Artista> random; // Vetor para a coleta da amostra aleatoria
+    clock_t t;  // Usado para pegar posicao aleatoria a cada execucao
+    t = clock(); // Usado para pegar posicao aleatoria a cada execucao
     for(int i=0;i<tam;i++) {
+        Artista aux; // Cria um artista aux
         int limit = length-i; //Define o limite para o r
-//        srand(t); // Usado para pegar posicao aleatoria a cada execucao
+        srand(t); // Usado para pegar posicao aleatoria a cada execucao
         int r = rand()%limit; // gera posicao aleatoria
-        random.push_back(lista[r]); //Salva em nosso vetor random um elemento aleatorio da lista
+        aux = lista[r]; // aux recebe artista da lista na posicao r
+        insere(aux); //Insere artista
         auto remove = lista.begin() + r; // ponteiro para artista da lista
         lista.erase(remove); // remove artista da lista
     }
 
-    return random;
 }
 
 bool ArvoreVP::busca(string name, int *local, string *codigo){
@@ -79,13 +77,6 @@ NoVP* ArvoreVP::auxBusca(NoVP *no, string nome){
         return auxBusca(no->getDireito(), nome);
     }
     return auxBusca(no->getEsquerdo(), nome);
-}
-
-void ArvoreVP::criaArvore(vector<Artista> *artista){
-    for(auto i = artista->begin(); i != artista->end(); i++) {
-        Artista no = *i;
-        insere(no);
-    }
 }
 
 
