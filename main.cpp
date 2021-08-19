@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     testeArt.close();
 
     ArvoreVP tree;
-    tree.start(arq2); // provisorio ate ter menu
+    tree.start(100, arq2); // provisorio ate ter menu
 
     int local = 0;
     string codigo;
