@@ -15,14 +15,16 @@ Comandos para compilar via terminal:
     ./main SEU/DIRETORIO/trabalho-pratico-grupo-ajjl
 */
 
-void modoAnalise(string arq2) {
+void analiseVermelhoPreto(string arq2){
     ListaEncadeada nova;
     vector<Artista> lista = nova.getAll(arq2);
     vector<Artista> aleatorios = nova.getAleatorios(100, arq2);
 
+    Artista aux;
+    ifstream artBin;
+    artBin.open(arq2,ios::binary); // Abre artists.bin
+
     ArvoreVP arvoreVP;
-    ArvoreB arvoreBmenor(20, arq2);
-    ArvoreB arvoreBmaior(200, arq2);
 
     ofstream arq("saida.txt");
     clock_t start, end;
@@ -35,6 +37,53 @@ void modoAnalise(string arq2) {
     end = clock();
     tempo = (float)(end - start) / CLOCKS_PER_SEC;
     arq << "Tempo de inserção na árvore vermelho e preto: " << tempo << " seg" << endl;
+
+    arq << "--------- ARVORE VERMELHO E PRETO ----------" << endl;
+
+    float somaVP = 0;
+    int comparacoesVP = 0;
+    for (int i = 0; i < aleatorios.size(); i++){ // realizando a busca com 100 artistas aleatorios
+        int local = -100;
+        string codigo;
+
+        start = clock();
+        arvoreVP.busca(aleatorios[i].name, &local, &codigo);
+        end = clock();        
+        tempo = (float)(end - start) / CLOCKS_PER_SEC;
+
+        somaVP += tempo;
+        arq << i+1 << "°)" <<" busca em " << tempo << " seg, com " << arvoreVP.comparacoes  << " comparações."<< endl;
+        arq << "Buscado: " << aleatorios[i].name << endl;
+        arq << "Local: " << local << " codigo " << codigo << endl;
+
+        artBin.seekg(local);                          // Posiciona o ponteiro em .bin
+        artBin.read((char *)&(aux), sizeof(Artista)); //Le conteudo da linha em .bin
+        arq << "Nome: " << aux.name << ", popularity: " << aux.popularity << ", genres: "
+            << aux.genres << " , id: " << aux.id << " , followers: " << aux.followers << "\n\n";
+
+        comparacoesVP += arvoreVP.comparacoes;
+        arvoreVP.comparacoes = 0;
+    }
+    arq << "Média do tempo de busca na árvore vermelho e preto: " << (somaVP/aleatorios.size())
+    << " seg, com " << comparacoesVP << " comparações." << endl;
+    arq << "----------------------------------------------------- \n\n" << endl;
+}
+
+void analiseArvoreB(string arq2) {
+    ListaEncadeada nova;
+    vector<Artista> lista = nova.getAll(arq2);
+    vector<Artista> aleatorios = nova.getAleatorios(100, arq2);
+
+    Artista aux;
+    ifstream artBin;
+    artBin.open(arq2,ios::binary); // Abre artists.bin
+
+    ArvoreB arvoreBmenor(20, arq2);
+    ArvoreB arvoreBmaior(200, arq2);
+
+    ofstream arq("saida.txt");
+    clock_t start, end;
+    float tempo;
 
     start = clock();
     for (int i = 0; i < lista.size(); i++){ // percorrendo a lista de artistas
@@ -53,27 +102,6 @@ void modoAnalise(string arq2) {
     arq << "Tempo de inserção na árvore B(200): " << tempo << " seg" << endl;
     arq << "------------------------------------------------ \n\n" << endl;
 
-    float somaVP = 0;
-    int comparacoesVP = 0;
-    for (int i = 0; i < aleatorios.size(); i++){ // realizando a busca com 100 artistas aleatorios
-        int local = -100;
-        string codigo;
-
-        start = clock();
-        arvoreVP.busca(aleatorios[i].name, &local, &codigo);
-        end = clock();
-        tempo = (float)(end - start) / CLOCKS_PER_SEC;
-
-        somaVP += tempo;
-        arq << i+1 << "°)" <<" busca na árvore vermelho e preto em " << tempo << " seg, com " << arvoreVP.comparacoes  << " comparações."<< endl;
-        comparacoesVP += arvoreVP.comparacoes;
-        arvoreVP.comparacoes = 0;
-        cout << local << " " << codigo << endl;
-    }
-    arq << "Média do tempo de busca na árvore vermelho e preto: " << (somaVP/aleatorios.size()) << " seg, com " << comparacoesVP << " comparações." << endl;
-    arq << "------------------------------------------------ \n\n" << endl;
-
-
     float somaBmenor = 0;
     int comparacoesBmenor = 0;
     for (int i = 0; i < aleatorios.size(); i++){ // realizando a busca com 100 artistas aleatorios
@@ -89,7 +117,6 @@ void modoAnalise(string arq2) {
         arq << i+1 << "°)" <<" busca na árvore B(20): " << tempo << " seg, com " << arvoreBmenor.comparacoes  << " comparações."<< endl;
         comparacoesBmenor += arvoreBmenor.comparacoes;
         arvoreBmenor.comparacoes = 0;
-        cout << local << " " << codigo << endl;
     }
     arq << "Média do tempo de busca na árvore B(20): " << (somaBmenor/aleatorios.size()) << " seg, com " << comparacoesBmenor << " comparações." << endl;
     arq << "------------------------------------------------ \n\n" << endl;
@@ -110,9 +137,8 @@ void modoAnalise(string arq2) {
         arq << i+1 << "°)" <<" busca na árvore B(200): " << tempo << " seg, com " << arvoreBmaior.comparacoes  << " comparações."<< endl;
         comparacoesBmaior += arvoreBmaior.comparacoes;
         arvoreBmaior.comparacoes = 0;
-        cout << local << " " << codigo << endl;
     }
-    arq << "Média do tempo de busca na árvore B(20): " << (somaBmenor/aleatorios.size()) << " seg, com " << comparacoesBmaior << " comparações." << endl;
+    arq << "Média do tempo de busca na árvore B(200): " << (somaBmaior/aleatorios.size()) << " seg, com " << comparacoesBmaior << " comparações." << endl;
     arq << "------------------------------------------------ \n\n" << endl;
 
 }
@@ -124,74 +150,81 @@ void menuPrincipal (string arq2) {
     ifstream artBin;
     artBin.open(arq2,ios::binary); // Abre artists.bin
 
-    int op;
+    int op, escolha;
+    do {
+        cout << "MENU PRINCIPAL" << endl;
+        cout << "1 - Arvore Vermelho-Preta" << endl;
+        cout << "2- Arvore B" << endl;
+        cout << "3- SAIR" << endl;
+        cout << "Digite: ";
+        cin >> op;
+
     do {
         cout << "ESCOLHA UMA OPCAO" << endl;
         cout << "1- Modo de analise" << endl;
         cout << "2- Modo de teste" << endl;
         cout << "3- SAIR" << endl;
         cout << "Digite: ";
-        cin >> op;
-        if(op == 1){
+        cin >> escolha;
+
+        if(op == 1 && escolha == 1){
             cout << "Gerando arquivo..." << endl;
-            modoAnalise(arq2);
+            analiseVermelhoPreto(arq2);
             cout << "Arquivo 'saida.txt' gerado" << endl;
         }
-        else if(op == 2){
-            int escolha;
-            do {
-            cout << "1 - Arvore Vermelho-Preta" << endl;
-            cout << "2- Arvore B" << endl;
-            cout << "3- SAIR" << endl;
-            cout << "Digite: ";
-            cin >> escolha;
-
-            if(escolha == 1){
-                string nome, codigo;
-                int local = -100;
-                cout << "Preenchendo a arvore..." << endl;
-                ArvoreVP arvoreVP;
-                for (int i = 0; i < lista.size(); i++){ // percorrendo a lista de artistas
-                    arvoreVP.insere(lista[i]);
-                }
-                cout << "Digite o nome do artista: ";
-                cin >> nome;
-
-                if(arvoreVP.busca(nome, &local, &codigo)) {  
-                    artBin.seekg(local); // Posiciona o ponteiro em .bin
-                    artBin.read((char *) &(aux),sizeof(Artista)); //Le conteudo da linha em .bin
-                    cout << "Nome: " << aux.name << ", popularity: " << aux.popularity << ", genres: "
-                    << aux.genres << " , id: " << aux.id << " , followers: " << aux.followers << endl;
-                }  
-                else
-                    cout << endl << "nao encontrado" << endl;
-            }
-            else if(escolha == 2){
-                int ordem;
-                cout << "Digite a ordem minima da arvore: ";
-                cin >> ordem;
-
-                string nome, codigo;
-                int local = -100;
-                cout << "Preenchendo a arvore..." << endl;
-                ArvoreB arvoreB(ordem, arq2);
-                for (int i = 0; i < lista.size(); i++){ // percorrendo a lista de artistas
-                    arvoreB.insere(lista[i].name, lista[i].local, lista[i].id);
-                }
-                cout << "Digite o nome do artista: ";
-                cin >> nome;
-                if(arvoreB.Busca(nome, &local, &codigo)) {  
-                    artBin.seekg(local); // Posiciona o ponteiro em .bin
-                    artBin.read((char *) &(aux),sizeof(Artista)); //Le conteudo da linha em .bin
-                    cout << "Nome: " << aux.name << ", popularity: " << aux.popularity << ", genres: "
-                    << aux.genres << " , id: " << aux.id << " , followers: " << aux.followers << endl;                }  
-                else
-                    cout << endl << "nao encontrado" << endl;
-
-            }
-            } while (escolha != 3);
+        
+        else if(op == 2 && escolha == 1){
+            cout << "Gerando arquivo..." << endl;
+            analiseArvoreB(arq2);
+            cout << "Arquivo 'saida.txt' gerado" << endl;
         }
+
+        else if(op == 1 && escolha == 2){
+            string nome, codigo;
+            int local = -100;
+            cout << "Preenchendo a arvore..." << endl;
+            ArvoreVP arvoreVP;
+            for (int i = 0; i < lista.size(); i++){ // percorrendo a lista de artistas
+                arvoreVP.insere(lista[i]);
+            }
+            cout << "Digite o nome do artista: ";
+            cin >> nome;
+
+            if(arvoreVP.busca(nome, &local, &codigo)) {  
+                artBin.seekg(local); // Posiciona o ponteiro em .bin
+                artBin.read((char *) &(aux),sizeof(Artista)); //Le conteudo da linha em .bin
+                cout << "Nome: " << aux.name << ", popularity: " << aux.popularity << ", genres: "
+                << aux.genres << " , id: " << aux.id << " , followers: " << aux.followers << endl;
+            }  
+            else
+                cout << endl << "nao encontrado" << endl;
+        }
+
+        else if(op ==2 && escolha == 2){
+            int ordem;
+            cout << "Digite a ordem minima da arvore: ";
+            cin >> ordem;
+
+            string nome, codigo;
+            int local = -100;
+            cout << "Preenchendo a arvore..." << endl;
+            ArvoreB arvoreB(ordem, arq2);
+            for (int i = 0; i < lista.size(); i++){ // percorrendo a lista de artistas
+                arvoreB.insere(lista[i].name, lista[i].local, lista[i].id);
+            }
+            cout << "Digite o nome do artista: ";
+            cin >> nome;
+            if(arvoreB.Busca(nome, &local, &codigo)) {  
+                artBin.seekg(local); // Posiciona o ponteiro em .bin
+                artBin.read((char *) &(aux),sizeof(Artista)); //Le conteudo da linha em .bin
+                cout << "Nome: " << aux.name << ", popularity: " << aux.popularity << ", genres: "
+                << aux.genres << " , id: " << aux.id << " , followers: " << aux.followers << endl;                }  
+            else
+                cout << endl << "nao encontrado" << endl;
+        }
+            } while (escolha != 3);
     } while (op != 3);
+    artBin.close(); //Fecha .bin 
 }
 
 
