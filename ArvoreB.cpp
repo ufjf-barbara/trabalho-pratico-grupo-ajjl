@@ -69,7 +69,6 @@ bool ArvoreB::Buscaux(string Nome_Buscado,int *local,NoB *p,string *codigo)
     }
     if(p->folha == 1)                                  //caso o local que o nome deveria estar ele n seja encontrado e o no � uma folha retorna false pois n�o foi encontrado o nome
     {
-        comparacoes++;
         *local=-1;
         return 0;
     }
