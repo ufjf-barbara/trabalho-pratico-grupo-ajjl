@@ -6,49 +6,6 @@ ArvoreVP::ArvoreVP() { raiz = nullptr; }
 
 ArvoreVP::~ArvoreVP() {}
 
-void ArvoreVP::start(int tam, string arq2) {
-    getAleatorios(tam, arq2);
-    //geraGrafo();
-}
-
-
-void ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de N artistas aleatorios
-    vector<Artista> lista; // Lista que recebera dados de artists.bin
-
-    ifstream artBin;
-    artBin.open(arq2,ios::binary); // Abre artists.bin
-    //Calcula numero de linhas do .bin
-    artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
-    int length = artBin.tellg(); //Salva valor da posicao
-    length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
-    artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
-    length --; // ignora ultima linha
-    for(int i=0;i<length;i++) {
-        Artista aux;
-        int pos = i*(sizeof(Artista)-4); //pega posicao i
-        artBin.seekg(pos); // Posiciona o ponteiro em .bin
-        artBin.read((char *) &(aux),sizeof(Artista)); //Le conteudo da linha em .bin
-        aux.local = pos; // Posicao apontada, para pegar a linha tem que mudar para "i".
-        lista.push_back(aux); //Salva Artista na lista
-
-    }
-    artBin.close(); //Fecha .bin 
-
-    clock_t t;  // Usado para pegar posicao aleatoria a cada execucao
-    t = clock(); // Usado para pegar posicao aleatoria a cada execucao
-    for(int i=0;i<tam;i++) {
-        Artista aux; // Cria um artista aux
-        int limit = length-i; //Define o limite para o r
-        srand(t); // Usado para pegar posicao aleatoria a cada execucao
-        int r = rand()%limit; // gera posicao aleatoria
-        aux = lista[r]; // aux recebe artista da lista na posicao r
-        insere(aux); //Insere artista
-        auto remove = lista.begin() + r; // ponteiro para artista da lista
-        lista.erase(remove); // remove artista da lista
-    }
-
-}
-
 bool ArvoreVP::busca(string name, int *local, string *codigo){
     NoVP *buscado = auxBusca(raiz, name);
     if(buscado == nullptr){
@@ -213,6 +170,51 @@ void ArvoreVP::trocaCor(NoVP *no1, NoVP *no2){
     no2->setCor(cor);
 } 
 
+
+// ====== Funcoes utilizadas para testes internos ====== //
+
+void ArvoreVP::start(int tam, string arq2) {
+    getAleatorios(tam, arq2);
+    geraGrafo();
+}
+
+
+void ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de N artistas aleatorios
+    vector<Artista> lista; // Lista que recebera dados de artists.bin
+
+    ifstream artBin;
+    artBin.open(arq2,ios::binary); // Abre artists.bin
+    //Calcula numero de linhas do .bin
+    artBin.seekg(0,artBin.end); //Posiciona o ponteiro no final de .bin
+    int length = artBin.tellg(); //Salva valor da posicao
+    length = length/sizeof(Artista); //Calcula numero de linhas apartir dos bytes
+    artBin.seekg(0,artBin.beg); //Retorna ponteiro para posicao inical de .bin
+    length --; // ignora ultima linha
+    for(int i=0;i<length;i++) {
+        Artista aux;
+        int pos = i*(sizeof(Artista)-4); //pega posicao i
+        artBin.seekg(pos); // Posiciona o ponteiro em .bin
+        artBin.read((char *) &(aux),sizeof(Artista)); //Le conteudo da linha em .bin
+        aux.local = pos; // Posicao apontada, para pegar a linha tem que mudar para "i".
+        lista.push_back(aux); //Salva Artista na lista
+
+    }
+    artBin.close(); //Fecha .bin 
+
+    clock_t t;  // Usado para pegar posicao aleatoria a cada execucao
+    t = clock(); // Usado para pegar posicao aleatoria a cada execucao
+    for(int i=0;i<tam;i++) {
+        Artista aux; // Cria um artista aux
+        int limit = length-i; //Define o limite para o r
+        srand(t); // Usado para pegar posicao aleatoria a cada execucao
+        int r = rand()%limit; // gera posicao aleatoria
+        aux = lista[r]; // aux recebe artista da lista na posicao r
+        insere(aux); //Insere artista
+        auto remove = lista.begin() + r; // ponteiro para artista da lista
+        lista.erase(remove); // remove artista da lista
+    }
+
+}
 
 void ArvoreVP::geraGrafo(){ // gera um grafo da arvore para testes
     ofstream arq("grafo.txt", ios::app);  // Lembrar que ao finalizar é preciso abrir o .txt e ajustar para o formato do codigo
