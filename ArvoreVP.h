@@ -17,18 +17,20 @@ class ArvoreVP
     public:
         ArvoreVP();
         ~ArvoreVP();
+        int comparacoes = 0;
 
         void start(int tam, string arq3);
         bool busca(string name, int *local, string *codigo);
+        void insere(Artista artista);
+
 
     private:
         NoVP* raiz; // Ponteiro para a raiz da arvore
 
         vector<Artista> getAleatorios(int tam, string arq3); // Seleciona amostra aleatoria de artistas
-        NoVP* auxBusca(NoVP *raiz, string name);
+        NoVP *auxBusca(NoVP *raiz, string name);
 
         void criaArvore(vector <Artista> *artista); 
-        void insere(Artista artista);
         NoVP* auxInsere(NoVP *raiz, NoVP *newNo);
 
         void balanceia(NoVP *&raiz, NoVP *&newNo); 

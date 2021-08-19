@@ -15,6 +15,7 @@ class ArvoreB
     public:
         ArvoreB(int tamanho,string arq2);
         ~ArvoreB();
+        int comparacoes = 0;
 
         void Imprime();
         void insere(string nome_artista,int local_artista,string codigo_artista);

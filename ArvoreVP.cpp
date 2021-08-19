@@ -12,6 +12,7 @@ void ArvoreVP::start(int tam, string arq2) {
     criaArvore(&vet);
 }
 
+
 vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de N artistas aleatorios
     vector<Artista> lista; // Lista que recebera dados de artists.bin
 
@@ -52,16 +53,20 @@ vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de
 
 bool ArvoreVP::busca(string name, int *local, string *codigo){
     NoVP *buscado = auxBusca(raiz, name);
-    if(buscado == nullptr)
+    if(buscado == nullptr){
+        comparacoes++;
         return false;
+    }
     *local = buscado->getArtista().local;
-    *codigo = buscado->getArtista().id;
+    *codigo = buscado->getArtista().id; 
     return true;
 }
 
 NoVP* ArvoreVP::auxBusca(NoVP *no, string nome){
-    if(no == nullptr || no->getArtista().name == nome)
+    if(no == nullptr || no->getArtista().name == nome) {
+        comparacoes++;
         return no;
+    }
 
     string noName = no->getArtista().name;
     string name = nome;
@@ -69,8 +74,10 @@ NoVP* ArvoreVP::auxBusca(NoVP *no, string nome){
     transform(name.begin(), name.end(), name.begin(), ::tolower); 
     transform(noName.begin(), noName.end(), noName.begin(), ::tolower);
     
-    if(noName < name) 
+    if(noName < name){
+        comparacoes++;
         return auxBusca(no->getDireito(), nome);
+    }
     return auxBusca(no->getEsquerdo(), nome);
 }
 
@@ -80,6 +87,7 @@ void ArvoreVP::criaArvore(vector<Artista> *artista){
         insere(no);
     }
 }
+
 
 void ArvoreVP::insere(Artista artista){
     NoVP *newNo = new NoVP(artista);

@@ -18,7 +18,7 @@ ArvoreB::ArvoreB(int tamanho,string arq)
 
 ArvoreB::~ArvoreB()
 {
-    //chama a função auxiliar para deletar
+    //chama a funï¿½ï¿½o auxiliar para deletar
     Deletar(Raiz);
 }
 
@@ -51,33 +51,36 @@ void ArvoreB::GerarAleatorio(int tam)
 
 bool ArvoreB::Busca(string Nome_Buscado,int *Local,string *codigo)
 {
-    //chama a função auxiliar para buscar
+    //chama a funï¿½ï¿½o auxiliar para buscar
     return Buscaux(Nome_Buscado,Local,Raiz,codigo);
 }
 bool ArvoreB::Buscaux(string Nome_Buscado,int *local,NoB *p,string *codigo)
 {
     int i;
-    for(i=0;i<p->n && Nome_Buscado>p->chave[i];i++){    //percorre o vetor de chaves e encontra a posição que o valor deveria estar
+    for(i=0;i<p->n && Nome_Buscado>p->chave[i];i++){    //percorre o vetor de chaves e encontra a posiï¿½ï¿½o que o valor deveria estar
+        comparacoes++;
     }
 
     if (p->chave[i]== Nome_Buscado){                    //se o nome for encontrado retorna seu local o codigo e o valor boll pra simbolizar se foi achado
-       *local=p->local[i];
-       *codigo=p->codigo[i];
-       return 1;
+        comparacoes++;
+        *local = p->local[i];
+        *codigo = p->codigo[i];
+        return 1;
     }
-    if(p->folha == 1)                                  //caso o local que o nome deveria estar ele n seja encontrado e o no é uma folha retorna false pois não foi encontrado o nome
+    if(p->folha == 1)                                  //caso o local que o nome deveria estar ele n seja encontrado e o no ï¿½ uma folha retorna false pois nï¿½o foi encontrado o nome
     {
+        comparacoes++;
         *local=-1;
         return 0;
     }
 
-    return Buscaux(Nome_Buscado,local,p->filhos[i],codigo); //se o nó n for uma folha é possivel que a informação esteja no filho a função é chamada recursiva
+    return Buscaux(Nome_Buscado,local,p->filhos[i],codigo); //se o nï¿½ n for uma folha ï¿½ possivel que a informaï¿½ï¿½o esteja no filho a funï¿½ï¿½o ï¿½ chamada recursiva
 }
 
 
 void ArvoreB::Imprime()
 {
-    //chama a função auxiliar para imprimir
+    //chama a funï¿½ï¿½o auxiliar para imprimir
     auximpreme(Raiz);
 }
 void ArvoreB::auximpreme(NoB *p)
@@ -105,7 +108,7 @@ void ArvoreB::iniciaNoB(NoB *p,int efolha)
 
 void ArvoreB::insere(string nome_artista,int local_artista,string codigo_artista)
 {
-    if(Raiz==NULL)                  //caso a estrutura esteja vazia o Primeiro no é criado e iniciado com os valores adequados
+    if(Raiz==NULL)                  //caso a estrutura esteja vazia o Primeiro no ï¿½ criado e iniciado com os valores adequados
     {
         NoB *p=new NoB;
         Raiz=p;
@@ -116,23 +119,23 @@ void ArvoreB::insere(string nome_artista,int local_artista,string codigo_artista
         Raiz->n=1;
 
     }
-    else if(Raiz->n == (2*t)-1){  //caso a raiz esteja cheia é preciso realizar operação de separação e almentar a altura
+    else if(Raiz->n == (2*t)-1){  //caso a raiz esteja cheia ï¿½ preciso realizar operaï¿½ï¿½o de separaï¿½ï¿½o e almentar a altura
             NoB *p=new NoB;
             iniciaNoB(p,0);
 
             p->filhos[0]= Raiz;
 
-            separa(0,Raiz,p);  //função de separação
+            separa(0,Raiz,p);  //funï¿½ï¿½o de separaï¿½ï¿½o
 
             int i=0;
             if (p->chave[0]<nome_artista)
                 i++;
 
-            insereaux(nome_artista,local_artista,codigo_artista,p->filhos[i]); //depois da separação os valores são inseridos no local adequado
+            insereaux(nome_artista,local_artista,codigo_artista,p->filhos[i]); //depois da separaï¿½ï¿½o os valores sï¿½o inseridos no local adequado
 
             Raiz=p;
         }
-    else{                       //caso a raiz n esteja cheia ou seja a primeira inserção os valores são inseridos normalmente
+    else{                       //caso a raiz n esteja cheia ou seja a primeira inserï¿½ï¿½o os valores sï¿½o inseridos normalmente
         insereaux(nome_artista,local_artista,codigo_artista,Raiz);
     }
 
@@ -141,8 +144,8 @@ void ArvoreB::insere(string nome_artista,int local_artista,string codigo_artista
 void ArvoreB::insereaux(string nome_artista,int local_artista,string codigo_artista,NoB *inserido)
 {
 
-    int deslocamento=inserido->n-1;     // o limite maximo de deslocamentos que pode ser feito pra inserir as informações
-    // a inserção so pode ocorrer em nós folhas, caso seja um no folha é aberto um espaço no vetor para inserir as novas informaçõesno local adequado
+    int deslocamento=inserido->n-1;     // o limite maximo de deslocamentos que pode ser feito pra inserir as informaï¿½ï¿½es
+    // a inserï¿½ï¿½o so pode ocorrer em nï¿½s folhas, caso seja um no folha ï¿½ aberto um espaï¿½o no vetor para inserir as novas informaï¿½ï¿½esno local adequado
     if(inserido->folha==1){
         while(deslocamento>=0 && inserido->chave[deslocamento]>nome_artista){
             inserido->chave[deslocamento+1]=inserido->chave[deslocamento];
@@ -158,12 +161,12 @@ void ArvoreB::insereaux(string nome_artista,int local_artista,string codigo_arti
     if(inserido->folha==0){
         while(deslocamento>=0 && inserido->chave[deslocamento]>nome_artista)    //encontra qual dos filho devera ser percorrido
             deslocamento--;
-        if(inserido->filhos[deslocamento+1]->n== 2 * t - 1){                    //caso o filho a ser inserido esteja cheio ele é separado
+        if(inserido->filhos[deslocamento+1]->n== 2 * t - 1){                    //caso o filho a ser inserido esteja cheio ele ï¿½ separado
             separa(deslocamento+1,inserido->filhos[deslocamento+1],inserido);
             if(inserido->chave[deslocamento+1]<nome_artista)
                 deslocamento++;
         }
-        insereaux(nome_artista,local_artista,codigo_artista,inserido->filhos[deslocamento+1]);  //a função é chamada de forma recursiva até que uma folha com espaço seja achada
+        insereaux(nome_artista,local_artista,codigo_artista,inserido->filhos[deslocamento+1]);  //a funï¿½ï¿½o ï¿½ chamada de forma recursiva atï¿½ que uma folha com espaï¿½o seja achada
     }
 }
 
@@ -172,14 +175,14 @@ void ArvoreB::separa(int i,NoB *separado,NoB *auxliar)
 {
     NoB *p=new NoB;
     iniciaNoB(p,separado->folha);
-    p->n=t-1;                           //metade do vetor sera preenchido, o tamanho do vetor é t*2
+    p->n=t-1;                           //metade do vetor sera preenchido, o tamanho do vetor ï¿½ t*2
 
     for(int j=0;j<t-1;j++){             //coloca a primeira metade do vetor a ser separado em p
         p->chave[j]=separado->chave[j+t];
         p->local[j]=separado->local[j+t];
         p->codigo[j]=separado->codigo[j+t];
     }
-    if(separado->folha == 0){          //caso o no n seja uma folha os filhos tbm são copiados
+    if(separado->folha == 0){          //caso o no n seja uma folha os filhos tbm sï¿½o copiados
         for (int j = 0; j < t; j++)
             p->filhos[j] = separado->filhos[j + t];
     }
