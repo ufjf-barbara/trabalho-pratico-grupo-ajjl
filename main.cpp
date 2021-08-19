@@ -5,8 +5,6 @@
 #include "ListaEncadeada.h"         // estrutura de dados que armazena as informacoes dos artistas
 #include "ArvoreVP.h"
 #include "ArvoreB.h"
-
-
 using namespace std;
 
 /*
@@ -19,11 +17,6 @@ void analiseVermelhoPreto(string arq2){
     ListaEncadeada nova;
     vector<Artista> lista = nova.getAll(arq2);
     vector<Artista> aleatorios = nova.getAleatorios(100, arq2);
-
-    Artista aux;
-    ifstream artBin;
-    artBin.open(arq2,ios::binary); // Abre artists.bin
-
     ArvoreVP arvoreVP;
 
     ofstream arq("saida.txt");
@@ -53,14 +46,6 @@ void analiseVermelhoPreto(string arq2){
 
         somaVP += tempo;
         arq << i+1 << "°)" <<" busca em " << tempo << " seg, com " << arvoreVP.comparacoes  << " comparações."<< endl;
-        arq << "Buscado: " << aleatorios[i].name << endl;
-        arq << "Local: " << local << " codigo " << codigo << endl;
-
-        artBin.seekg(local);                          // Posiciona o ponteiro em .bin
-        artBin.read((char *)&(aux), sizeof(Artista)); //Le conteudo da linha em .bin
-        arq << "Nome: " << aux.name << ", popularity: " << aux.popularity << ", genres: "
-            << aux.genres << " , id: " << aux.id << " , followers: " << aux.followers << "\n\n";
-
         comparacoesVP += arvoreVP.comparacoes;
         arvoreVP.comparacoes = 0;
     }
@@ -73,10 +58,6 @@ void analiseArvoreB(string arq2) {
     ListaEncadeada nova;
     vector<Artista> lista = nova.getAll(arq2);
     vector<Artista> aleatorios = nova.getAleatorios(100, arq2);
-
-    Artista aux;
-    ifstream artBin;
-    artBin.open(arq2,ios::binary); // Abre artists.bin
 
     ArvoreB arvoreBmenor(20, arq2);
     ArvoreB arvoreBmaior(200, arq2);
@@ -140,7 +121,6 @@ void analiseArvoreB(string arq2) {
     }
     arq << "Média do tempo de busca na árvore B(200): " << (somaBmaior/aleatorios.size()) << " seg, com " << comparacoesBmaior << " comparações." << endl;
     arq << "------------------------------------------------ \n\n" << endl;
-
 }
 
 void menuPrincipal (string arq2) {
@@ -150,7 +130,7 @@ void menuPrincipal (string arq2) {
     ifstream artBin;
     artBin.open(arq2,ios::binary); // Abre artists.bin
 
-    int op, escolha;
+    int op=0, escolha=0;
     do {
         cout << "MENU PRINCIPAL" << endl;
         cout << "1 - Arvore Vermelho-Preta" << endl;
@@ -159,7 +139,7 @@ void menuPrincipal (string arq2) {
         cout << "Digite: ";
         cin >> op;
 
-    do {
+    while(op != 3 && escolha != 3) {
         cout << "ESCOLHA UMA OPCAO" << endl;
         cout << "1- Modo de analise" << endl;
         cout << "2- Modo de teste" << endl;
@@ -222,8 +202,8 @@ void menuPrincipal (string arq2) {
             else
                 cout << endl << "nao encontrado" << endl;
         }
-            } while (escolha != 3);
-    } while (op != 3);
+        }  
+    } while (op != 3 );
     artBin.close(); //Fecha .bin 
 }
 
