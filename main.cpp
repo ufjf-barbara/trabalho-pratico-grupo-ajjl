@@ -120,6 +120,10 @@ void modoAnalise(string arq2) {
 void menuPrincipal (string arq2) {
     ListaEncadeada nova;
     vector<Artista> lista = nova.getAll(arq2);
+    Artista aux;
+    ifstream artBin;
+    artBin.open(arq2,ios::binary); // Abre artists.bin
+
     int op;
     do {
         cout << "ESCOLHA UMA OPCAO" << endl;
@@ -152,8 +156,12 @@ void menuPrincipal (string arq2) {
                 }
                 cout << "Digite o nome do artista: ";
                 cin >> nome;
+
                 if(arvoreVP.busca(nome, &local, &codigo)) {  
-                    cout << local << " " << codigo << endl;
+                    artBin.seekg(local); // Posiciona o ponteiro em .bin
+                    artBin.read((char *) &(aux),sizeof(Artista)); //Le conteudo da linha em .bin
+                    cout << "Nome: " << aux.name << ", popularity: " << aux.popularity << ", genres: "
+                    << aux.genres << " , id: " << aux.id << " , followers: " << aux.followers << endl;
                 }  
                 else
                     cout << endl << "nao encontrado" << endl;
@@ -173,8 +181,10 @@ void menuPrincipal (string arq2) {
                 cout << "Digite o nome do artista: ";
                 cin >> nome;
                 if(arvoreB.Busca(nome, &local, &codigo)) {  
-                    cout << local << " " << codigo << endl;
-                }  
+                    artBin.seekg(local); // Posiciona o ponteiro em .bin
+                    artBin.read((char *) &(aux),sizeof(Artista)); //Le conteudo da linha em .bin
+                    cout << "Nome: " << aux.name << ", popularity: " << aux.popularity << ", genres: "
+                    << aux.genres << " , id: " << aux.id << " , followers: " << aux.followers << endl;                }  
                 else
                     cout << endl << "nao encontrado" << endl;
 
