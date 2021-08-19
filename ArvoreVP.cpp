@@ -8,13 +8,29 @@ ArvoreVP::~ArvoreVP() {}
 
 void ArvoreVP::start(string arq2){
     vector<Artista> vet;
+
     vet = getAleatorios(10, arq2);
-    
+/*
+    vet[0].name = 23;
+    vet[1].name = 15;
+    vet[2].name = 11;
+    vet[3].name = 655;
+    vet[4].name = 4;
+    vet[5].name = 33;
+    vet[6].name = 1;
+*/    
     for(int i=0;i<10;i++) // para imprimir amostra
         cout << vet[i].name << endl;
+    
 
     criaArvore(&vet);
-    return;
+
+    ofstream arq("grafo.txt", ios::app);
+    arq << "digraph{"<< endl;
+    geraGrafo(this->raiz);
+    arq << "}"<< endl;
+    arq.close();
+
 }
 
 vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de N artistas aleatorios
@@ -39,9 +55,13 @@ vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de
     }
     artBin.close(); //Fecha .bin 
 
+    clock_t t;
+    t = clock(); 
+
     vector<Artista> random; // Vetor para a coleta da amostra aleatoria
     for(int i=0;i<tam;i++) {
         int limit = length-i; //Define o limite para o r
+        srand(t);
         int r = rand()%limit; // gera posicao aleatoria
         random.push_back(lista[r]); //Salva em nosso vetor random um elemento aleatorio da lista
         auto remove = lista.begin() + r; // ponteiro para artista da lista
@@ -51,7 +71,24 @@ vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de
     return random;
 }
 
-bool ArvoreVP::calculaNome(Artista art1, Artista art2){}
+bool ArvoreVP::busca(string name, int *local, string *codigo){
+    NoVP *buscado = auxBusca(raiz, name);
+    if(buscado == nullptr)
+        return false;
+    *local = buscado->getArtista().local;
+    *codigo = buscado->getArtista().id;
+    return true;
+}
+
+NoVP* ArvoreVP::auxBusca(NoVP *no, string name){
+    if(no == nullptr || no->getArtista().name == name)
+        return no;
+    
+    if(no->getArtista().name < name) 
+        return auxBusca(no->getDireito(), name);
+
+    return auxBusca(no->getEsquerdo(), name);
+}
 
 void ArvoreVP::criaArvore(vector<Artista> *artista){
     for(auto i = artista->begin(); i != artista->end(); i++) {
@@ -61,16 +98,12 @@ void ArvoreVP::criaArvore(vector<Artista> *artista){
 }
 
 void ArvoreVP::insere(Artista artista){
-
     NoVP *newNo = new NoVP(artista);
-
     raiz = auxInsere(raiz, newNo);
-
     balanceia(raiz, newNo);
 }
 
 NoVP* ArvoreVP::auxInsere(NoVP *no, NoVP* newNo){
-
     if(no == nullptr)
         no = newNo;
     else if(newNo->getArtista().name  <  no->getArtista().name) {
@@ -84,8 +117,6 @@ NoVP* ArvoreVP::auxInsere(NoVP *no, NoVP* newNo){
     }
     return no;
 }
-
-
 
 void ArvoreVP::balanceia(NoVP *&raiz, NoVP *&no){
     //pai e avô do novo nó inserido
@@ -194,6 +225,37 @@ void ArvoreVP::trocaCor(NoVP *no1, NoVP *no2){
     no1->setCor(no2->getCor());
     no2->setCor(cor);
 } 
+
+
+void ArvoreVP::geraGrafo(NoVP* no){ 
+    if(no == nullptr)
+        return;
+
+    ofstream arq("grafo.txt", ios::app);
+    string cor;
+    if (no->getCor())
+        cor = "#ff6666";
+    else
+        cor = "#9c9c9c";
+        
+
+    arq << no->getArtista().name << "[shape=\"ellipse\" style=\"filled\" fillcolor=\""<< cor << "\"]" << endl;
+    
+    NoVP *esq = no->getEsquerdo();
+    if(!(esq == nullptr)){
+        arq << no->getArtista().name << " -> " << esq->getArtista().name << endl;
+        geraGrafo(esq);
+    }
+
+    NoVP *dir = no->getDireito();
+    if(!(dir == nullptr)){
+        arq << no->getArtista().name << " -> " << dir->getArtista().name << endl;
+        geraGrafo(dir);
+    }
+
+
+    arq.close();
+}
 
 
 

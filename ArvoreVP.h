@@ -19,12 +19,13 @@ class ArvoreVP
         ~ArvoreVP();
 
         void start(string arq3);
+        bool busca(string name, int *local, string *codigo);
 
     private:
         NoVP* raiz; // Ponteiro para a raiz da arvore
 
         vector<Artista> getAleatorios(int tam, string arq3); // Seleciona amostra aleatoria de artistas
-        bool calculaNome(Artista art1, Artista art2); //Compara dois nomes
+        NoVP* auxBusca(NoVP *raiz, string name);
 
         void criaArvore(vector <Artista> *artista); 
         void insere(Artista artista);
@@ -34,6 +35,8 @@ class ArvoreVP
         void rotacionaEsquerda(NoVP *&raiz, NoVP *&no);
         void rotacionaDireita(NoVP *&raiz, NoVP *&no);
         void trocaCor(NoVP *no1, NoVP *no2); 
+
+        void geraGrafo(NoVP *no); // gera um grafo da arvore para testes
 
         
 

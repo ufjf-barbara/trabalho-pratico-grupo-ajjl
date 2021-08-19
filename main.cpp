@@ -36,5 +36,15 @@ int main(int argc, char *argv[])
 
     ArvoreVP tree;
     tree.start(arq2); // provisorio ate ter menu
+
+    int local = 0;
+    string codigo;
+    
+    if(tree.busca("Colour", &local, &codigo)) {  
+        cout << local << " " << codigo << endl;
+    }  
+    else
+        cout << endl << "nao encotrado" << endl;
+
     return 0;
 }
