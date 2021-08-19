@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     int local = 0;
     string codigo;
     
-    if(tree.busca("Colour", &local, &codigo)) {  
+    if(tree.busca("Tuviel Levi", &local, &codigo)) {  
         cout << local << " " << codigo << endl;
     }  
     else

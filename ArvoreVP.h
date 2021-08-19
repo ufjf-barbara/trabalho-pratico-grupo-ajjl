@@ -18,7 +18,7 @@ class ArvoreVP
         ArvoreVP();
         ~ArvoreVP();
 
-        void start(string arq3);
+        void start(int tam, string arq3);
         bool busca(string name, int *local, string *codigo);
 
     private:
@@ -30,13 +30,14 @@ class ArvoreVP
         void criaArvore(vector <Artista> *artista); 
         void insere(Artista artista);
         NoVP* auxInsere(NoVP *raiz, NoVP *newNo);
-        void balanceia(NoVP *&raiz, NoVP *&newNo); 
 
+        void balanceia(NoVP *&raiz, NoVP *&newNo); 
         void rotacionaEsquerda(NoVP *&raiz, NoVP *&no);
         void rotacionaDireita(NoVP *&raiz, NoVP *&no);
         void trocaCor(NoVP *no1, NoVP *no2); 
 
-        void geraGrafo(NoVP *no); // gera um grafo da arvore para testes
+        void geraGrafo(); // gera um grafo da arvore para testes
+        void auxGeraGrafo(NoVP *no); // aux para recursividade
 
         
 

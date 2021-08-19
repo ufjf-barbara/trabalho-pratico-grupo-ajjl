@@ -6,31 +6,10 @@ ArvoreVP::ArvoreVP() { raiz = nullptr; }
 
 ArvoreVP::~ArvoreVP() {}
 
-void ArvoreVP::start(string arq2){
-    vector<Artista> vet;
-
-    vet = getAleatorios(10, arq2);
-/*
-    vet[0].name = 23;
-    vet[1].name = 15;
-    vet[2].name = 11;
-    vet[3].name = 655;
-    vet[4].name = 4;
-    vet[5].name = 33;
-    vet[6].name = 1;
-*/    
-    for(int i=0;i<10;i++) // para imprimir amostra
-        cout << vet[i].name << endl;
-    
+void ArvoreVP::start(int tam, string arq2) {
+    vector<Artista> vet = getAleatorios(tam, arq2);
 
     criaArvore(&vet);
-
-    ofstream arq("grafo.txt", ios::app);
-    arq << "digraph{"<< endl;
-    geraGrafo(this->raiz);
-    arq << "}"<< endl;
-    arq.close();
-
 }
 
 vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de N artistas aleatorios
@@ -55,13 +34,13 @@ vector<Artista> ArvoreVP::getAleatorios(int tam, string arq2) { // Cria vetor de
     }
     artBin.close(); //Fecha .bin 
 
-    clock_t t;
-    t = clock(); 
+//    clock_t t;  // Usado para pegar posicao aleatoria a cada execucao
+//    t = clock(); // Usado para pegar posicao aleatoria a cada execucao
 
     vector<Artista> random; // Vetor para a coleta da amostra aleatoria
     for(int i=0;i<tam;i++) {
         int limit = length-i; //Define o limite para o r
-        srand(t);
+//        srand(t); // Usado para pegar posicao aleatoria a cada execucao
         int r = rand()%limit; // gera posicao aleatoria
         random.push_back(lista[r]); //Salva em nosso vetor random um elemento aleatorio da lista
         auto remove = lista.begin() + r; // ponteiro para artista da lista
@@ -80,14 +59,19 @@ bool ArvoreVP::busca(string name, int *local, string *codigo){
     return true;
 }
 
-NoVP* ArvoreVP::auxBusca(NoVP *no, string name){
-    if(no == nullptr || no->getArtista().name == name)
+NoVP* ArvoreVP::auxBusca(NoVP *no, string nome){
+    if(no == nullptr || no->getArtista().name == nome)
         return no;
-    
-    if(no->getArtista().name < name) 
-        return auxBusca(no->getDireito(), name);
 
-    return auxBusca(no->getEsquerdo(), name);
+    string noName = no->getArtista().name;
+    string name = nome;
+    // tornando minusculo para comparar
+    transform(name.begin(), name.end(), name.begin(), ::tolower); 
+    transform(noName.begin(), noName.end(), noName.begin(), ::tolower);
+    
+    if(noName < name) 
+        return auxBusca(no->getDireito(), nome);
+    return auxBusca(no->getEsquerdo(), nome);
 }
 
 void ArvoreVP::criaArvore(vector<Artista> *artista){
@@ -104,13 +88,23 @@ void ArvoreVP::insere(Artista artista){
 }
 
 NoVP* ArvoreVP::auxInsere(NoVP *no, NoVP* newNo){
+    string name1;
+    string name2;
+
+    if(!(no == nullptr)){    
+        name1 = newNo->getArtista().name;
+        name2 = no->getArtista().name;
+        transform(name1.begin(), name1.end(), name1.begin(), ::tolower);
+        transform(name2.begin(), name2.end(), name2.begin(), ::tolower);
+    }
+
     if(no == nullptr)
         no = newNo;
-    else if(newNo->getArtista().name  <  no->getArtista().name) {
+    else if(name1 <  name2) {
         no->setEsquerdo(auxInsere(no->getEsquerdo(), newNo));
         no->getEsquerdo()->setPai(no);
     }
-    else if (newNo->getArtista().name  > no->getArtista().name) { 
+    else if (name1 > name2) { 
 
         no->setDireito(auxInsere(no->getDireito(), newNo));
         no->getDireito()->setPai(no);
@@ -124,13 +118,10 @@ void ArvoreVP::balanceia(NoVP *&raiz, NoVP *&no){
     NoVP *avo = nullptr;
 
     while ((no != raiz) && (no->getCor()) && (no->getPai()->getCor())) {
-
         pai = no->getPai();
         avo = no->getPai()->getPai();
-
         
         if (pai == avo->getEsquerdo()) {//pai do nó é filho a esquerda do avô do nó
-
             NoVP *tio = avo->getDireito();
             
             if (tio != nullptr && tio->getCor()) { //tio vermelho, apenas recoloração               
@@ -152,7 +143,6 @@ void ArvoreVP::balanceia(NoVP *&raiz, NoVP *&no){
             }
         }
         else { //pai do nó é filho a direita do avô do nó
-
             NoVP *tio = avo->getEsquerdo();
  
             if ((tio != nullptr) && (tio->getCor())) {  //tio vermelho, apenas recoloração   
@@ -177,7 +167,6 @@ void ArvoreVP::balanceia(NoVP *&raiz, NoVP *&no){
 }
 
 void ArvoreVP::rotacionaEsquerda(NoVP *&raiz, NoVP *&no){
-
     NoVP *noDireito = no->getDireito();
 
     no->setDireito(noDireito->getEsquerdo());
@@ -199,7 +188,6 @@ void ArvoreVP::rotacionaEsquerda(NoVP *&raiz, NoVP *&no){
 }
 
 void ArvoreVP::rotacionaDireita(NoVP *&raiz, NoVP *&no){
-
     NoVP *noEsquerdo = no->getEsquerdo();
 
     no->setEsquerdo(noEsquerdo->getDireito());
@@ -227,7 +215,15 @@ void ArvoreVP::trocaCor(NoVP *no1, NoVP *no2){
 } 
 
 
-void ArvoreVP::geraGrafo(NoVP* no){ 
+void ArvoreVP::geraGrafo(){ // gera um grafo da arvore para testes
+    ofstream arq("grafo.txt", ios::app);  // Lembrar que ao finalizar é preciso abrir o .txt e ajustar para o formato do codigo
+    arq << "digraph{"<< endl;
+    auxGeraGrafo(this->raiz);
+    arq << "}"<< endl;
+    arq.close();
+}
+
+void ArvoreVP::auxGeraGrafo(NoVP* no){  // gera no formato para visualizar
     if(no == nullptr)
         return;
 
@@ -238,21 +234,19 @@ void ArvoreVP::geraGrafo(NoVP* no){
     else
         cor = "#9c9c9c";
         
-
-    arq << no->getArtista().name << "[shape=\"ellipse\" style=\"filled\" fillcolor=\""<< cor << "\"]" << endl;
+    arq << no->getArtista().name << "[shape=\"ellipse\"style=\"filled\"fillcolor=\""<< cor << "\"]" << endl;
     
     NoVP *esq = no->getEsquerdo();
     if(!(esq == nullptr)){
-        arq << no->getArtista().name << " -> " << esq->getArtista().name << endl;
-        geraGrafo(esq);
+        arq << no->getArtista().name << "->" << esq->getArtista().name << endl;
+        auxGeraGrafo(esq);
     }
 
     NoVP *dir = no->getDireito();
     if(!(dir == nullptr)){
-        arq << no->getArtista().name << " -> " << dir->getArtista().name << endl;
-        geraGrafo(dir);
+        arq << no->getArtista().name << "->" << dir->getArtista().name << endl;
+        auxGeraGrafo(dir);
     }
-
 
     arq.close();
 }
