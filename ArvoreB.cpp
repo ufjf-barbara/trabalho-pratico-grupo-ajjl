@@ -241,5 +241,3 @@ vector<Artista> ArvoreB::getAleatorios(int tam, string arq2) { // Cria vetor de 
 
     return random;
 }
-
-
