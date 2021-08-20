@@ -1,11 +1,7 @@
 #ifndef LISTAENCADEADA_H
 #define LISTAENCADEADA_H
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <string.h>
-#include <vector> 
-#include <string> 
+#include <string>
+#include <vector>  
 #include "NoA.h" /// No referente ao artista
 
 
@@ -23,8 +19,7 @@ public:
     void imprimeTestes(vector <Artista>);
     void NovaLista(string arq1);
     void deletaultimo();
-    vector<Artista> getAll(string arq2);
-    vector<Artista> getAleatorios(int tam, string arq2);
+
 
 private:
     int n;

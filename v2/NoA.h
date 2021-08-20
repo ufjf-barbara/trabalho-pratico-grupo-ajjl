@@ -1,5 +1,7 @@
 #ifndef NOA_H_INCLUDED
 #define NOA_H_INCLUDED
+#include <iostream>
+#include <string>
 
 using namespace std;
 typedef struct
@@ -9,7 +11,6 @@ typedef struct
     char name [400];
     int popularity;
     float followers;
-    int local;
 
 }
 Artista;
