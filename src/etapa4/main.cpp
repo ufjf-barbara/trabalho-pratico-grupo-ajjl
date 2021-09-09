@@ -53,6 +53,8 @@ string leArquivoTexto(string arquivo)
 void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){ 
      int opcao;
      CasamentoPadrao padrao;
+     clock_t start, end;
+     float tempo;
     do{
         cout << "Executar qual etapa?" << endl;
         cout << " 1 - Forca bruta" << endl;
@@ -60,44 +62,35 @@ void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){
         cout << " 3 - BHM" << endl;
         cout << " 4 - Voltar" << endl;
         cin >> opcao;
-        if (opcao == 1) {
-            cout << "Executando método Forca Bruta..." << endl;
-            for (int i = 0; i < qtSeq; i++){
-                string sequenciaT = leArquivoTexto(nomesequencia(diretorio, i));
-                for (int j = 0; j < qtPadrao; j++)
-                {
-                    string padraoP = leArquivoTexto(nomePadrao(diretorio, j));
+
+        for (int i = 0; i < qtSeq; i++){
+            string nomeArqsequencia = nomesequencia(diretorio, i);
+            string sequenciaT = leArquivoTexto(nomeArqsequencia);
+            for (int j = 0; j < qtPadrao; j++)
+            {
+                string nomeArqPadrao = nomePadrao(diretorio, j);
+                string padraoP = leArquivoTexto(nomeArqPadrao);
+                start = clock();
+
+                if(opcao == 1){
+                    cout << "Executando método Forca Bruta..." << endl;
                     padrao.ForcaBruta(sequenciaT, padraoP);
                 }
-            }
-                cout << "Etapa concluida!" << endl;
-        }
-        else if (opcao == 2) {
-            cout << " Executando método KMP..." << endl;
-            for (int i = 0; i < qtSeq; i++){
-                string sequenciaT = leArquivoTexto(nomesequencia(diretorio, i));
-                for (int j = 0; j < qtPadrao; j++)
-                {
-                    string padraoP = leArquivoTexto(nomePadrao(diretorio, j));
+                else if (opcao == 2){
+                    cout << "Executando método KMP..." << endl;
                     padrao.KMP(sequenciaT, padraoP);
                 }
-            }
-
-            cout << "Etapa concluida!" << endl;
-        }
-        else if (opcao == 3) {
-            cout << " Executando método BHM..." << endl;
-            for (int i = 0; i < qtSeq; i++){
-                string sequenciaT = leArquivoTexto(nomesequencia(diretorio, i));
-                for (int j = 0; j < qtPadrao; j++)
-                {
-                    string padraoP = leArquivoTexto(nomePadrao(diretorio, j));
+                else if (opcao == 3){
+                    cout << "Executando método BHM..." << endl;
                     padrao.BHMsearch(sequenciaT, padraoP);
                 }
-            }
 
-            cout << "Etapa concluida!" << endl;
-        }
+                end = clock();
+                tempo = (float)(end - start) / CLOCKS_PER_SEC;
+                cout << "Tempo: " << tempo << "s, utilizando os arquivos " << nomeArqsequencia << " e " << nomeArqPadrao << endl;
+                cout << "Etapa concluida!" << endl;
+            }
+            }
     } while (opcao != 4);
 }
 
