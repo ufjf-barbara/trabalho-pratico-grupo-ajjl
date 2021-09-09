@@ -88,8 +88,8 @@ void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){
 
                 end = clock();
                 tempo = (float)(end - start) / CLOCKS_PER_SEC;
-                cout << "Tempo: " << tempo << "s, utilizando os arquivos:" << endl;
-                cout<< nomeArqsequencia << " e " << nomeArqPadrao << endl;
+                cout << "Tempo: " << tempo << "s, utilizando a sequencia de tamanho " 
+                << sequenciaT.length() << " e o padrao de tamanho " << padraoP.length()<< endl;
                 cout << "--------------------" << endl;
             }
             }}
