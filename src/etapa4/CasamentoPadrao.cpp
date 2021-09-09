@@ -17,13 +17,13 @@ void CasamentoPadrao::ForcaBruta(string T, string P){
             j ++;
             k ++;
             if(j==tamP){
-                cout << "Casamento na posicao: " << i << endl;
+                cout << "   - Casamento na posicao: " << i << endl;
                 ocorrencias ++;
                 break;
             }
         }
     }
-    cout << "Numero total de ocorrencias ----> " << ocorrencias << endl;
+    cout << "   - Total de ocorrencias ----> " << ocorrencias << endl;
 }
 
 void prefixo(string P, int tamP, int* lps){
@@ -63,7 +63,7 @@ void CasamentoPadrao::KMP(string T, string P){
 			i++;
 		}
 		if (j == tamP) {
-			cout << "Casamento na posicao: " << i-j << endl;
+			cout << "   - Casamento na posicao: " << i-j << endl;
             ocorrencias ++;
 			j = lps[j-1];
 		}
@@ -74,7 +74,7 @@ void CasamentoPadrao::KMP(string T, string P){
 				i = i + 1;
 		}
 	}
-    cout << "Numero total de ocorrencias ----> " << ocorrencias << endl;
+    cout << "   - Total de ocorrencias ----> " << ocorrencias << endl;
 }
 
 void CasamentoPadrao::BMHsearch(string sequenciaT, string padraoP){
@@ -95,8 +95,8 @@ void CasamentoPadrao::BMHsearch(string sequenciaT, string padraoP){
             k--;
         if(j == 0){
             ocorrencias++;
-            cout << "Casamento na posicao: " << k << endl;
+            cout << "    - Casamento na posicao: " << k << endl;
         }
     }
-    cout << "Numero total de ocorrencias ----> " << ocorrencias << endl;
+    cout << "   - Total de ocorrencias ----> " << ocorrencias << endl;
 }

@@ -4,6 +4,7 @@
 #include <fstream>
 #include <ctime>
 #include "CasamentoPadrao.h"
+#include "HuffmanTree.h"
 
 
 using namespace std;
@@ -65,39 +66,61 @@ void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){
         cin >> opcao;
 
         if(opcao != 4){
-        for (int i = 0; i < qtSeq; i++){
-            string nomeArqsequencia = nomesequencia(diretorio, i);
-            string sequenciaT = leArquivoTexto(nomeArqsequencia);
-            for (int j = 0; j < qtPadrao; j++)
-            {
-                string nomeArqPadrao = nomePadrao(diretorio, j);
-                string padraoP = leArquivoTexto(nomeArqPadrao);
-                
-                if(opcao == 1){
-                    cout << "Executando método Forca Bruta..." << endl;
-                    start = clock();
-                    padrao.ForcaBruta(sequenciaT, padraoP);
-                    end = clock();
+            for (int i = 0; i < qtSeq; i++){
+                string nomeArqsequencia = nomesequencia(diretorio, i);
+                string sequenciaT = leArquivoTexto(nomeArqsequencia);
+                cout << "Sequencia DNA " << i+1 << " (tamanho " << sequenciaT.length() << "): " << endl;
+                for (int j = 0; j < qtPadrao; j++)
+                {
+                    string nomeArqPadrao = nomePadrao(diretorio, j);
+                    string padraoP = leArquivoTexto(nomeArqPadrao);
+                    cout << endl << "Padrao " << j+1 << " (tamanho " << padraoP.length() << "): " << endl;
+                    
+                    if(opcao == 1){
+                        cout << "   Forca Bruta:" << endl;
+                        start = clock();
+                        padrao.ForcaBruta(sequenciaT, padraoP);
+                        end = clock();
+                    }
+                    else if (opcao == 2){
+                        cout << "   KMP:" << endl;
+                        start = clock();
+                        padrao.KMP(sequenciaT, padraoP);
+                        end = clock();
+                    }
+                    else if (opcao == 3){
+                        cout << "   BMH:" << endl;
+                        start = clock();
+                        padrao.BMHsearch(sequenciaT, padraoP);
+                        end = clock();
+                    }
+                    tempo = (float)(end - start) / CLOCKS_PER_SEC;
+                    cout << "   - Tempo: " << tempo << "s" << endl;
                 }
-                else if (opcao == 2){
-                    cout << "Executando método KMP..." << endl;
-                    start = clock();
-                    padrao.KMP(sequenciaT, padraoP);
-                    end = clock();
-                }
-                else if (opcao == 3){
-                    cout << "Executando método BMH..." << endl;
-                    start = clock();
-                    padrao.BMHsearch(sequenciaT, padraoP);
-                    end = clock();
-                }
-                tempo = (float)(end - start) / CLOCKS_PER_SEC;
-                cout << "Tempo: " << tempo << "s, utilizando a sequencia de tamanho " 
-                << sequenciaT.length() << " e o padrao de tamanho " << padraoP.length()<< endl;
-                cout << "--------------------" << endl;
+                    cout << endl << "--------------------" << endl << endl;
             }
-            }}
+        }
     } while (opcao != 4);
+}
+
+void submenuCompressao(string diretorio, int qtSeq){
+    for (int i = 0; i < qtSeq; i++){
+        string nomeArqsequencia = nomesequencia(diretorio, i);
+        string sequenciaT = leArquivoTexto(nomeArqsequencia);
+        clock_t start, end;
+        
+        cout << "Sequencia DNA " << i+1 << " (tamanho " << sequenciaT.length() << "): " << endl;
+
+        HuffmanTree compressao(sequenciaT, sequenciaT.length());
+        compressao.percorreraux();
+        start = clock();
+        compressao.comprimir();
+        compressao.descomprimir2();
+        end = clock();
+
+        cout << "Tempo: " << (float)(end - start) / CLOCKS_PER_SEC << "s" << endl;
+
+    }    
 }
 
 void menu(string diretorio, int qtSeq, int qtPadrao) { // Menu para selecionar as opcoes 
@@ -112,8 +135,7 @@ void menu(string diretorio, int qtSeq, int qtPadrao) { // Menu para selecionar a
             submenuCasamento(diretorio, qtSeq, qtPadrao);
         }
         else if (opcao == 2) {
-            cout<< "chamadas compressao" << endl;
-            cout << " Etapa concluida" << endl;
+            submenuCompressao(diretorio, qtSeq);
         }
     }
     while(opcao != 3); // Sair

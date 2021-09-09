@@ -290,14 +290,10 @@ void HuffmanTree::descomprimir2()
                 No=No->esquerda;
             }
             if (No->folha){
-               cout << No->data;
                 No=Raiz;
                 y++;
-                if (y%60==0)
-                cout << '\n';
             }
             x++;
         }
     }
-
 }
