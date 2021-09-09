@@ -47,7 +47,7 @@ class HuffmanTree
 
         void del(HuffmanNode *No);
 
-
+        float TaxaComprecao();
 };
 
 #endif // HUFFMANTREE_H
