@@ -14,18 +14,20 @@ Comandos para compilar via terminal:
     ./main SEU/DIRETORIO/trabalho-pratico-grupo-ajjl
 */
 
-string nomeSequencia(int indice){ 
-        string tes = "dna";
-        tes += (indice+1) + '0';
-        tes += ".txt";
-        return tes;
+string nomesequencia(string diretorio, int indice){
+    string nome = diretorio;
+    nome += "/dna";
+    nome += (indice + 1) + '0';
+    nome += ".txt";
+    return nome;
 }
 
-string nomePadrao(int indice){ 
-        string tes = "padrao";
-        tes += (indice+1) + '0';
-        tes += ".txt";
-        return tes;
+string nomePadrao(string diretorio, int indice){
+    string nome = diretorio;
+    nome += "/padrao";
+    nome += (indice + 1) + '0';
+    nome += ".txt";
+    return nome;
 }
 
 string leArquivoTexto(string arquivo)
@@ -48,7 +50,7 @@ string leArquivoTexto(string arquivo)
     return aux;
 }
 
-void submenuCasamento(int qtSeq, int qtPadrao){ 
+void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){ 
      int opcao;
      CasamentoPadrao padrao;
     do{
@@ -61,10 +63,10 @@ void submenuCasamento(int qtSeq, int qtPadrao){
         if (opcao == 1) {
             cout << "Executando método Forca Bruta..." << endl;
             for (int i = 0; i < qtSeq; i++){
-                string sequenciaT = leArquivoTexto(nomeSequencia(i));
+                string sequenciaT = leArquivoTexto(nomesequencia(diretorio, i));
                 for (int j = 0; j < qtPadrao; j++)
                 {
-                    string padraoP = leArquivoTexto(nomePadrao(j));
+                    string padraoP = leArquivoTexto(nomePadrao(diretorio, j));
                     padrao.ForcaBruta(sequenciaT, padraoP);
                 }
             }
@@ -73,10 +75,10 @@ void submenuCasamento(int qtSeq, int qtPadrao){
         else if (opcao == 2) {
             cout << " Executando método KMP..." << endl;
             for (int i = 0; i < qtSeq; i++){
-                string sequenciaT = leArquivoTexto(nomeSequencia(i));
+                string sequenciaT = leArquivoTexto(nomesequencia(diretorio, i));
                 for (int j = 0; j < qtPadrao; j++)
                 {
-                    string padraoP = leArquivoTexto(nomePadrao(j));
+                    string padraoP = leArquivoTexto(nomePadrao(diretorio, j));
                     padrao.KMP(sequenciaT, padraoP);
                 }
             }
@@ -86,10 +88,10 @@ void submenuCasamento(int qtSeq, int qtPadrao){
         else if (opcao == 3) {
             cout << " Executando método BHM..." << endl;
             for (int i = 0; i < qtSeq; i++){
-                string sequenciaT = leArquivoTexto(nomeSequencia(i));
+                string sequenciaT = leArquivoTexto(nomesequencia(diretorio, i));
                 for (int j = 0; j < qtPadrao; j++)
                 {
-                    string padraoP = leArquivoTexto(nomePadrao(j));
+                    string padraoP = leArquivoTexto(nomePadrao(diretorio, j));
                     padrao.BHMsearch(sequenciaT, padraoP);
                 }
             }
@@ -99,7 +101,7 @@ void submenuCasamento(int qtSeq, int qtPadrao){
     } while (opcao != 4);
 }
 
-void menu(int qtSeq, int qtPadrao) { // Menu para selecionar as opcoes 
+void menu(string diretorio, int qtSeq, int qtPadrao) { // Menu para selecionar as opcoes 
     int opcao;
     do{
         cout << "Executar qual etapa?" << endl;
@@ -108,7 +110,7 @@ void menu(int qtSeq, int qtPadrao) { // Menu para selecionar as opcoes
         cout << " 3 - Sair" << endl;
         cin >> opcao;
         if (opcao == 1) {
-            submenuCasamento(qtSeq, qtPadrao);
+            submenuCasamento(diretorio, qtSeq, qtPadrao);
         }
         else if (opcao == 2) {
             cout<< "chamadas compressao" << endl;
@@ -118,58 +120,16 @@ void menu(int qtSeq, int qtPadrao) { // Menu para selecionar as opcoes
     while(opcao != 3); // Sair
 }
 
-
-
-/* void leArquivoPadrao(string arquivo, string *sequenciaP)
+int main(int argc, char *argv[]) // ./main <caminhoSeq>
 {
-    ifstream arq(arquivo);
-    string str;
-    int c = 0;
-    if(arq.is_open()){
-        while (c < 3)
-        {
-            getline(arq, str);
-            sequenciaP[c] = str;
-            [0] = "accccttp"
-            [1] = "asdasdas"
-            c ++;
-        }
-    }
-    else
-        cerr << "ERRO: O arquivo nao pode ser aberto!" << endl;
-    arq.close();
-    return aux;
-} */
+    int qtPadrao, qtSeq;
+    string diretorio = argv[1];
 
-int main() // ./main <caminhoSeq> <qntArqSeq> <caminhoPad> <qntArqPad>
-{
-    //string caminhoSeq = argv[1]; 
-    //string qtTStr = argv[2];
-    //int qtSeq = stoi(qtTStr);
-    //string padraoP = argv[2];
-    //string qtPStr = argv[4];
-    //int qtP = stoi(qtPStr);
-    
-    // string arquivo= "dna1.txt";
-    // string sequenciaT = leArquivoTexto(arquivo);
-    // menu();
-
-   // arquivo= "padrao.txt";
-    // string padraoP = leArquivoTexto(arquivo);
-    // CasamentoPadrao padrao;
-    // cout << "Forca Bruta" << endl;
-    // padrao.ForcaBruta(sequenciaT, "tttac");
-    // cout << "BHM" << endl;
-    // padrao.BHMsearch(sequenciaT, "tttac");
-    // cout << "KMP" << endl;
-    // padrao.KMP(sequenciaT, "tttac");
-    int qtPadrao;
-    int qtSeq;
     cout << "Digite o numero de sequencias a serem lidas: ";
     cin >> qtSeq;
     cout << "Digite o numero de padroes a serem lidos: ";
     cin >> qtPadrao;
-    menu(qtSeq, qtPadrao);
+    menu(diretorio, qtSeq, qtPadrao);
 
     return 0;
 }
