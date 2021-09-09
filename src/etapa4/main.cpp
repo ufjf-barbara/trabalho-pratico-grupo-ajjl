@@ -117,9 +117,9 @@ void submenuCompressao(string diretorio, int qtSeq){
         compressao.comprimir();
         compressao.descomprimir2();
         end = clock();
-
+        cout << "Taxa de compressao: " << compressao.TaxaComprecao() << "%" << endl;
         cout << "Tempo: " << (float)(end - start) / CLOCKS_PER_SEC << "s" << endl;
-
+        cout << endl << "--------------------" << endl << endl;
     }    
 }
 

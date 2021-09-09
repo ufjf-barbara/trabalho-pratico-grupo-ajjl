@@ -7,16 +7,16 @@
 using namespace std;
 
 void CasamentoPadrao::ForcaBruta(string T, string P){
-    int tamT = T.length();
-    int tamP = P.length();
-    int ocorrencias = 0;
-    for(int i = 0; i <= (tamT-tamP); i++){
-        int k = i;
-        int j = 0;
-        while(T[k] == P[j]){
+    int tamT = T.length(); // Tamanho da sequencia de DNA
+    int tamP = P.length(); // Tamanho do padrao para busca
+    int ocorrencias = 0; // Contador de ocorrencias
+    for(int i = 0; i <= (tamT-tamP); i++){ // Enquanto posicao < (TamanhoDNA - TamanhoPadrao)
+        int k = i; // Percorre posicao na sequencia
+        int j = 0; // Percorre posicao no padrao
+        while(T[k] == P[j]){ //Enquanto forem iguais
             j ++;
             k ++;
-            if(j==tamP){
+            if(j==tamP){  // Se completou tamanho do padrao
                 cout << "   - Casamento na posicao: " << i << endl;
                 ocorrencias ++;
                 break;

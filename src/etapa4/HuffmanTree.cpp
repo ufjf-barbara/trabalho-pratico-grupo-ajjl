@@ -297,3 +297,16 @@ void HuffmanTree::descomprimir2()
         }
     }
 }
+
+float HuffmanTree::TaxaComprecao()
+{
+    int TamanhoFinal=quantidadeA*(caminhoA.size());
+    TamanhoFinal=TamanhoFinal+(quantidadeC*(caminhoC.size()));
+    TamanhoFinal=TamanhoFinal+(quantidadeT*(caminhoT.size()));
+    TamanhoFinal=TamanhoFinal+(quantidadeG*(caminhoG.size()));
+
+    float taxa=(tamanho*4)-TamanhoFinal;
+    taxa=taxa/(tamanho*4);
+
+    return taxa*100;
+}

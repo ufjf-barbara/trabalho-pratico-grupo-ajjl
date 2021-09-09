@@ -14,7 +14,7 @@ class HuffmanTree
         void comprimir2();
         void descomprimir2();
         void descomprimir();
-
+        float TaxaComprecao();
 
     private:
         string DNA;
