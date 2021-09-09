@@ -71,22 +71,25 @@ void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){
             {
                 string nomeArqPadrao = nomePadrao(diretorio, j);
                 string padraoP = leArquivoTexto(nomeArqPadrao);
-                start = clock();
-
+                
                 if(opcao == 1){
                     cout << "Executando método Forca Bruta..." << endl;
+                    start = clock();
                     padrao.ForcaBruta(sequenciaT, padraoP);
+                    end = clock();
                 }
                 else if (opcao == 2){
                     cout << "Executando método KMP..." << endl;
+                    start = clock();
                     padrao.KMP(sequenciaT, padraoP);
+                    end = clock();
                 }
                 else if (opcao == 3){
                     cout << "Executando método BHM..." << endl;
+                    start = clock();
                     padrao.BHMsearch(sequenciaT, padraoP);
+                    end = clock();
                 }
-
-                end = clock();
                 tempo = (float)(end - start) / CLOCKS_PER_SEC;
                 cout << "Tempo: " << tempo << "s, utilizando a sequencia de tamanho " 
                 << sequenciaT.length() << " e o padrao de tamanho " << padraoP.length()<< endl;
