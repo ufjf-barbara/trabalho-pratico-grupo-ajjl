@@ -7,7 +7,7 @@ class CasamentoPadrao{
     public:
         void ForcaBruta(string T, string P);
         void KMP(string T, string P);
-        void BHMsearch(string sequenciaT, string padraoP);
+        void BMHsearch(string sequenciaT, string padraoP);
 };
 
 #endif

@@ -77,7 +77,7 @@ void CasamentoPadrao::KMP(string T, string P){
     cout << "Numero total de ocorrencias ----> " << ocorrencias << endl;
 }
 
-void CasamentoPadrao::BHMsearch(string sequenciaT, string padraoP){
+void CasamentoPadrao::BMHsearch(string sequenciaT, string padraoP){
     int sequenciaSize = sequenciaT.length();
     int padraoSize = padraoP.length();
     int d[256], j, k;

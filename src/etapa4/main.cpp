@@ -59,7 +59,7 @@ void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){
         cout << "Executar qual etapa?" << endl;
         cout << " 1 - Forca bruta" << endl;
         cout << " 2 - KMP" << endl;
-        cout << " 3 - BHM" << endl;
+        cout << " 3 - BMH" << endl;
         cout << " 4 - Voltar" << endl;
         cin >> opcao;
 
@@ -85,9 +85,9 @@ void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){
                     end = clock();
                 }
                 else if (opcao == 3){
-                    cout << "Executando método BHM..." << endl;
+                    cout << "Executando método BMH..." << endl;
                     start = clock();
-                    padrao.BHMsearch(sequenciaT, padraoP);
+                    padrao.BMHsearch(sequenciaT, padraoP);
                     end = clock();
                 }
                 tempo = (float)(end - start) / CLOCKS_PER_SEC;
