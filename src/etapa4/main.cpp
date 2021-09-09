@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <ctime>
 #include "CasamentoPadrao.h"
 
 
@@ -11,7 +12,7 @@ using namespace std;
 /*
 Comandos para compilar via terminal: 
     g++ *.c* -o main
-    ./main SEU/DIRETORIO/trabalho-pratico-grupo-ajjl
+    ./main SEU/DIRETORIO/trabalho-pratico-grupo-ajjl/src/etapa4
 */
 
 string nomesequencia(string diretorio, int indice){
