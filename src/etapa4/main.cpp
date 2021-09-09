@@ -63,6 +63,7 @@ void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){
         cout << " 4 - Voltar" << endl;
         cin >> opcao;
 
+        if(opcao != 4){
         for (int i = 0; i < qtSeq; i++){
             string nomeArqsequencia = nomesequencia(diretorio, i);
             string sequenciaT = leArquivoTexto(nomeArqsequencia);
@@ -87,10 +88,11 @@ void submenuCasamento(string diretorio, int qtSeq, int qtPadrao){
 
                 end = clock();
                 tempo = (float)(end - start) / CLOCKS_PER_SEC;
-                cout << "Tempo: " << tempo << "s, utilizando os arquivos " << nomeArqsequencia << " e " << nomeArqPadrao << endl;
-                cout << "Etapa concluida!" << endl;
+                cout << "Tempo: " << tempo << "s, utilizando os arquivos:" << endl;
+                cout<< nomeArqsequencia << " e " << nomeArqPadrao << endl;
+                cout << "--------------------" << endl;
             }
-            }
+            }}
     } while (opcao != 4);
 }
 
