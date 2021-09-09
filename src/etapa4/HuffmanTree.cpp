@@ -297,7 +297,7 @@ void HuffmanTree::descomprimir2()
         }
     }
 }
-int HuffmanTree::TaxaComprecao()
+float HuffmanTree::TaxaComprecao()
 {
     int TamanhoFinal=quantidadeA*(caminhoA.size());
     TamanhoFinal=TamanhoFinal+(quantidadeC*(caminhoC.size()));
@@ -309,5 +309,5 @@ int HuffmanTree::TaxaComprecao()
     float taxa=(tamanho*4)-TamanhoFinal;
     taxa=taxa/(tamanho*4);
 
-    cout << endl << taxa *100;
+    return taxa *100;
 }
