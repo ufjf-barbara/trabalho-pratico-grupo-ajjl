@@ -14,7 +14,7 @@ Trabalho v2: análise de metodos de ordenacao
 
 No terminal utilize para compilação:  
 
-  g++ *.c* -o main 
+  g++ *.cpp *.h -o main 
 
 
 ## Como rodar
